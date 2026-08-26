@@ -17,7 +17,7 @@ const statusColors = {
 export default function ProjectDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { projects } = useAdmin();
+  const { projects, company } = useAdmin();
   const project = projects.find((p) => p.id === id);
 
   const [lightboxOpen, setLightboxOpen] = useState(false);

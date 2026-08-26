@@ -2,62 +2,53 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAdmin, slugify } from '@/context/AdminContext';
 import AdminLayout from '@/components/admin/AdminLayout';
-import {
-  Upload, Link2, X, Plus, Star, StarOff, AlertCircle, CheckCircle, Image as ImageIcon,
-} from 'lucide-react';
+import { Upload, Link2, X, Plus, AlertCircle, CheckCircle, Image as ImageIcon } from 'lucide-react';
 import { compressImage } from '@/utils/imageCompressor';
 
-const CATEGORIES = ['Residential', 'Commercial', 'Renovation', 'Industrial', 'Institutional'];
-const STATUSES = ['Ongoing', 'Completed', 'Planned'];
+const STYLES = ['Modern', 'Minimalist', 'Traditional', 'Contemporary', 'Fusion', 'Classic'];
 
 const EMPTY_FORM = {
   title: '',
-  location: '',
-  category: 'Residential',
-  status: 'Ongoing',
-  year: new Date().getFullYear(),
-  client: '',
   area: '',
-  duration: '',
+  bedrooms: 3,
+  bathrooms: 2,
+  floors: 2,
+  dimensions: '',
+  style: 'Modern',
   description: '',
   image: '',
   gallery: [],
-  highlights: [''],
-  featured: false,
-  specifications: { 'Built-up Area': '', Structure: '', 'Completion': '' },
+  features: [''],
 };
 
-export default function AdminProjectForm() {
+export default function AdminHouseDesignForm() {
   const { id } = useParams();
   const isEdit = Boolean(id);
   const navigate = useNavigate();
-  const { projects, addProject, updateProject, addGalleryImage, addGalleryImages, removeGalleryImage } = useAdmin();
+  const { houseDesigns, addHouseDesign, updateHouseDesign, addHouseDesignGalleryImages, removeHouseDesignGalleryImage } = useAdmin();
 
   const [form, setForm] = useState(EMPTY_FORM);
   const [galleryInput, setGalleryInput] = useState('');
   const [uploading, setUploading] = useState(false);
   const [saved, setSaved] = useState(false);
   const [errors, setErrors] = useState({});
-  const [specKey, setSpecKey] = useState('');
-  const [specVal, setSpecVal] = useState('');
   const fileInputRef = useRef(null);
   const coverFileRef = useRef(null);
 
-  // Load existing project data if editing
+  // Load existing design data if editing
   useEffect(() => {
     if (isEdit) {
-      const project = projects.find((p) => p.id === id);
-      if (project) {
+      const design = houseDesigns.find((d) => d.id === id);
+      if (design) {
         setForm({
           ...EMPTY_FORM,
-          ...project,
-          highlights: project.highlights?.length ? project.highlights : [''],
-          gallery: project.gallery || [],
-          specifications: project.specifications || {},
+          ...design,
+          features: design.features?.length ? design.features : [''],
+          gallery: design.gallery || [],
         });
       }
     }
-  }, [id, isEdit, projects]);
+  }, [id, isEdit, houseDesigns]);
 
   function setField(key, value) {
     setForm((f) => ({ ...f, [key]: value }));
@@ -66,8 +57,8 @@ export default function AdminProjectForm() {
 
   function validate() {
     const errs = {};
-    if (!form.title.trim()) errs.title = 'Project title is required';
-    if (!form.location.trim()) errs.location = 'Location is required';
+    if (!form.title.trim()) errs.title = 'Title is required';
+    if (!form.area.trim()) errs.area = 'Area is required';
     if (!form.description.trim()) errs.description = 'Description is required';
     if (!form.image.trim()) errs.image = 'Cover image URL is required';
     setErrors(errs);
@@ -81,18 +72,18 @@ export default function AdminProjectForm() {
     const cleanForm = {
       ...form,
       id: isEdit ? id : slugify(form.title),
-      highlights: form.highlights.filter((h) => h.trim()),
+      features: form.features.filter((f) => f.trim()),
     };
 
     if (isEdit) {
-      updateProject(id, cleanForm);
+      updateHouseDesign(id, cleanForm);
     } else {
-      addProject(cleanForm);
+      addHouseDesign(cleanForm);
     }
 
     setSaved(true);
     setTimeout(() => {
-      navigate('/admin');
+      navigate('/admin/house-designs');
     }, 1200);
   }
 
@@ -101,7 +92,7 @@ export default function AdminProjectForm() {
     const url = galleryInput.trim();
     if (!url) return;
     if (isEdit) {
-      addGalleryImage(id, url);
+      addHouseDesignGalleryImages(id, [url]);
     } else {
       setForm((f) => ({ ...f, gallery: [...f.gallery, url] }));
     }
@@ -110,7 +101,7 @@ export default function AdminProjectForm() {
 
   function handleRemoveGallery(url) {
     if (isEdit) {
-      removeGalleryImage(id, url);
+      removeHouseDesignGalleryImage(id, url);
     } else {
       setForm((f) => ({ ...f, gallery: f.gallery.filter((g) => g !== url) }));
     }
@@ -148,7 +139,7 @@ export default function AdminProjectForm() {
       Promise.all(compressPromises)
         .then((compressedImages) => {
           if (isEdit) {
-            addGalleryImages(id, compressedImages);
+            addHouseDesignGalleryImages(id, compressedImages);
           } else {
             setForm((f) => ({ ...f, gallery: [...f.gallery, ...compressedImages] }));
           }
@@ -163,38 +154,25 @@ export default function AdminProjectForm() {
     e.target.value = '';
   }
 
-  // Highlights
-  function setHighlight(i, val) {
+  // Features List
+  function setFeature(i, val) {
     setForm((f) => {
-      const h = [...f.highlights];
-      h[i] = val;
-      return { ...f, highlights: h };
+      const feats = [...f.features];
+      feats[i] = val;
+      return { ...f, features: feats };
     });
-  }
-  function addHighlight() {
-    setForm((f) => ({ ...f, highlights: [...f.highlights, ''] }));
-  }
-  function removeHighlight(i) {
-    setForm((f) => ({ ...f, highlights: f.highlights.filter((_, idx) => idx !== i) }));
   }
 
-  // Specifications
-  function addSpec() {
-    if (!specKey.trim()) return;
-    setForm((f) => ({ ...f, specifications: { ...f.specifications, [specKey]: specVal } }));
-    setSpecKey('');
-    setSpecVal('');
+  function addFeature() {
+    setForm((f) => ({ ...f, features: [...f.features, ''] }));
   }
-  function removeSpec(key) {
-    setForm((f) => {
-      const s = { ...f.specifications };
-      delete s[key];
-      return { ...f, specifications: s };
-    });
+
+  function removeFeature(i) {
+    setForm((f) => ({ ...f, features: f.features.filter((_, idx) => idx !== i) }));
   }
 
   const currentGallery = isEdit
-    ? (projects.find((p) => p.id === id)?.gallery || [])
+    ? (houseDesigns.find((d) => d.id === id)?.gallery || [])
     : form.gallery;
 
   return (
@@ -203,8 +181,8 @@ export default function AdminProjectForm() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-xl font-bold text-gray-900">{isEdit ? 'Edit Project' : 'Add New Project'}</h1>
-            <p className="text-gray-500 text-sm mt-0.5">{isEdit ? `Editing: ${form.title}` : 'Fill in the project details below'}</p>
+            <h1 className="text-xl font-bold text-gray-900">{isEdit ? 'Edit Design' : 'Add New Design'}</h1>
+            <p className="text-gray-500 text-sm mt-0.5">{isEdit ? `Editing: ${form.title}` : 'Fill in the design specifications below'}</p>
           </div>
           {saved && (
             <div className="flex items-center gap-2 text-green-600 text-sm font-semibold bg-green-50 px-3 py-2 rounded-lg">
@@ -218,45 +196,71 @@ export default function AdminProjectForm() {
           {/* Basic Info */}
           <Section title="Basic Information">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Field label="Project Title *" error={errors.title}>
+              <Field label="Design Title *" error={errors.title}>
                 <input
                   type="text"
                   value={form.title}
                   onChange={(e) => setField('title', e.target.value)}
-                  placeholder="e.g. Lakeside Luxury Villa"
-                  className={input(errors.title)}
+                  placeholder="e.g. Modern 3-Storey Villa"
+                  className={inputStyle(errors.title)}
                 />
               </Field>
-              <Field label="Location *" error={errors.location}>
+
+              <Field label="Style">
+                <select value={form.style} onChange={(e) => setField('style', e.target.value)} className={inputStyle()}>
+                  {STYLES.map((s) => <option key={s}>{s}</option>)}
+                </select>
+              </Field>
+
+              <Field label="Area (sq. ft.) *" error={errors.area}>
                 <input
                   type="text"
-                  value={form.location}
-                  onChange={(e) => setField('location', e.target.value)}
-                  placeholder="e.g. Lakeside, Pokhara"
-                  className={input(errors.location)}
+                  value={form.area}
+                  onChange={(e) => setField('area', e.target.value)}
+                  placeholder="e.g. 3,200 sq. ft."
+                  className={inputStyle(errors.area)}
                 />
               </Field>
-              <Field label="Category">
-                <select value={form.category} onChange={(e) => setField('category', e.target.value)} className={input()}>
-                  {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
-                </select>
+
+              <Field label="Dimensions">
+                <input
+                  type="text"
+                  value={form.dimensions}
+                  onChange={(e) => setField('dimensions', e.target.value)}
+                  placeholder="e.g. 30' x 45'"
+                  className={inputStyle()}
+                />
               </Field>
-              <Field label="Status">
-                <select value={form.status} onChange={(e) => setField('status', e.target.value)} className={input()}>
-                  {STATUSES.map((s) => <option key={s}>{s}</option>)}
-                </select>
+
+              <Field label="Bedrooms">
+                <input
+                  type="number"
+                  value={form.bedrooms}
+                  onChange={(e) => setField('bedrooms', parseInt(e.target.value) || 0)}
+                  className={inputStyle()}
+                  min="0"
+                />
               </Field>
-              <Field label="Year">
-                <input type="number" value={form.year} onChange={(e) => setField('year', parseInt(e.target.value))} className={input()} min="2000" max="2100" />
+
+              <Field label="Bathrooms">
+                <input
+                  type="number"
+                  value={form.bathrooms}
+                  onChange={(e) => setField('bathrooms', parseInt(e.target.value) || 0)}
+                  className={inputStyle()}
+                  min="0"
+                />
               </Field>
-              <Field label="Client Name">
-                <input type="text" value={form.client} onChange={(e) => setField('client', e.target.value)} placeholder="e.g. Private Client" className={input()} />
-              </Field>
-              <Field label="Area">
-                <input type="text" value={form.area} onChange={(e) => setField('area', e.target.value)} placeholder="e.g. 4,200 sq. ft." className={input()} />
-              </Field>
-              <Field label="Duration">
-                <input type="text" value={form.duration} onChange={(e) => setField('duration', e.target.value)} placeholder="e.g. 18 months" className={input()} />
+
+              <Field label="Floors">
+                <input
+                  type="number"
+                  value={form.floors}
+                  onChange={(e) => setField('floors', parseFloat(e.target.value) || 0)}
+                  className={inputStyle()}
+                  step="0.5"
+                  min="0"
+                />
               </Field>
             </div>
 
@@ -265,25 +269,10 @@ export default function AdminProjectForm() {
                 rows={4}
                 value={form.description}
                 onChange={(e) => setField('description', e.target.value)}
-                placeholder="Describe the project — what was built, key features, client requirements..."
-                className={input(errors.description) + ' resize-none'}
+                placeholder="Describe the design — design concepts, target family size, special architecture highlights..."
+                className={inputStyle(errors.description) + ' resize-none'}
               />
             </Field>
-
-            {/* Featured toggle */}
-            <label className="flex items-center gap-3 cursor-pointer w-fit">
-              <button
-                type="button"
-                onClick={() => setField('featured', !form.featured)}
-                className={`w-11 h-6 rounded-full transition-colors ${form.featured ? 'bg-blue-700' : 'bg-gray-300'} relative`}
-              >
-                <span className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${form.featured ? 'translate-x-5.5' : 'translate-x-0.5'}`} />
-              </button>
-              <div className="flex items-center gap-1.5 text-sm font-medium text-gray-700">
-                {form.featured ? <Star className="w-4 h-4 text-yellow-500" /> : <StarOff className="w-4 h-4 text-gray-400" />}
-                {form.featured ? 'Featured on homepage' : 'Not featured'}
-              </div>
-            </label>
           </Section>
 
           {/* Cover Image */}
@@ -294,7 +283,7 @@ export default function AdminProjectForm() {
                 value={form.image.startsWith('data:') ? '' : form.image}
                 onChange={(e) => setField('image', e.target.value)}
                 placeholder="https://images.unsplash.com/..."
-                className={input(errors.image)}
+                className={inputStyle(errors.image)}
               />
             </Field>
 
@@ -319,7 +308,7 @@ export default function AdminProjectForm() {
 
           {/* Gallery */}
           <Section title={`Gallery Images (${currentGallery.length})`}>
-            <p className="text-xs text-gray-400 mb-3">Add multiple images for the project gallery. Paste a URL or upload from your device.</p>
+            <p className="text-xs text-gray-400 mb-3">Add floor plans, elevations, or 3D renders. Paste a URL or upload from your device.</p>
 
             {/* Gallery Grid */}
             {currentGallery.length > 0 && (
@@ -368,25 +357,25 @@ export default function AdminProjectForm() {
                 className="flex items-center gap-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors w-full justify-center border-2 border-dashed border-gray-300 hover:border-blue-400 py-4"
               >
                 <ImageIcon className="w-5 h-5 text-gray-400" />
-                <span>{uploading ? 'Uploading…' : 'Click to upload gallery image from device (max 2MB each)'}</span>
+                <span>{uploading ? 'Uploading…' : 'Click to upload gallery images (multiple allowed, max 2MB each)'}</span>
               </button>
             </div>
           </Section>
 
-          {/* Highlights */}
-          <Section title="Project Highlights">
+          {/* Features */}
+          <Section title="Design Highlights & Features">
             <div className="space-y-2">
-              {form.highlights.map((h, i) => (
+              {form.features.map((f, i) => (
                 <div key={i} className="flex gap-2">
                   <input
                     type="text"
-                    value={h}
-                    onChange={(e) => setHighlight(i, e.target.value)}
-                    placeholder={`Highlight ${i + 1}`}
-                    className={input()}
+                    value={f}
+                    onChange={(e) => setFeature(i, e.target.value)}
+                    placeholder={`Feature ${i + 1}`}
+                    className={inputStyle()}
                   />
-                  {form.highlights.length > 1 && (
-                    <button type="button" onClick={() => removeHighlight(i)} className="text-red-400 hover:text-red-600">
+                  {form.features.length > 1 && (
+                    <button type="button" onClick={() => removeFeature(i)} className="text-red-400 hover:text-red-600">
                       <X className="w-5 h-5" />
                     </button>
                   )}
@@ -395,38 +384,11 @@ export default function AdminProjectForm() {
             </div>
             <button
               type="button"
-              onClick={addHighlight}
+              onClick={addFeature}
               className="mt-2 flex items-center gap-1.5 text-sm text-blue-700 hover:underline"
             >
-              <Plus className="w-4 h-4" /> Add highlight
+              <Plus className="w-4 h-4" /> Add feature / highlight
             </button>
-          </Section>
-
-          {/* Specifications */}
-          <Section title="Specifications">
-            {Object.entries(form.specifications).map(([key, val]) => (
-              <div key={key} className="flex items-center gap-2 mb-2">
-                <div className="flex-1 grid grid-cols-2 gap-2">
-                  <div className="bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-sm font-medium text-gray-700">{key}</div>
-                  <input
-                    type="text"
-                    value={val}
-                    onChange={(e) => setForm((f) => ({ ...f, specifications: { ...f.specifications, [key]: e.target.value } }))}
-                    className={input()}
-                  />
-                </div>
-                <button type="button" onClick={() => removeSpec(key)} className="text-red-400 hover:text-red-600 flex-shrink-0">
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-            ))}
-            <div className="flex gap-2 mt-2">
-              <input type="text" value={specKey} onChange={(e) => setSpecKey(e.target.value)} placeholder="Label (e.g. Floors)" className={input() + ' flex-1'} />
-              <input type="text" value={specVal} onChange={(e) => setSpecVal(e.target.value)} placeholder="Value (e.g. G+3)" className={input() + ' flex-1'} />
-              <button type="button" onClick={addSpec} className="bg-gray-800 text-white px-3 py-2 rounded-lg text-sm hover:bg-gray-900 transition-colors whitespace-nowrap">
-                + Add
-              </button>
-            </div>
           </Section>
 
           {/* Submit */}
@@ -435,12 +397,12 @@ export default function AdminProjectForm() {
               type="submit"
               className="bg-blue-800 hover:bg-blue-900 text-white font-bold px-8 py-3 rounded-xl transition-colors text-sm"
             >
-              {isEdit ? 'Save Changes' : 'Add Project'}
+              {isEdit ? 'Save Changes' : 'Add Design'}
             </button>
             <button
               type="button"
-              onClick={() => navigate('/admin')}
-              className="text-gray-600 hover:text-gray-900 text-sm px-4 py-3 rounded-xl hover:bg-gray-100 transition-colors"
+              onClick={() => navigate('/admin/house-designs')}
+              className="text-gray-650 hover:text-gray-900 text-sm px-4 py-3 rounded-xl hover:bg-gray-100 transition-colors"
             >
               Cancel
             </button>
@@ -464,7 +426,7 @@ function Section({ title, children }) {
 function Field({ label, error, children }) {
   return (
     <div>
-      <label className="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">{label}</label>
+      <label className="block text-xs font-semibold text-gray-605 mb-1.5 uppercase tracking-wide">{label}</label>
       {children}
       {error && (
         <p className="flex items-center gap-1 text-xs text-red-500 mt-1">
@@ -475,6 +437,6 @@ function Field({ label, error, children }) {
   );
 }
 
-function input(error) {
+function inputStyle(error) {
   return `w-full px-3 py-2.5 border ${error ? 'border-red-400 bg-red-50' : 'border-gray-300'} rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors`;
 }

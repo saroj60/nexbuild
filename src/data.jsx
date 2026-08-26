@@ -377,3 +377,80 @@ export const DEFAULT_VLOGS = [
     content: 'Residential architecture in Pokhara has transformed significantly over the last decade. Homeowners are increasingly choosing open floor plans, larger glass windows that frame the beautiful Machhapuchhre range, and smart home automation systems. We look at popular materials like local stone cladding, composite wood panels, and double-glazed windows that help keep structures cool during summers and warm in winter.',
   }
 ];
+
+// ============================================================
+// DEFAULT HOUSE DESIGNS
+// ============================================================
+export const DEFAULT_HOUSE_DESIGNS = [
+  {
+    id: "modern-3-storey-villa",
+    title: "Modern 3-Storey Villa",
+    area: "3,200 sq. ft.",
+    bedrooms: 5,
+    bathrooms: 4,
+    floors: 3,
+    dimensions: "30' x 45'",
+    style: "Modern",
+    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200&q=80"
+    ],
+    description: "A gorgeous 3-storey villa designed for urban living. The design features open floor plans, a private terrace, extensive glass walls maximizing natural light, and an integrated garage. Excellent for modern families seeking a balance of luxury and efficiency.",
+    features: [
+      "Open-concept living and dining area",
+      "Spacious master bedroom with walk-in closet",
+      "Separate home theater / lounge room",
+      "Modern rooftop terrace with BBQ space",
+      "Single-car garage and front lawn area"
+    ]
+  },
+  {
+    id: "contemporary-minimalist-home",
+    title: "Contemporary Minimalist Home",
+    area: "2,600 sq. ft.",
+    bedrooms: 4,
+    bathrooms: 3,
+    floors: 2.5,
+    dimensions: "35' x 40'",
+    style: "Minimalist",
+    image: "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=80"
+    ],
+    description: "Emphasizing clean lines, functional spaces, and raw material finishes, this contemporary minimalist home is perfect for modern families. Includes a double-height ceiling in the main living space and solar panel integration.",
+    features: [
+      "Double-height living room ceiling",
+      "Energy-efficient passive solar layout",
+      "Polished concrete floor finishes",
+      "Minimalist kitchen with island counter",
+      "Rooftop laundry and storage room"
+    ]
+  },
+  {
+    id: "traditional-nepalese-fusion-residence",
+    title: "Traditional Nepalese Fusion Residence",
+    area: "2,800 sq. ft.",
+    bedrooms: 4,
+    bathrooms: 4,
+    floors: 2,
+    dimensions: "40' x 40'",
+    style: "Fusion",
+    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
+    gallery: [
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80",
+      "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1200&q=80"
+    ],
+    description: "Designed for comfort and cultural heritage, this fusion home blends traditional Nepalese brickwork and wood carvings with contemporary seismic RCC structural frame standards. Beautiful wooden balconies wrap the front facade.",
+    features: [
+      "Traditional red-brick exterior cladding",
+      "Custom hand-carved wooden columns",
+      "Wraparound front wooden balconies",
+      "Spacious prayer / meditation room",
+      "Earthquake resistant RCC framework"
+    ]
+  }
+];
+

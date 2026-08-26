@@ -17,6 +17,8 @@ const ContactPage        = lazy(() => import('./pages/ContactPage'));
 const PrivacyPolicyPage  = lazy(() => import('./pages/PrivacyPolicyPage'));
 const TermsPage          = lazy(() => import('./pages/TermsPage'));
 const NotFoundPage       = lazy(() => import('./pages/NotFoundPage'));
+const HouseDesignsPage   = lazy(() => import('./pages/HouseDesignsPage'));
+const HouseDesignDetailPage = lazy(() => import('./pages/HouseDesignDetailPage'));
 
 // Admin pages — lazy loaded
 const AdminLoginPage    = lazy(() => import('./pages/admin/AdminLoginPage'));
@@ -29,6 +31,8 @@ const AdminTeam         = lazy(() => import('./pages/admin/AdminTeam'));
 const AdminHighlights   = lazy(() => import('./pages/admin/AdminHighlights'));
 const AdminVlogs        = lazy(() => import('./pages/admin/AdminVlogs'));
 const AdminBackup       = lazy(() => import('./pages/admin/AdminBackup'));
+const AdminHouseDesigns = lazy(() => import('./pages/admin/AdminHouseDesigns'));
+const AdminHouseDesignForm = lazy(() => import('./pages/admin/AdminHouseDesignForm'));
 
 function PageLoader() {
   return (
@@ -56,6 +60,8 @@ const router = createBrowserRouter([
       { path: 'services',      element: <Wrap><ServicesPage /></Wrap> },
       { path: 'projects',      element: <Wrap><ProjectsPage /></Wrap> },
       { path: 'projects/:id',  element: <Wrap><ProjectDetailPage /></Wrap> },
+      { path: 'house-designs',  element: <Wrap><HouseDesignsPage /></Wrap> },
+      { path: 'house-designs/:id', element: <Wrap><HouseDesignDetailPage /></Wrap> },
       { path: 'vlogs',         element: <Wrap><VlogsPage /></Wrap> },
       { path: 'vlogs/:id',     element: <Wrap><VlogDetailPage /></Wrap> },
       { path: 'contact',       element: <Wrap><ContactPage /></Wrap> },
@@ -95,6 +101,30 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <Wrap><AdminProjectForm /></Wrap>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/admin/house-designs',
+    element: (
+      <ProtectedRoute>
+        <Wrap><AdminHouseDesigns /></Wrap>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/admin/house-designs/new',
+    element: (
+      <ProtectedRoute>
+        <Wrap><AdminHouseDesignForm /></Wrap>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/admin/house-designs/:id/edit',
+    element: (
+      <ProtectedRoute>
+        <Wrap><AdminHouseDesignForm /></Wrap>
       </ProtectedRoute>
     ),
   },

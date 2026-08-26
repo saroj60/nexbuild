@@ -16,7 +16,7 @@ const CATEGORY_COLORS = {
 };
 
 export default function AdminDashboard() {
-  const { projects, deleteProject, resetToDefaults } = useAdmin();
+  const { projects, deleteProject, resetProjects } = useAdmin();
 
   const stats = {
     total:     projects.length,
@@ -33,7 +33,7 @@ export default function AdminDashboard() {
 
   function handleReset() {
     if (window.confirm('Reset ALL projects to default sample data?\nAll your custom additions will be lost.')) {
-      resetToDefaults();
+      resetProjects();
     }
   }
 

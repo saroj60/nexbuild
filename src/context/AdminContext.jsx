@@ -3,6 +3,7 @@ import {
   DEFAULT_PROJECTS, ADMIN_CONFIG,
   COMPANY, SERVICES, TESTIMONIALS, TEAM,
   WHY_CHOOSE_US, PROCESS_STEPS, DEFAULT_VLOGS,
+  DEFAULT_HOUSE_DESIGNS,
 } from '@/data';
 
 const AdminContext = createContext(null);
@@ -17,6 +18,7 @@ const KEYS = {
   whyChooseUs:  'zeta_why_choose_us',
   processSteps: 'zeta_process_steps',
   vlogs:        'zeta_vlogs',
+  houseDesigns: 'zeta_house_designs',
 };
 
 function loadOrDefault(key, defaultValue) {
@@ -76,6 +78,7 @@ export function AdminProvider({ children }) {
   const [whyChooseUs,  setWhyState]      = useState(WHY_CHOOSE_US);
   const [processSteps, setProcessState]  = useState(PROCESS_STEPS);
   const [vlogs,        setVlogsState]    = useState(DEFAULT_VLOGS);
+  const [houseDesigns, setHouseDesignsState] = useState(DEFAULT_HOUSE_DESIGNS);
   
   const [hasLoaded,    setHasLoaded]     = useState(false);
 
@@ -98,6 +101,7 @@ export function AdminProvider({ children }) {
             whyChooseUs: WHY_CHOOSE_US,
             processSteps: PROCESS_STEPS,
             vlogs: DEFAULT_VLOGS,
+            houseDesigns: DEFAULT_HOUSE_DESIGNS,
           };
           fetch('/api/content?seed=true', {
             method: 'POST',
@@ -114,6 +118,7 @@ export function AdminProvider({ children }) {
           if (data.whyChooseUs) setWhyState(data.whyChooseUs);
           if (data.processSteps) setProcessState(data.processSteps);
           if (data.vlogs) setVlogsState(data.vlogs);
+          if (data.houseDesigns) setHouseDesignsState(data.houseDesigns);
         }
         setHasLoaded(true);
       })
@@ -128,12 +133,13 @@ export function AdminProvider({ children }) {
         setWhyState(loadOrDefault(KEYS.whyChooseUs, WHY_CHOOSE_US));
         setProcessState(loadOrDefault(KEYS.processSteps, PROCESS_STEPS));
         setVlogsState(loadOrDefault(KEYS.vlogs, DEFAULT_VLOGS));
+        setHouseDesignsState(loadOrDefault(KEYS.houseDesigns, DEFAULT_HOUSE_DESIGNS));
         setHasLoaded(true);
       });
   }, []);
 
   // ── Sync Changes ─────────────────────────────────────────
-  const allData = { company, projects, services, testimonials, team, whyChooseUs, processSteps, vlogs };
+  const allData = { company, projects, services, testimonials, team, whyChooseUs, processSteps, vlogs, houseDesigns };
 
   useEffect(() => { if (hasLoaded) save(KEYS.company,      company,      allData); }, [company, hasLoaded]);
   useEffect(() => { if (hasLoaded) save(KEYS.projects,     projects,     allData); }, [projects, hasLoaded]);
@@ -143,6 +149,7 @@ export function AdminProvider({ children }) {
   useEffect(() => { if (hasLoaded) save(KEYS.whyChooseUs,  whyChooseUs,  allData); }, [whyChooseUs, hasLoaded]);
   useEffect(() => { if (hasLoaded) save(KEYS.processSteps, processSteps, allData); }, [processSteps, hasLoaded]);
   useEffect(() => { if (hasLoaded) save(KEYS.vlogs,        vlogs,        allData); }, [vlogs, hasLoaded]);
+  useEffect(() => { if (hasLoaded) save(KEYS.houseDesigns, houseDesigns, allData); }, [houseDesigns, hasLoaded]);
 
   // ── Auth ─────────────────────────────────────────────────
   async function login(username, password) {
@@ -196,6 +203,7 @@ export function AdminProvider({ children }) {
   }
   function deleteProject(id) { setProjectsState(prev => prev.filter(p => p.id !== id)); }
   function addGalleryImage(pid, url)    { setProjectsState(prev => prev.map(p => p.id === pid ? { ...p, gallery: [...(p.gallery||[]), url] } : p)); }
+  function addGalleryImages(pid, urls)   { setProjectsState(prev => prev.map(p => p.id === pid ? { ...p, gallery: [...(p.gallery||[]), ...urls] } : p)); }
   function removeGalleryImage(pid, url) { setProjectsState(prev => prev.map(p => p.id === pid ? { ...p, gallery: (p.gallery||[]).filter(g => g !== url) } : p)); }
   function resetProjects() { setProjectsState(DEFAULT_PROJECTS); }
 
@@ -246,6 +254,28 @@ export function AdminProvider({ children }) {
     setVlogsState(DEFAULT_VLOGS);
   }
 
+  // ── House Designs ─────────────────────────────────────────
+  function addHouseDesign(design) {
+    const nd = { ...design, id: design.id || slugify(design.title), gallery: design.gallery || [] };
+    setHouseDesignsState(prev => [nd, ...prev]);
+    return nd.id;
+  }
+  function updateHouseDesign(id, updates) {
+    setHouseDesignsState(prev => prev.map(d => d.id === id ? { ...d, ...updates } : d));
+  }
+  function deleteHouseDesign(id) {
+    setHouseDesignsState(prev => prev.filter(d => d.id !== id));
+  }
+  function addHouseDesignGalleryImages(id, urls) {
+    setHouseDesignsState(prev => prev.map(d => d.id === id ? { ...d, gallery: [...(d.gallery||[]), ...urls] } : d));
+  }
+  function removeHouseDesignGalleryImage(id, url) {
+    setHouseDesignsState(prev => prev.map(d => d.id === id ? { ...d, gallery: (d.gallery||[]).filter(g => g !== url) } : d));
+  }
+  function resetHouseDesigns() {
+    setHouseDesignsState(DEFAULT_HOUSE_DESIGNS);
+  }
+
   function importAll(data) {
     if (!data) return false;
     try {
@@ -257,6 +287,7 @@ export function AdminProvider({ children }) {
       if (data.whyChooseUs) setWhyState(data.whyChooseUs);
       if (data.processSteps) setProcessState(data.processSteps);
       if (data.vlogs) setVlogsState(data.vlogs);
+      if (data.houseDesigns) setHouseDesignsState(data.houseDesigns);
       return true;
     } catch (e) {
       console.error(e);
@@ -268,18 +299,18 @@ export function AdminProvider({ children }) {
   function resetAll() {
     resetCompany(); resetProjects(); resetServices();
     resetTestimonials(); resetTeam(); resetWhyChooseUs(); resetProcessSteps();
-    resetVlogs();
+    resetVlogs(); resetHouseDesigns();
   }
 
   return (
     <AdminContext.Provider value={{
       isAuthenticated, login, logout,
       // Data
-      company, projects, services, testimonials, team, whyChooseUs, processSteps, vlogs,
+      company, projects, services, testimonials, team, whyChooseUs, processSteps, vlogs, houseDesigns,
       // Company
       updateCompany, resetCompany,
       // Projects
-      addProject, updateProject, deleteProject, addGalleryImage, removeGalleryImage, resetProjects,
+      addProject, updateProject, deleteProject, addGalleryImage, addGalleryImages, removeGalleryImage, resetProjects,
       // Services
       addService, updateService, deleteService, reorderServices, resetServices,
       // Testimonials
@@ -292,6 +323,8 @@ export function AdminProvider({ children }) {
       addProcessStep, updateProcessStep, deleteProcessStep, resetProcessSteps,
       // Vlogs
       addVlog, updateVlog, deleteVlog, resetVlogs,
+      // House Designs
+      addHouseDesign, updateHouseDesign, deleteHouseDesign, addHouseDesignGalleryImages, removeHouseDesignGalleryImage, resetHouseDesigns,
       // Import
       importAll,
       // All
