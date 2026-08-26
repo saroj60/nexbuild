@@ -74,6 +74,10 @@ export default function AdminServices() {
       alert('Please select an image file.');
       return;
     }
+    if (file.size > 5 * 1024 * 1024) {
+      alert('File size exceeds the 5MB limit.');
+      return;
+    }
 
     setUploading(true);
     compressImage(file, 800, 0.7)
@@ -265,7 +269,7 @@ export default function AdminServices() {
                         className="flex items-center gap-1.5 text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-lg transition-colors font-semibold border border-gray-200"
                       >
                         <Upload className="w-3.5 h-3.5" />
-                        Upload file (max 2MB)
+                        Upload file (max 5MB)
                       </button>
                     </div>
                   </div>

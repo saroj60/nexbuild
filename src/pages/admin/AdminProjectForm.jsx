@@ -121,9 +121,19 @@ export default function AdminProjectForm() {
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
 
-    // Filter only images
+    // Filter only images and check size limit (5MB)
     const imageFiles = files.filter((f) => f.type.startsWith('image/'));
-    if (imageFiles.length === 0) {
+    const oversizedFiles = imageFiles.filter((f) => f.size > 5 * 1024 * 1024);
+    if (oversizedFiles.length > 0) {
+      alert(`Some files exceed the 5MB size limit and were skipped: ${oversizedFiles.map((f) => f.name).join(', ')}`);
+    }
+
+    const validFiles = imageFiles.filter((f) => f.size <= 5 * 1024 * 1024);
+    if (validFiles.length === 0) {
+      if (imageFiles.length > 0) {
+        e.target.value = '';
+        return;
+      }
       alert('Please select valid image file(s).');
       return;
     }
@@ -131,7 +141,7 @@ export default function AdminProjectForm() {
     setUploading(true);
 
     if (type === 'cover') {
-      const file = imageFiles[0];
+      const file = validFiles[0];
       compressImage(file, 1000, 0.7)
         .then((compressedBase64) => {
           setField('image', compressedBase64);
@@ -144,7 +154,7 @@ export default function AdminProjectForm() {
         });
     } else {
       // type === 'gallery'
-      const compressPromises = imageFiles.map((file) => compressImage(file, 800, 0.7));
+      const compressPromises = validFiles.map((file) => compressImage(file, 800, 0.7));
       Promise.all(compressPromises)
         .then((compressedImages) => {
           if (isEdit) {
@@ -308,7 +318,7 @@ export default function AdminProjectForm() {
                 className="flex items-center gap-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors"
               >
                 <Upload className="w-4 h-4" />
-                Upload from device (max 2MB)
+                Upload from device (max 5MB)
               </button>
             </div>
 
@@ -368,7 +378,7 @@ export default function AdminProjectForm() {
                 className="flex items-center gap-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors w-full justify-center border-2 border-dashed border-gray-300 hover:border-blue-400 py-4"
               >
                 <ImageIcon className="w-5 h-5 text-gray-400" />
-                <span>{uploading ? 'Uploading…' : 'Click to upload gallery image from device (max 2MB each)'}</span>
+                <span>{uploading ? 'Uploading…' : 'Click to upload gallery image from device (max 5MB each)'}</span>
               </button>
             </div>
           </Section>
