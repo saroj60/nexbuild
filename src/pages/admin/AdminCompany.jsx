@@ -1,13 +1,63 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useAdmin } from '@/context/AdminContext';
 import AdminLayout from '@/components/admin/AdminLayout';
-import { CheckCircle, AlertCircle, RotateCcw } from 'lucide-react';
+import { CheckCircle, AlertCircle, RotateCcw, Link2, Upload, Trash2, Image as ImageIcon } from 'lucide-react';
+import { compressImage } from '@/utils/imageCompressor';
 
 export default function AdminCompany() {
   const { company, updateCompany, resetCompany } = useAdmin();
   const [form, setForm] = useState(company);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState('');
+  const [heroUrlInput, setHeroUrlInput] = useState('');
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef(null);
+
+  function handleAddHeroUrl() {
+    const url = heroUrlInput.trim();
+    if (!url) return;
+    setForm((f) => ({
+      ...f,
+      heroImages: [...(f.heroImages || []), url],
+    }));
+    setHeroUrlInput('');
+  }
+
+  function handleRemoveHeroImage(url) {
+    setForm((f) => ({
+      ...f,
+      heroImages: (f.heroImages || []).filter((img) => img !== url),
+    }));
+  }
+
+  function handleHeroUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      alert('Please select an image file.');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      alert('File size exceeds the 5MB limit.');
+      return;
+    }
+
+    setUploading(true);
+    compressImage(file, 1920, 0.7)
+      .then((compressedBase64) => {
+        setForm((f) => ({
+          ...f,
+          heroImages: [...(f.heroImages || []), compressedBase64],
+        }));
+        setUploading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        alert('Failed to compress image.');
+        setUploading(false);
+      });
+    e.target.value = '';
+  }
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -286,6 +336,79 @@ export default function AdminCompany() {
                   required
                 />
               </Field>
+            </div>
+          </Section>
+
+          {/* Hero Slider Images */}
+          <Section title="Hero Section Slider Images">
+            <p className="text-xs text-gray-400 mb-3">
+              Add the images that slide in the background of the home page hero section. Paste a URL or upload from your device.
+            </p>
+
+            {/* Slider Images Grid */}
+            {(form.heroImages || []).length > 0 && (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
+                {(form.heroImages || []).map((url, i) => (
+                  <div key={i} className="relative group rounded-xl overflow-hidden border border-gray-200">
+                    <img
+                      src={url}
+                      alt={`Hero Slide ${i + 1}`}
+                      className="w-full h-24 object-cover"
+                      onError={(e) => { e.target.style.display = 'none'; }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveHeroImage(url)}
+                      className="absolute top-1.5 right-1.5 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                      aria-label="Remove image"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Add by URL */}
+            <div className="flex gap-2">
+              <div className="flex-1 relative">
+                <Link2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <input
+                  type="url"
+                  value={heroUrlInput}
+                  onChange={(e) => setHeroUrlInput(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddHeroUrl())}
+                  placeholder="Paste image URL and press Add"
+                  className="w-full pl-9 pr-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <button
+                type="button"
+                onClick={handleAddHeroUrl}
+                className="bg-blue-800 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-900 transition-colors"
+              >
+                Add
+              </button>
+            </div>
+
+            {/* Upload from device */}
+            <div className="mt-3">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleHeroUpload}
+              />
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploading}
+                className="flex items-center gap-2 text-sm bg-gray-105 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors w-full justify-center border border-dashed border-gray-300 hover:border-blue-400 py-3.5"
+              >
+                <Upload className="w-4 h-4 text-gray-400" />
+                <span>{uploading ? 'Uploading…' : 'Upload from device (max 5MB)'}</span>
+              </button>
             </div>
           </Section>
 

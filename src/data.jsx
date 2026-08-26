@@ -38,6 +38,12 @@ export const COMPANY = {
   },
   foundedYear: 2023,
   license: 'Nepal Engineers Association (NEA) Member',
+  heroImages: [
+    "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920&q=80",
+    "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=80",
+    "https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?w=1920&q=80",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80"
+  ]
 };
 
 // ============================================================
