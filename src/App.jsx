@@ -1,38 +1,38 @@
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { lazy, Suspense } from 'react';
-import { AdminProvider } from '@/context/AdminContext';
-import Layout from './components/layout/Layout';
-import ProtectedRoute from '@/components/admin/ProtectedRoute';
+import { AdminProvider } from '@/context/AdminContext.jsx';
+import Layout from './components/layout/Layout.jsx';
+import ProtectedRoute from '@/components/admin/ProtectedRoute.jsx';
 
 // Public pages — lazy loaded
-const HomePage           = lazy(() => import('./pages/HomePage'));
-const AboutPage          = lazy(() => import('./pages/AboutPage'));
-const ServicesPage       = lazy(() => import('./pages/ServicesPage'));
-const ProjectsPage       = lazy(() => import('./pages/ProjectsPage'));
-const ProjectDetailPage  = lazy(() => import('./pages/ProjectDetailPage'));
-const VlogsPage          = lazy(() => import('./pages/VlogsPage'));
-const VlogDetailPage     = lazy(() => import('./pages/VlogDetailPage'));
-const ContactPage        = lazy(() => import('./pages/ContactPage'));
-const PrivacyPolicyPage  = lazy(() => import('./pages/PrivacyPolicyPage'));
-const TermsPage          = lazy(() => import('./pages/TermsPage'));
-const NotFoundPage       = lazy(() => import('./pages/NotFoundPage'));
-const HouseDesignsPage   = lazy(() => import('./pages/HouseDesignsPage'));
-const HouseDesignDetailPage = lazy(() => import('./pages/HouseDesignDetailPage'));
+const HomePage           = lazy(() => import('./pages/HomePage.jsx'));
+const AboutPage          = lazy(() => import('./pages/AboutPage.jsx'));
+const ServicesPage       = lazy(() => import('./pages/ServicesPage.jsx'));
+const ProjectsPage       = lazy(() => import('./pages/ProjectsPage.jsx'));
+const ProjectDetailPage  = lazy(() => import('./pages/ProjectDetailPage.jsx'));
+const VlogsPage          = lazy(() => import('./pages/VlogsPage.jsx'));
+const VlogDetailPage     = lazy(() => import('./pages/VlogDetailPage.jsx'));
+const ContactPage        = lazy(() => import('./pages/ContactPage.jsx'));
+const PrivacyPolicyPage  = lazy(() => import('./pages/PrivacyPolicyPage.jsx'));
+const TermsPage          = lazy(() => import('./pages/TermsPage.jsx'));
+const NotFoundPage       = lazy(() => import('./pages/NotFoundPage.jsx'));
+const HouseDesignsPage   = lazy(() => import('./pages/HouseDesignsPage.jsx'));
+const HouseDesignDetailPage = lazy(() => import('./pages/HouseDesignDetailPage.jsx'));
 
 // Admin pages — lazy loaded
-const AdminLoginPage    = lazy(() => import('./pages/admin/AdminLoginPage'));
-const AdminDashboard    = lazy(() => import('./pages/admin/AdminDashboard'));
-const AdminProjectForm  = lazy(() => import('./pages/admin/AdminProjectForm'));
-const AdminCompany      = lazy(() => import('./pages/admin/AdminCompany'));
-const AdminServices     = lazy(() => import('./pages/admin/AdminServices'));
-const AdminTestimonials = lazy(() => import('./pages/admin/AdminTestimonials'));
-const AdminTeam         = lazy(() => import('./pages/admin/AdminTeam'));
-const AdminHighlights   = lazy(() => import('./pages/admin/AdminHighlights'));
-const AdminVlogs        = lazy(() => import('./pages/admin/AdminVlogs'));
-const AdminBackup       = lazy(() => import('./pages/admin/AdminBackup'));
-const AdminHouseDesigns = lazy(() => import('./pages/admin/AdminHouseDesigns'));
-const AdminHouseDesignForm = lazy(() => import('./pages/admin/AdminHouseDesignForm'));
+const AdminLoginPage    = lazy(() => import('./pages/admin/AdminLoginPage.jsx'));
+const AdminDashboard    = lazy(() => import('./pages/admin/AdminDashboard.jsx'));
+const AdminProjectForm  = lazy(() => import('./pages/admin/AdminProjectForm.jsx'));
+const AdminCompany      = lazy(() => import('./pages/admin/AdminCompany.jsx'));
+const AdminServices     = lazy(() => import('./pages/admin/AdminServices.jsx'));
+const AdminTestimonials = lazy(() => import('./pages/admin/AdminTestimonials.jsx'));
+const AdminTeam         = lazy(() => import('./pages/admin/AdminTeam.jsx'));
+const AdminHighlights   = lazy(() => import('./pages/admin/AdminHighlights.jsx'));
+const AdminVlogs        = lazy(() => import('./pages/admin/AdminVlogs.jsx'));
+const AdminBackup       = lazy(() => import('./pages/admin/AdminBackup.jsx'));
+const AdminHouseDesigns = lazy(() => import('./pages/admin/AdminHouseDesigns.jsx'));
+const AdminHouseDesignForm = lazy(() => import('./pages/admin/AdminHouseDesignForm.jsx'));
 
 function PageLoader() {
   return (

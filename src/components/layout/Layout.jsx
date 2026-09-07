@@ -1,6 +1,6 @@
-import Navbar from './Navbar';
-import Footer from './Footer';
-import WhatsAppFloatingButton from '../ui/WhatsAppFloatingButton';
+import Navbar from './Navbar.jsx';
+import Footer from './Footer.jsx';
+import WhatsAppFloatingButton from '../ui/WhatsAppFloatingButton.jsx';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
