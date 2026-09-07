@@ -1,24 +1,51 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAdmin } from '@/context/AdminContext';
 import AdminLayout from '@/components/admin/AdminLayout';
-import { Plus, Pencil, Trash2, CheckCircle, AlertCircle, Star, RotateCcw } from 'lucide-react';
+import { Plus, Pencil, Trash2, CheckCircle, AlertCircle, Star, RotateCcw, Video, Play, ExternalLink } from 'lucide-react';
+import { getYouTubeEmbedUrl } from '@/utils/youtube';
 
 const EMPTY_TESTIMONIAL = {
   name: '',
   designation: '',
-  location: 'Pokhara',
+  location: 'Kathmandu',
   rating: 5,
   text: '',
   avatar: '',
 };
 
 export default function AdminTestimonials() {
-  const { testimonials, addTestimonial, updateTestimonial, deleteTestimonial, resetTestimonials } = useAdmin();
+  const {
+    testimonials, addTestimonial, updateTestimonial, deleteTestimonial, resetTestimonials,
+    processVideo, updateProcessVideo
+  } = useAdmin();
   const [editingId, setEditingId] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState(EMPTY_TESTIMONIAL);
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState('');
+
+  // Construction Process Video Form State
+  const [videoForm, setVideoForm] = useState(processVideo || {
+    title: 'See How We Build in Kathmandu',
+    subtitle: 'From foundation excavation to luxury interior finishing',
+    youtubeUrl: 'https://www.youtube.com/watch?v=wnuiJNXbfYM',
+    thumbnail: 'https://img.youtube.com/vi/wnuiJNXbfYM/hqdefault.jpg',
+    badge: 'Live On-Site Process'
+  });
+  const [videoSaved, setVideoSaved] = useState(false);
+
+  useEffect(() => {
+    if (processVideo) {
+      setVideoForm(processVideo);
+    }
+  }, [processVideo]);
+
+  function handleSaveVideo(e) {
+    e.preventDefault();
+    updateProcessVideo(videoForm);
+    setVideoSaved(true);
+    setTimeout(() => setVideoSaved(false), 2500);
+  }
 
   function handleOpenNew() {
     setEditingId(null);
@@ -156,7 +183,7 @@ export default function AdminTestimonials() {
                     type="text"
                     value={form.location}
                     onChange={(e) => setForm((prev) => ({ ...prev, location: e.target.value }))}
-                    placeholder="e.g. Lakeside, Pokhara"
+                    placeholder="e.g. Babarmahal, Kathmandu"
                     className={input()}
                     required
                   />
@@ -217,8 +244,109 @@ export default function AdminTestimonials() {
             </div>
           </form>
         ) : (
-          /* Testimonials List */
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 divide-y divide-gray-100">
+          <>
+            {/* Construction Process Video Card */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200/90 p-5 sm:p-6 mb-8">
+              <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-100">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-lg bg-red-50 text-red-600 flex items-center justify-center">
+                    <Video className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h2 className="text-base font-bold text-gray-900">Construction Process Video</h2>
+                    <p className="text-xs text-gray-500">YouTube video played on the homepage next to the testimonials slider</p>
+                  </div>
+                </div>
+                {videoSaved && (
+                  <span className="flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
+                    <CheckCircle className="w-3.5 h-3.5" />
+                    Video Saved!
+                  </span>
+                )}
+              </div>
+
+              <form onSubmit={handleSaveVideo} className="space-y-4">
+                <Field label="YouTube Video URL">
+                  <input
+                    type="text"
+                    value={videoForm.youtubeUrl}
+                    onChange={(e) => setVideoForm((prev) => ({ ...prev, youtubeUrl: e.target.value }))}
+                    placeholder="e.g. https://www.youtube.com/watch?v=... or https://youtu.be/..."
+                    className={input()}
+                    required
+                  />
+                  <p className="text-[11px] text-gray-400 mt-1">
+                    Supports any YouTube link: watch URLs, youtu.be, shorts, or embed links.
+                  </p>
+                </Field>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <Field label="Video Title">
+                    <input
+                      type="text"
+                      value={videoForm.title}
+                      onChange={(e) => setVideoForm((prev) => ({ ...prev, title: e.target.value }))}
+                      placeholder="e.g. See How We Build in Kathmandu"
+                      className={input()}
+                    />
+                  </Field>
+                  <Field label="Video Badge Label">
+                    <input
+                      type="text"
+                      value={videoForm.badge || 'Live On-Site Process'}
+                      onChange={(e) => setVideoForm((prev) => ({ ...prev, badge: e.target.value }))}
+                      placeholder="e.g. Live On-Site Process"
+                      className={input()}
+                    />
+                  </Field>
+                </div>
+
+                <Field label="Video Subtitle / Caption">
+                  <input
+                    type="text"
+                    value={videoForm.subtitle}
+                    onChange={(e) => setVideoForm((prev) => ({ ...prev, subtitle: e.target.value }))}
+                    placeholder="e.g. From foundation excavation and RCC framing to luxury interior finishing"
+                    className={input()}
+                  />
+                </Field>
+
+                {/* Live YouTube Preview */}
+                {getYouTubeEmbedUrl(videoForm.youtubeUrl) && (
+                  <div className="pt-2">
+                    <label className="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">
+                      Live Video Preview
+                    </label>
+                    <div className="w-full aspect-video rounded-xl overflow-hidden border border-gray-200 bg-black">
+                      <iframe
+                        src={getYouTubeEmbedUrl(videoForm.youtubeUrl)}
+                        title="YouTube Video Preview"
+                        className="w-full h-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
+                  </div>
+                )}
+
+                <div className="flex justify-end pt-2">
+                  <button
+                    type="submit"
+                    className="bg-blue-800 hover:bg-blue-900 text-white text-sm font-semibold px-6 py-2.5 rounded-xl transition-colors cursor-pointer"
+                  >
+                    Save Video Settings
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            {/* Testimonials List Header */}
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="text-sm font-bold uppercase tracking-wider text-gray-500">Client Testimonials ({testimonials.length})</h2>
+            </div>
+
+            {/* Testimonials List */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 divide-y divide-gray-100">
             {testimonials.map((t) => (
               <div key={t.id} className="p-4 flex gap-4 items-start">
                 <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-700 flex-shrink-0 text-sm">
@@ -263,7 +391,8 @@ export default function AdminTestimonials() {
               </div>
             )}
           </div>
-        )}
+        </>
+      )}
       </div>
     </AdminLayout>
   );

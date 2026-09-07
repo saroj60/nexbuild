@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
-  CheckCircle, Target, Eye, Heart, ArrowRight, Award, Users, Building2, Clock,
+  CheckCircle, Target, Eye, Heart, ArrowRight, Award, Users, Building2, Clock, Image as ImageIcon,
 } from 'lucide-react';
 import SectionHeader from '../components/ui/SectionHeader';
 import StatCounter from '../components/ui/StatCounter';
@@ -23,7 +23,7 @@ const trustPoints = [
   'Transparent pricing with detailed Bill of Quantities',
   'Dedicated project manager for every client',
   'Post-completion warranty and support',
-  '100% locally owned and operated in Pokhara',
+  '100% locally owned and operated in Kathmandu',
   'Clean safety record across all project sites',
 ];
 
@@ -39,29 +39,29 @@ export default function AboutPage() {
   return (
     <>
       <Helmet>
-        <title>About Us | {company.name} — Pokhara, Nepal</title>
+        <title>About Us | {company.name} — Kathmandu, Nepal</title>
         <meta
           name="description"
-          content={`Learn about ${company.name} — a trusted construction company in Pokhara, Nepal founded in ${company.foundedYear}. Meet our team of engineers and architects delivering structural excellence across Gandaki Province.`}
+          content={`Learn about ${company.name} — a trusted construction company in Kathmandu, Nepal founded in ${company.foundedYear}. Meet our team of engineers and architects delivering structural excellence across Bagmati Province.`}
         />
         <meta
           name="keywords"
-          content="Best construction company in Pokhara, Top construction company in Nepal, builder in Nepal, structural engineers Pokhara, architectural design Kaski, construction contractors Nepal"
+          content="Best construction company in Kathmandu, Top construction company in Nepal, builder in Nepal, structural engineers Kathmandu, architectural design Kathmandu, construction contractors Nepal"
         />
-        <link rel="canonical" href="https://zetaconstruction.com.np/about" />
+        <link rel="canonical" href="https://nexbuildarchitects.com.np/about" />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://zetaconstruction.com.np/about" />
-        <meta property="og:title" content={`About Us | ${company.name} — Pokhara, Nepal`} />
-        <meta property="og:description" content={`Learn about ${company.name} — a trusted construction company in Pokhara, Nepal founded in ${company.foundedYear}. Meet our team of engineers and architects.`} />
+        <meta property="og:url" content="https://nexbuildarchitects.com.np/about" />
+        <meta property="og:title" content={`About Us | ${company.name} — Kathmandu, Nepal`} />
+        <meta property="og:description" content={`Learn about ${company.name} — a trusted construction company in Kathmandu, Nepal founded in ${company.foundedYear}. Meet our team of engineers and architects.`} />
         <meta property="og:image" content="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&q=80" />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:url" content="https://zetaconstruction.com.np/about" />
-        <meta name="twitter:title" content={`About Us | ${company.name} — Pokhara, Nepal`} />
-        <meta name="twitter:description" content={`Learn about ${company.name} — a trusted construction company in Pokhara, Nepal founded in ${company.foundedYear}.`} />
+        <meta name="twitter:url" content="https://nexbuildarchitects.com.np/about" />
+        <meta name="twitter:title" content={`About Us | ${company.name} — Kathmandu, Nepal`} />
+        <meta name="twitter:description" content={`Learn about ${company.name} — a trusted construction company in Kathmandu, Nepal founded in ${company.foundedYear}.`} />
         <meta name="twitter:image" content="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&q=80" />
       </Helmet>
 
@@ -93,56 +93,74 @@ export default function AboutPage() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
             className="text-gray-300 max-w-xl mx-auto text-base md:text-lg"
           >
-            Building trust, landmark structures, and lasting relationships across Pokhara since {company.foundedYear}.
+            Building trust, landmark structures, and lasting relationships across Kathmandu since {company.foundedYear}.
           </motion.p>
         </div>
       </section>
 
       {/* company Introduction */}
-      <section className="section-padding bg-white" aria-label="company introduction">
+      <section className="section-padding bg-[#f1f5f9]" aria-label="company introduction">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            
+            {/* Image Placeholder Section */}
             <motion.div initial="hidden" whileInView="visible" viewport={viewportOnce} variants={fadeLeft}>
-              <div className="relative">
-                <img
-                  src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80"
-                  alt="Construction site with Zeta Construction workers building a structure in Pokhara"
-                  className="w-full rounded-2xl object-cover h-80 md:h-96"
-                  loading="lazy"
+              <div className="relative bg-gradient-to-br from-slate-100 to-slate-200/90 rounded-2xl border-2 border-dashed border-slate-300 shadow-sm flex flex-col items-center justify-center p-8 h-80 md:h-96 text-center group overflow-hidden">
+                
+                {/* Blueprint Grid Pattern */}
+                <div
+                  className="absolute inset-0 bg-[linear-gradient(to_right,#94a3b818_1px,transparent_1px),linear-gradient(to_bottom,#94a3b818_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] pointer-events-none"
+                  aria-hidden="true"
                 />
-                <div className="absolute -bottom-5 -left-5 bg-orange-500 text-white rounded-xl p-5 shadow-xl hidden md:block">
+
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="w-16 h-16 rounded-2xl bg-white/90 border border-slate-200 shadow-sm flex items-center justify-center mb-4 text-slate-400 group-hover:text-blue-600 group-hover:scale-105 transition-all duration-300">
+                    <ImageIcon className="w-8 h-8" aria-hidden="true" />
+                  </div>
+                  <h4 className="text-sm font-bold text-slate-700 uppercase tracking-wider mb-1">
+                    Image Placeholder
+                  </h4>
+                  <p className="text-xs text-slate-400 max-w-xs leading-relaxed">
+                    Company visual / official photo placeholder
+                  </p>
+                </div>
+
+                {/* Founded Badge */}
+                <div className="absolute -bottom-5 -left-5 bg-blue-800 text-white rounded-xl p-5 shadow-xl hidden md:block border-2 border-white z-20">
                   <span className="text-3xl font-extrabold block">{company.foundedYear}</span>
-                  <span className="text-xs font-semibold uppercase tracking-wide">Founded in<br />Pokhara</span>
+                  <span className="text-xs font-semibold uppercase tracking-wide">Founded in<br />Kathmandu</span>
                 </div>
               </div>
             </motion.div>
 
+            {/* Story Content */}
             <motion.div initial="hidden" whileInView="visible" viewport={viewportOnce} variants={fadeRight}>
-              <SectionHeader label="Our Story" title={<>From Humble Beginnings to <span className="text-orange-500">Pokhara's Best</span></>} />
+              <SectionHeader label="Our Story" title={<>From Humble Beginnings to <span className="text-orange-500">Kathmandu's Best</span></>} />
               <p className="text-gray-600 leading-relaxed mb-4">
                 {company.name} was founded in {company.foundedYear} by a group of licensed civil engineers who shared a
                 common belief: that quality construction should be accessible, transparent, and honest.
-                Starting with small residential projects in the Kaski District, we grew steadily through
+                Starting with small residential projects in the Kathmandu District, we grew steadily through
                 referrals, repeat clients, and a reputation for never cutting corners.
               </p>
               <p className="text-gray-600 leading-relaxed mb-4">
-                Today, we are one of Pokhara's most trusted construction companies — with a portfolio of
+                Today, we are one of Kathmandu's most trusted construction companies — with a portfolio of
                 over 250 completed projects spanning luxury villas, commercial complexes, hotels, schools,
-                and government buildings across Gandaki Province.
+                and government buildings across Bagmati Province.
               </p>
               <p className="text-gray-600 leading-relaxed">
                 Our team of 80+ professionals — engineers, architects, site supervisors, and skilled
                 tradespeople — is united by a culture of excellence, accountability, and pride in our work.
-                Every structure we build is a testament to Pokhara's growth and our commitment to raising
+                Every structure we build is a testament to Kathmandu's growth and our commitment to raising
                 construction standards in Nepal.
               </p>
             </motion.div>
+
           </div>
         </div>
       </section>
 
       {/* Mission & Vision */}
-      <section className="section-padding bg-gray-50" aria-label="Mission and vision">
+      <section className="section-padding bg-[#f1f5f9]" aria-label="Mission and vision">
         <div className="container-custom">
           <SectionHeader label="Our Direction" title={<>Mission, <span className="text-orange-500">Vision</span> & Values</>} center />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
@@ -159,7 +177,7 @@ export default function AboutPage() {
               </div>
               <p className="text-blue-100 leading-relaxed">
                 To deliver premium, earthquake-resistant, and aesthetically excellent construction
-                services to the people of Pokhara and Nepal — with full transparency, timely
+                services to the people of Kathmandu and Nepal — with full transparency, timely
                 completion, and unwavering commitment to client satisfaction.
               </p>
             </motion.div>
@@ -178,7 +196,7 @@ export default function AboutPage() {
               <p className="text-orange-50 leading-relaxed">
                 To be the most trusted and respected construction company in Nepal — known for
                 transforming dreams into landmarks, raising industry standards, and contributing
-                to the sustainable development of Pokhara and Gandaki Province.
+                to the sustainable development of Kathmandu and Bagmati Province.
               </p>
             </motion.div>
           </div>
@@ -209,15 +227,22 @@ export default function AboutPage() {
       </section>
 
       {/* Stats */}
-      <section className="bg-blue-900 py-16" aria-label="company statistics">
-        <div className="container-custom">
+      <section className="relative py-12 md:py-16 overflow-hidden bg-[#050D24] text-white border-y border-blue-500/20 shadow-2xl" aria-label="company statistics">
+        <div className="absolute -top-32 -left-20 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] pointer-events-none" aria-hidden="true" />
+        <div className="absolute -bottom-32 -right-20 w-96 h-96 bg-orange-500/15 rounded-full blur-[130px] pointer-events-none" aria-hidden="true" />
+        <div className="container-custom relative z-10">
           <motion.div
-            className="grid grid-cols-2 lg:grid-cols-4 gap-8"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8"
             initial="hidden" whileInView="visible" viewport={viewportOnce} variants={staggerContainer}
           >
-            {stats.map((s) => (
-              <motion.div key={s.label} variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }}>
-                <StatCounter value={s.value} label={s.label} icon={s.icon} light />
+            {stats.map((s, idx) => (
+              <motion.div
+                key={s.label}
+                variants={{ hidden: { opacity: 0, y: 35, scale: 0.95 }, visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6 } } }}
+                className="bg-white/[0.04] hover:bg-white/[0.08] backdrop-blur-md border border-white/10 hover:border-blue-400/50 rounded-2xl p-5 sm:p-7 md:p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_45px_rgba(30,64,175,0.35)] flex flex-col items-center justify-center relative overflow-hidden group cursor-default"
+              >
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-sky-400 to-orange-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true" />
+                <StatCounter value={s.value} label={s.label} icon={s.icon} index={idx} light />
               </motion.div>
             ))}
           </motion.div>
@@ -225,7 +250,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team */}
-      <section className="section-padding bg-white" aria-label="Our professional team">
+      <section className="section-padding bg-[#f1f5f9]" aria-label="Our professional team">
         <div className="container-custom">
           <SectionHeader label="Our Team" title={<>The <span className="text-orange-500">People</span> Behind Every Project</>} subtitle="Our leadership team brings decades of combined experience in civil engineering, architecture, and construction management." center />
           <motion.div
@@ -236,7 +261,7 @@ export default function AboutPage() {
               <motion.div
                 key={member.id}
                 variants={fadeUp}
-                className="bg-gray-50 rounded-xl p-6 text-center card-shadow hover:-translate-y-1 transition-transform duration-300"
+                className="bg-white rounded-xl p-6 text-center card-shadow hover:-translate-y-1 transition-transform duration-300"
               >
                 {member.image ? (
                   <img
@@ -264,7 +289,7 @@ export default function AboutPage() {
       </section>
 
       {/* Why Clients Trust Us */}
-      <section className="section-padding bg-gray-50" aria-label="Why clients trust us">
+      <section className="section-padding bg-[#f1f5f9]" aria-label="Why clients trust us">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div initial="hidden" whileInView="visible" viewport={viewportOnce} variants={fadeLeft}>
@@ -287,7 +312,7 @@ export default function AboutPage() {
             <motion.div initial="hidden" whileInView="visible" viewport={viewportOnce} variants={fadeRight}>
               <img
                 src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80"
-                alt="Zeta Construction team reviewing building plans on a construction site"
+                alt="Nexbuild Architects team reviewing building plans on a construction site"
                 className="w-full rounded-2xl object-cover h-80 md:h-96"
                 loading="lazy"
               />

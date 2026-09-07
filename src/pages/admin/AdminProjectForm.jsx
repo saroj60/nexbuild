@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useAdmin, slugify } from '@/context/AdminContext';
+import { useAdmin } from '@/context/AdminContext';
+import { slugify } from '@/utils/slugify';
 import AdminLayout from '@/components/admin/AdminLayout';
 import {
   Upload, Link2, X, Plus, Star, StarOff, AlertCircle, CheckCircle, Image as ImageIcon,
@@ -233,7 +234,7 @@ export default function AdminProjectForm() {
                   type="text"
                   value={form.title}
                   onChange={(e) => setField('title', e.target.value)}
-                  placeholder="e.g. Lakeside Luxury Villa"
+                  placeholder="e.g. Babarmahal Luxury Villa"
                   className={input(errors.title)}
                 />
               </Field>
@@ -242,7 +243,7 @@ export default function AdminProjectForm() {
                   type="text"
                   value={form.location}
                   onChange={(e) => setField('location', e.target.value)}
-                  placeholder="e.g. Lakeside, Pokhara"
+                  placeholder="e.g. Babarmahal, Kathmandu"
                   className={input(errors.location)}
                 />
               </Field>

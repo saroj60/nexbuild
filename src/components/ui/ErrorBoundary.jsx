@@ -40,7 +40,7 @@ export default class ErrorBoundary extends React.Component {
             {/* Title */}
             <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Unexpected Application Error</h1>
             <p className="text-sm text-gray-500 mb-6 leading-relaxed">
-              Zeta Construction encountered a rendering error. This could be due to invalid/corrupted browser storage data or a temporary page failure.
+              Nexbuild Architects encountered a rendering error. This could be due to invalid/corrupted browser storage data or a temporary page failure.
             </p>
 
             {/* Error Message Details */}
@@ -72,7 +72,7 @@ export default class ErrorBoundary extends React.Component {
             {/* branding footer */}
             <div className="mt-8 pt-6 border-t border-gray-100 flex items-center justify-center gap-2 text-xs text-gray-400">
               <HardHat className="w-3.5 h-3.5" />
-              <span>Zeta Construction Pokhara</span>
+              <span>Nexbuild Architects Kathmandu</span>
             </div>
           </div>
         </div>

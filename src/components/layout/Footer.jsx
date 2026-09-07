@@ -84,19 +84,19 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-2.5 mb-4" aria-label={`${company.name} - Home`}>
-              <div className="w-9 h-9 rounded-lg overflow-hidden bg-white flex items-center justify-center flex-shrink-0">
+              <div className="w-12 h-12 rounded-full overflow-hidden bg-white flex items-center justify-center flex-shrink-0">
                 <img
                   src="/icon.png"
                   alt={`${company.name} logo`}
-                  className="w-8 h-8 object-contain"
+                  className="w-11 h-11 object-contain"
                 />
               </div>
               <span className="text-lg font-bold text-white leading-tight">
-                Zeta <span className="text-orange-400">Construction</span>
+                Nexbuild <span className="text-orange-400">Architects</span>
               </span>
             </Link>
             <p className="text-sm text-gray-400 leading-relaxed mb-5">
-              {company.name} is a trusted construction company based in Pokhara, Nepal, delivering
+              {company.name} is a trusted architecture and construction company based in Kathmandu, Nepal, delivering
               premium residential and commercial construction services since {company.foundedYear}.
             </p>
             {/* Social Links */}
@@ -209,7 +209,7 @@ export default function Footer() {
       <div className="border-t border-gray-700">
         <div className="container-custom py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
           <p>
-            &copy; {currentYear} {company.name}. All rights reserved. Pokhara, Nepal.
+            &copy; {currentYear} {company.name}. All rights reserved. Kathmandu, Nepal.
           </p>
           <div className="flex items-center gap-4 flex-wrap justify-center sm:justify-end">
             <Link to="/privacy-policy" className="hover:text-gray-300 transition-colors">

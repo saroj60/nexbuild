@@ -95,6 +95,11 @@ export default function AdminHouseDesigns() {
                   <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-gray-50 text-gray-650 border border-gray-150">
                     {design.floors} Floors
                   </span>
+                  {design.price && (
+                    <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-green-50 text-green-750 border border-green-150">
+                      Rs. {parseInt(design.price).toLocaleString()}
+                    </span>
+                  )}
                   <span className="flex items-center gap-1 text-xs text-gray-400">
                     <Image className="w-3 h-3" />
                     {(design.gallery || []).length}

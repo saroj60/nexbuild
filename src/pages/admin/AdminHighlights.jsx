@@ -151,7 +151,7 @@ export default function AdminHighlights() {
             </h1>
             <p className="text-gray-500 text-sm mt-0.5">
               {tab === 'why'
-                ? 'Configure items listed in the "Zeta Advantage" highlights grid'
+                ? 'Configure items listed in the "Nexbuild Advantage" highlights grid'
                 : 'Configure steps displayed in the horizontal/vertical desktop and mobile timelines'}
             </p>
           </div>

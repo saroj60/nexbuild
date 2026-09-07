@@ -42,7 +42,7 @@ export default function AdminBackup() {
       const link = document.createElement('a');
       const dateStr = new Date().toISOString().split('T')[0];
       link.href = url;
-      link.download = `zeta_construction_backup_${dateStr}.json`;
+      link.download = `nexbuild_architects_backup_${dateStr}.json`;
       document.body.appendChild(link);
       link.click();
 
@@ -87,7 +87,7 @@ export default function AdminBackup() {
 
         // Check for presence of at least one major configuration key
         if (!parsed.company && !parsed.projects && !parsed.services) {
-          throw new Error('This file does not appear to be a valid Zeta Construction backup.');
+          throw new Error('This file does not appear to be a valid Nexbuild Architects backup.');
         }
 
         const success = importAll(parsed);
@@ -167,12 +167,12 @@ export default function AdminBackup() {
               <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0" />
               <div>
                 <span className="font-bold block mb-0.5">Destructive Action!</span>
-                Restoring data will replace all projects, staff bios, images, and company details currently saved on this browser. Ensure you are uploading the correct Zeta backup file.
+                Restoring data will replace all projects, staff bios, images, and company details currently saved on this browser. Ensure you are uploading the correct Nexbuild backup file.
               </div>
             </div>
 
             <p className="text-xs text-gray-500 leading-relaxed">
-              Select a previously exported Zeta Construction `.json` backup file to restore all website content immediately.
+              Select a previously exported Nexbuild Architects `.json` backup file to restore all website content immediately.
             </p>
 
             <div className="flex items-center gap-2">

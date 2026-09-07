@@ -30,7 +30,22 @@ export default function HouseDesignDetailPage() {
     );
   }
 
-  const allImages = design.gallery || [design.image];
+  function normalizeUrl(url) {
+    if (!url) return '';
+    if (url.startsWith('data:')) return url;
+    try {
+      const parsed = new URL(url);
+      return parsed.origin + parsed.pathname;
+    } catch (e) {
+      return url.split('?')[0];
+    }
+  }
+
+  const coverImage = design.image;
+  const galleryImages = design.gallery || [];
+  const normalizedCover = normalizeUrl(coverImage);
+  const uniqueGallery = galleryImages.filter((img) => normalizeUrl(img) !== normalizedCover);
+  const allImages = coverImage ? [coverImage, ...uniqueGallery] : galleryImages;
 
   function openLightbox(i) {
     setLightboxIndex(i);
@@ -60,12 +75,51 @@ export default function HouseDesignDetailPage() {
   return (
     <>
       <Helmet>
-        <title>{design.title} | Design & Floor Plan | {company.name}</title>
+        <title>{design.title} | Architectural House Plan | {company.name}</title>
         <meta
           name="description"
-          content={`${design.title} — a ${design.area} ${design.style.toLowerCase()} style residential blueprint with ${design.bedrooms} bedrooms. Explore drawings and plans by ${company.name}.`}
+          content={`${design.title} — a ${design.area} ${design.style.toLowerCase()} style residential house design in Nepal with ${design.bedrooms} bedrooms, ${design.bathrooms} bathrooms, and ${design.floors} floors. Complete architectural floor plans & 3D renders by ${company.name}.`}
         />
-        <link rel="canonical" href={`https://zetaconstruction.com.np/house-designs/${design.id}`} />
+        <meta
+          name="keywords"
+          content={`${design.title}, ${design.style} house design Nepal, ${design.bedrooms} bedroom house plan Kathmandu, house floor plan Nepal, 3D house elevation`}
+        />
+        <link rel="canonical" href={`https://nexbuildarchitects.com.np/house-designs/${design.id}`} />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`https://nexbuildarchitects.com.np/house-designs/${design.id}`} />
+        <meta property="og:title" content={`${design.title} | ${company.name}`} />
+        <meta property="og:description" content={`${design.area} ${design.style} architectural house plan with ${design.bedrooms} bedrooms by Nexbuild Architects.`} />
+        <meta property="og:image" content={design.image} />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${design.title} | ${company.name}`} />
+        <meta name="twitter:description" content={`${design.area} ${design.style} architectural house plan with ${design.bedrooms} bedrooms.`} />
+        <meta name="twitter:image" content={design.image} />
+
+        {/* JSON-LD Schema */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": design.title,
+            "image": design.image,
+            "description": design.description,
+            "brand": {
+              "@type": "Brand",
+              "name": company.name
+            },
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "NPR",
+              "price": design.estimatedCost?.replace(/\D/g, '') || "5000000",
+              "availability": "https://schema.org/InStock",
+              "url": `https://nexbuildarchitects.com.np/house-designs/${design.id}`
+            }
+          })}
+        </script>
       </Helmet>
 
       {/* Back navigation */}
@@ -84,29 +138,45 @@ export default function HouseDesignDetailPage() {
 
       {/* Hero Elevation Image */}
       <section aria-label="Design hero image">
-        <div className="relative h-64 sm:h-80 md:h-[28rem] overflow-hidden bg-gray-900">
+        <div className="relative h-64 sm:h-80 md:h-[28rem] overflow-hidden bg-slate-950 flex items-center justify-center">
+          {/* Blurred Background to fill spaces */}
+          <img
+            src={allImages[0]}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover blur-md scale-105 opacity-25 pointer-events-none z-0"
+          />
+          {/* Main uncropped image */}
           <img
             src={allImages[0]}
             alt={`${design.title} — Main 3D Elevation View`}
-            className="w-full h-full object-cover opacity-90"
+            className="relative z-10 max-w-full max-h-full object-contain opacity-95"
             loading="eager"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-          <div className="absolute bottom-6 left-0 right-0 container-custom text-white">
-            <span className="text-xs bg-orange-500 text-white font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-              {design.style} Style
-            </span>
-            <h1 className="text-2xl md:text-4xl font-extrabold mt-2.5">{design.title}</h1>
-            <p className="text-gray-300 text-sm md:text-base mt-1.5 font-medium flex items-center gap-2">
-              <Grid className="w-4 h-4 text-orange-500" />
-              Dimensions: {design.dimensions || 'Custom Fit'}
-            </p>
+          {/* Gradients and texts */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent z-20 pointer-events-none" />
+          <div className="absolute bottom-6 left-0 right-0 container-custom text-white z-30 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div>
+              <span className="text-xs bg-orange-500 text-white font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                {design.style} Style
+              </span>
+              <h1 className="text-2xl md:text-4xl font-extrabold mt-2.5">{design.title}</h1>
+              <p className="text-gray-300 text-sm md:text-base mt-1.5 font-medium flex items-center gap-2">
+                <Grid className="w-4 h-4 text-orange-500" />
+                Dimensions: {design.dimensions || 'Custom Fit'}
+              </p>
+            </div>
+            {design.price && (
+              <div className="bg-slate-900/80 backdrop-blur-md px-5 py-3 rounded-xl border border-slate-800 text-left self-start md:self-auto">
+                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Starting Price</p>
+                <p className="text-xl md:text-2xl font-black text-blue-400 mt-0.5">Rs. {parseInt(design.price).toLocaleString()}</p>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
       {/* Main content grid */}
-      <section className="section-padding bg-white" aria-label="Design layout specifications">
+      <section className="section-padding bg-[#f1f5f9]" aria-label="Design layout specifications">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             {/* Left columns: Description & gallery plans */}
@@ -139,8 +209,8 @@ export default function HouseDesignDetailPage() {
 
               {/* Plans Gallery & Lightbox */}
               <motion.div initial="hidden" whileInView="visible" viewport={viewportOnce} variants={fadeUp}>
-                <h2 className="text-xl font-bold text-gray-900 mb-2">Drawings & Rendering Plans</h2>
-                <p className="text-xs text-gray-400 mb-4">Click on any image/blueprint below to zoom and inspect the details.</p>
+                <h2 className="text-xl font-bold text-gray-900 mb-2">3D Renderings & Concepts (Interior & Exterior)</h2>
+                <p className="text-xs text-gray-400 mb-4">Click on any rendering below to zoom and inspect 3D details.</p>
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                   {allImages.map((imgUrl, i) => (
@@ -182,10 +252,17 @@ export default function HouseDesignDetailPage() {
             {/* Right column: CTA Sidebar Card */}
             <div>
               <div className="bg-gray-50 border border-gray-150 rounded-2xl p-6 sticky top-24 shadow-sm">
-                <h3 className="font-extrabold text-gray-900 text-lg mb-2">Inquire About Plan</h3>
+                <h3 className="font-extrabold text-gray-900 text-lg mb-2">Get Blueprints & 2D Floor Plans</h3>
                 <p className="text-gray-500 text-xs leading-relaxed mb-6">
-                  Like this house blueprint? Contact Surya Parajuli and our design consulting team to customize it for your land size, orientation, and local Pokhara Metropolitan code standards.
+                  For complete Vastu-compliant 2D floor plans, structural drawings, and map approval blueprints, contact our engineering team directly on WhatsApp.
                 </p>
+
+                {design.price && (
+                  <div className="bg-white border border-gray-150 rounded-xl p-4 mb-5 shadow-sm">
+                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Starting Price (3D Design)</p>
+                    <p className="text-xl font-black text-blue-800 mt-1">Rs. {parseInt(design.price).toLocaleString()}</p>
+                  </div>
+                )}
 
                 <div className="space-y-4">
                   {/* WhatsApp */}
@@ -217,7 +294,7 @@ export default function HouseDesignDetailPage() {
                   </div>
                   <div className="flex items-start gap-2.5">
                     <MapPin className="w-4 h-4 text-gray-400 mt-0.5" />
-                    <span>{company.addressShort || 'Pokhara, Nepal'}</span>
+                    <span>{company.addressShort || 'Kathmandu, Nepal'}</span>
                   </div>
                 </div>
               </div>

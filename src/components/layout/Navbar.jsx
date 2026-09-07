@@ -59,16 +59,13 @@ export default function Navbar() {
             className="flex items-center gap-2.5 group"
             aria-label={`${company.name} - Home`}
           >
-            <div className="w-9 h-9 rounded-lg overflow-hidden bg-white flex items-center justify-center shadow-sm flex-shrink-0">
+            <div className="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden bg-white flex items-center justify-center shadow-sm flex-shrink-0">
               <img
                 src="/icon.png"
                 alt={`${company.name} logo`}
-                className="w-8 h-8 object-contain"
+                className="w-12 h-12 md:w-14 md:h-14 object-contain"
               />
             </div>
-            <span className={`font-bold text-base md:text-lg tracking-tight leading-tight transition-colors duration-300 ${logoColor} hidden sm:block`}>
-              Zeta <span className={accentColor}>Construction</span>
-            </span>
           </Link>
 
           {/* Desktop Nav Links */}

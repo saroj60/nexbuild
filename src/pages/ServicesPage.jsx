@@ -12,29 +12,29 @@ export default function ServicesPage() {
   return (
     <>
       <Helmet>
-        <title>Construction Services | {company.name} — Pokhara, Nepal</title>
+        <title>Construction Services | {company.name} — Kathmandu, Nepal</title>
         <meta
           name="description"
-          content={`Explore the full range of engineering & construction services offered by ${company.name} in Pokhara — residential homes, commercial complexes, building permits design, renovation, and structural auditing.`}
+          content={`Explore the full range of engineering & construction services offered by ${company.name} in Kathmandu — residential homes, commercial complexes, building permits design, renovation, and structural auditing.`}
         />
         <meta
           name="keywords"
-          content="House designing in Nepal, construction services Pokhara, building design Nepal, best builder in Pokhara, renovation contractors Kaski, commercial builders Nepal"
+          content="House designing in Nepal, construction services Kathmandu, building design Nepal, best builder in Kathmandu, renovation contractors Kathmandu, commercial builders Nepal"
         />
-        <link rel="canonical" href="https://zetaconstruction.com.np/services" />
+        <link rel="canonical" href="https://nexbuildarchitects.com.np/services" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://zetaconstruction.com.np/services" />
-        <meta property="og:title" content={`Construction Services | ${company.name} — Pokhara, Nepal`} />
-        <meta property="og:description" content={`Quality residential and commercial construction services, 3D designs, and structural work in Pokhara, Nepal by ${company.name}.`} />
+        <meta property="og:url" content="https://nexbuildarchitects.com.np/services" />
+        <meta property="og:title" content={`Construction Services | ${company.name} — Kathmandu, Nepal`} />
+        <meta property="og:description" content={`Quality residential and commercial construction services, 3D designs, and structural work in Kathmandu, Nepal by ${company.name}.`} />
         <meta property="og:image" content="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=80" />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:url" content="https://zetaconstruction.com.np/services" />
-        <meta name="twitter:title" content={`Construction Services | ${company.name} — Pokhara, Nepal`} />
-        <meta name="twitter:description" content={`Quality residential and commercial construction services, 3D designs, and structural work in Pokhara, Nepal by ${company.name}.`} />
+        <meta name="twitter:url" content="https://nexbuildarchitects.com.np/services" />
+        <meta name="twitter:title" content={`Construction Services | ${company.name} — Kathmandu, Nepal`} />
+        <meta name="twitter:description" content={`Quality residential and commercial construction services, 3D designs, and structural work in Kathmandu, Nepal by ${company.name}.`} />
         <meta name="twitter:image" content="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=80" />
       </Helmet>
 
@@ -66,17 +66,17 @@ export default function ServicesPage() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
             className="text-gray-300 max-w-xl mx-auto text-base md:text-lg"
           >
-            Comprehensive construction solutions for residential, commercial, and institutional needs across Pokhara and Gandaki Province.
+            Comprehensive construction solutions for residential, commercial, and institutional needs across Kathmandu and Bagmati Province.
           </motion.p>
         </div>
       </section>
 
       {/* services Grid */}
-      <section className="section-padding bg-white" aria-label="Full services list">
+      <section className="section-padding bg-[#f1f5f9]" aria-label="Full services list">
         <div className="container-custom">
           <SectionHeader
             label="All services"
-            title={<>Expert Construction <span className="text-orange-500">services</span> in Pokhara</>}
+            title={<>Expert Construction <span className="text-orange-500">services</span> in Kathmandu</>}
             subtitle="From concept to completion, we offer the full spectrum of construction and engineering services you need to build with confidence."
             center
           />

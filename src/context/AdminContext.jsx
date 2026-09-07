@@ -2,23 +2,25 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import {
   DEFAULT_PROJECTS, ADMIN_CONFIG,
   COMPANY, SERVICES, TESTIMONIALS, TEAM,
-  WHY_CHOOSE_US, PROCESS_STEPS, DEFAULT_VLOGS,
+  WHY_CHOOSE_US, PROCESS_STEPS, DEFAULT_PROCESS_VIDEO, DEFAULT_VLOGS,
   DEFAULT_HOUSE_DESIGNS,
 } from '@/data';
+import { slugify } from '@/utils/slugify';
 
 const AdminContext = createContext(null);
 
 const KEYS = {
-  auth:         'zeta_admin_auth',
-  projects:     'zeta_projects',
-  company:      'zeta_company',
-  services:     'zeta_services',
-  testimonials: 'zeta_testimonials',
-  team:         'zeta_team',
-  whyChooseUs:  'zeta_why_choose_us',
-  processSteps: 'zeta_process_steps',
-  vlogs:        'zeta_vlogs',
-  houseDesigns: 'zeta_house_designs',
+  auth:         'nexbuild_admin_auth',
+  projects:     'nexbuild_projects',
+  company:      'nexbuild_company',
+  services:     'nexbuild_services',
+  testimonials: 'nexbuild_testimonials',
+  team:         'nexbuild_team',
+  whyChooseUs:  'nexbuild_why_choose_us',
+  processSteps: 'nexbuild_process_steps',
+  processVideo: 'nexbuild_process_video',
+  vlogs:        'nexbuild_vlogs',
+  houseDesigns: 'nexbuild_house_designs',
 };
 
 function loadOrDefault(key, defaultValue) {
@@ -45,7 +47,7 @@ function save(key, value, allData) {
   if (saveTimeout) clearTimeout(saveTimeout);
   
   saveTimeout = setTimeout(() => {
-    const token = sessionStorage.getItem('zeta_session_token');
+    const token = sessionStorage.getItem('nexbuild_session_token');
     if (!token) return; // Only sync with server if admin is logged in / has session!
 
     fetch('/api/content', {
@@ -77,6 +79,7 @@ export function AdminProvider({ children }) {
   const [team,         setTeamState]     = useState(TEAM);
   const [whyChooseUs,  setWhyState]      = useState(WHY_CHOOSE_US);
   const [processSteps, setProcessState]  = useState(PROCESS_STEPS);
+  const [processVideo, setProcessVideoState] = useState(DEFAULT_PROCESS_VIDEO);
   const [vlogs,        setVlogsState]    = useState(DEFAULT_VLOGS);
   const [houseDesigns, setHouseDesignsState] = useState(DEFAULT_HOUSE_DESIGNS);
   
@@ -100,6 +103,7 @@ export function AdminProvider({ children }) {
             team: TEAM,
             whyChooseUs: WHY_CHOOSE_US,
             processSteps: PROCESS_STEPS,
+            processVideo: DEFAULT_PROCESS_VIDEO,
             vlogs: DEFAULT_VLOGS,
             houseDesigns: DEFAULT_HOUSE_DESIGNS,
           };
@@ -117,6 +121,7 @@ export function AdminProvider({ children }) {
           if (data.team) setTeamState(data.team);
           if (data.whyChooseUs) setWhyState(data.whyChooseUs);
           if (data.processSteps) setProcessState(data.processSteps);
+          if (data.processVideo) setProcessVideoState(data.processVideo);
           if (data.vlogs) setVlogsState(data.vlogs);
           if (data.houseDesigns) setHouseDesignsState(data.houseDesigns);
         }
@@ -132,6 +137,7 @@ export function AdminProvider({ children }) {
         setTeamState(loadOrDefault(KEYS.team, TEAM));
         setWhyState(loadOrDefault(KEYS.whyChooseUs, WHY_CHOOSE_US));
         setProcessState(loadOrDefault(KEYS.processSteps, PROCESS_STEPS));
+        setProcessVideoState(loadOrDefault(KEYS.processVideo, DEFAULT_PROCESS_VIDEO));
         setVlogsState(loadOrDefault(KEYS.vlogs, DEFAULT_VLOGS));
         setHouseDesignsState(loadOrDefault(KEYS.houseDesigns, DEFAULT_HOUSE_DESIGNS));
         setHasLoaded(true);
@@ -139,7 +145,7 @@ export function AdminProvider({ children }) {
   }, []);
 
   // ── Sync Changes ─────────────────────────────────────────
-  const allData = { company, projects, services, testimonials, team, whyChooseUs, processSteps, vlogs, houseDesigns };
+  const allData = { company, projects, services, testimonials, team, whyChooseUs, processSteps, processVideo, vlogs, houseDesigns };
 
   useEffect(() => { if (hasLoaded) save(KEYS.company,      company,      allData); }, [company, hasLoaded]);
   useEffect(() => { if (hasLoaded) save(KEYS.projects,     projects,     allData); }, [projects, hasLoaded]);
@@ -148,6 +154,7 @@ export function AdminProvider({ children }) {
   useEffect(() => { if (hasLoaded) save(KEYS.team,         team,         allData); }, [team, hasLoaded]);
   useEffect(() => { if (hasLoaded) save(KEYS.whyChooseUs,  whyChooseUs,  allData); }, [whyChooseUs, hasLoaded]);
   useEffect(() => { if (hasLoaded) save(KEYS.processSteps, processSteps, allData); }, [processSteps, hasLoaded]);
+  useEffect(() => { if (hasLoaded) save(KEYS.processVideo, processVideo, allData); }, [processVideo, hasLoaded]);
   useEffect(() => { if (hasLoaded) save(KEYS.vlogs,        vlogs,        allData); }, [vlogs, hasLoaded]);
   useEffect(() => { if (hasLoaded) save(KEYS.houseDesigns, houseDesigns, allData); }, [houseDesigns, hasLoaded]);
 
@@ -163,7 +170,7 @@ export function AdminProvider({ children }) {
       if (res.ok && data.success) {
         setIsAuthenticated(true);
         sessionStorage.setItem(KEYS.auth, 'true');
-        sessionStorage.setItem('zeta_session_token', data.token);
+        sessionStorage.setItem('nexbuild_session_token', data.token);
         return true;
       }
     } catch (err) {
@@ -174,7 +181,7 @@ export function AdminProvider({ children }) {
     if (username.trim().toLowerCase() === ADMIN_CONFIG.username && password === ADMIN_CONFIG.password) {
       setIsAuthenticated(true);
       sessionStorage.setItem(KEYS.auth, 'true');
-      sessionStorage.setItem('zeta_session_token', 'zeta_session_token_2026');
+      sessionStorage.setItem('nexbuild_session_token', 'nexbuild_session_token_2026');
       return true;
     }
     return false;
@@ -183,7 +190,7 @@ export function AdminProvider({ children }) {
   function logout() {
     setIsAuthenticated(false);
     sessionStorage.removeItem(KEYS.auth);
-    sessionStorage.removeItem('zeta_session_token');
+    sessionStorage.removeItem('nexbuild_session_token');
   }
 
   // ── Company ──────────────────────────────────────────────
@@ -295,18 +302,26 @@ export function AdminProvider({ children }) {
     }
   }
 
+  function updateProcessVideo(data) {
+    setProcessVideoState(prev => ({ ...prev, ...data }));
+  }
+
+  function resetProcessVideo() {
+    setProcessVideoState(DEFAULT_PROCESS_VIDEO);
+  }
+
   // ── Reset All ────────────────────────────────────────────
   function resetAll() {
     resetCompany(); resetProjects(); resetServices();
     resetTestimonials(); resetTeam(); resetWhyChooseUs(); resetProcessSteps();
-    resetVlogs(); resetHouseDesigns();
+    resetProcessVideo(); resetVlogs(); resetHouseDesigns();
   }
 
   return (
     <AdminContext.Provider value={{
       isAuthenticated, login, logout,
       // Data
-      company, projects, services, testimonials, team, whyChooseUs, processSteps, vlogs, houseDesigns,
+      company, projects, services, testimonials, team, whyChooseUs, processSteps, processVideo, vlogs, houseDesigns,
       // Company
       updateCompany, resetCompany,
       // Projects
@@ -315,6 +330,8 @@ export function AdminProvider({ children }) {
       addService, updateService, deleteService, reorderServices, resetServices,
       // Testimonials
       addTestimonial, updateTestimonial, deleteTestimonial, resetTestimonials,
+      // Process Video
+      updateProcessVideo, resetProcessVideo,
       // Team
       addTeamMember, updateTeamMember, deleteTeamMember, resetTeam,
       // Why Choose Us
@@ -337,10 +354,67 @@ export function AdminProvider({ children }) {
 
 export function useAdmin() {
   const ctx = useContext(AdminContext);
-  if (!ctx) throw new Error('useAdmin must be used within AdminProvider');
+  if (!ctx) {
+    // Graceful fallback during Vite Fast Refresh hot-reloading or outside provider
+    return {
+      isAuthenticated: false,
+      company: COMPANY,
+      projects: DEFAULT_PROJECTS,
+      services: SERVICES,
+      testimonials: TESTIMONIALS,
+      team: TEAM,
+      whyChooseUs: WHY_CHOOSE_US,
+      processSteps: PROCESS_STEPS,
+      processVideo: DEFAULT_PROCESS_VIDEO,
+      vlogs: DEFAULT_VLOGS,
+      houseDesigns: DEFAULT_HOUSE_DESIGNS,
+      login: () => false,
+      logout: () => {},
+      updateCompany: () => {},
+      resetCompany: () => {},
+      addProject: () => {},
+      updateProject: () => {},
+      deleteProject: () => {},
+      addGalleryImage: () => {},
+      addGalleryImages: () => {},
+      removeGalleryImage: () => {},
+      resetProjects: () => {},
+      addService: () => {},
+      updateService: () => {},
+      deleteService: () => {},
+      reorderServices: () => {},
+      resetServices: () => {},
+      addTestimonial: () => {},
+      updateTestimonial: () => {},
+      deleteTestimonial: () => {},
+      resetTestimonials: () => {},
+      updateProcessVideo: () => {},
+      resetProcessVideo: () => {},
+      addTeamMember: () => {},
+      updateTeamMember: () => {},
+      deleteTeamMember: () => {},
+      resetTeam: () => {},
+      addWhyItem: () => {},
+      updateWhyItem: () => {},
+      deleteWhyItem: () => {},
+      resetWhyChooseUs: () => {},
+      addProcessStep: () => {},
+      updateProcessStep: () => {},
+      deleteProcessStep: () => {},
+      resetProcessSteps: () => {},
+      addVlog: () => {},
+      updateVlog: () => {},
+      deleteVlog: () => {},
+      resetVlogs: () => {},
+      addHouseDesign: () => {},
+      updateHouseDesign: () => {},
+      deleteHouseDesign: () => {},
+      addHouseDesignGalleryImages: () => {},
+      removeHouseDesignGalleryImage: () => {},
+      resetHouseDesigns: () => {},
+      importAll: () => false,
+      resetAll: () => {},
+    };
+  }
   return ctx;
-}
-
-export function slugify(str) {
-  return str.toLowerCase().replace(/[^a-z0-9\s-]/g,'').trim().replace(/\s+/g,'-').replace(/-+/g,'-');
 }

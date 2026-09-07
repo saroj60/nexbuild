@@ -36,7 +36,7 @@ const AdminHouseDesignForm = lazy(() => import('./pages/admin/AdminHouseDesignFo
 
 function PageLoader() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white" aria-label="Loading page">
+    <div className="min-h-screen flex items-center justify-center bg-[#f1f5f9]" aria-label="Loading page">
       <div className="flex flex-col items-center gap-4">
         <div className="w-10 h-10 border-4 border-blue-800 border-t-orange-500 rounded-full animate-spin" />
         <span className="text-sm text-gray-400 font-medium">Loading…</span>

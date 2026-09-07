@@ -7,8 +7,8 @@ export default function WhatsAppFloatingButton() {
   const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
-    // Show tooltip after 3 seconds
-    const timer = setTimeout(() => setShowTooltip(true), 3000);
+    // Show tooltip briefly after 4 seconds
+    const timer = setTimeout(() => setShowTooltip(true), 4000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -16,25 +16,26 @@ export default function WhatsAppFloatingButton() {
 
   // Clean phone number (digits only)
   const cleanNumber = company.whatsapp.replace(/\D/g, '');
-  const whatsappUrl = `https://wa.me/${cleanNumber}?text=Hello%20${encodeURIComponent(company.name)}!%20I%20visited%20your%20website%20and%20would%20like%20to%20inquire%2520about%2520your%2520construction%2520services.`;
+  const whatsappUrl = `https://wa.me/${cleanNumber}?text=Hello%20${encodeURIComponent(company.name)}!%20I%20visited%20your%20website%20and%20would%20like%20to%20inquire%20about%20your%20architectural%20and%20construction%20services.`;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
-      {/* Tooltip Message */}
+    <div className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-40 flex items-center gap-2.5 pointer-events-auto">
+      {/* Tooltip Message - desktop and tablet only to prevent mobile content overlap */}
       <AnimatePresence>
         {showTooltip && (
           <motion.div
-            initial={{ opacity: 0, x: 20, scale: 0.8 }}
+            initial={{ opacity: 0, x: 15, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: 20, scale: 0.8 }}
-            className="bg-white text-gray-800 text-xs font-semibold px-3 py-2 rounded-xl shadow-lg border border-gray-100 flex items-center gap-2 max-w-[200px]"
+            exit={{ opacity: 0, x: 15, scale: 0.9 }}
+            transition={{ duration: 0.25 }}
+            className="hidden sm:flex bg-[#0B1530]/95 backdrop-blur-md text-[#F5F7FA] text-xs font-medium px-3 py-1.5 rounded-xl shadow-xl border border-slate-700/60 items-center gap-2 max-w-[190px]"
           >
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-ping" />
-            Need help? Chat on WhatsApp!
+            <span className="w-1.5 h-1.5 rounded-full bg-[#25D366] animate-pulse shrink-0" />
+            <span className="truncate text-[11px]">Chat on WhatsApp</span>
             <button
               onClick={() => setShowTooltip(false)}
-              className="text-gray-400 hover:text-gray-600 font-bold ml-1 text-sm"
-              aria-label="Close message"
+              className="text-slate-400 hover:text-white ml-auto text-sm leading-none p-0.5"
+              aria-label="Close tooltip"
             >
               ×
             </button>
@@ -48,21 +49,18 @@ export default function WhatsAppFloatingButton() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with us on WhatsApp"
-        initial={{ scale: 0, rotate: -45 }}
-        animate={{ scale: 1, rotate: 0 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        className="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center text-white shadow-xl hover:bg-green-600 transition-colors duration-200 relative group cursor-pointer"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        whileHover={{ scale: 1.06 }}
+        whileTap={{ scale: 0.94 }}
+        className="w-11 h-11 sm:w-12 sm:h-12 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-lg shadow-emerald-950/40 hover:bg-[#20bd5a] transition-colors duration-200 relative group cursor-pointer"
       >
-        {/* Radar Ping rings */}
-        <span className="absolute -inset-1 rounded-full bg-green-500/30 animate-ping pointer-events-none" />
-
         {/* WhatsApp SVG Icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="w-8 h-8"
+          className="w-5.5 h-5.5 sm:w-6 sm:h-6"
         >
           <path
             fillRule="evenodd"

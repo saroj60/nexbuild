@@ -2,28 +2,27 @@ import { useAdmin } from '@/context/AdminContext';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { CheckCircle, ArrowRight } from 'lucide-react';
-import SectionHeader from '../ui/SectionHeader';
-import { fadeUp, fadeLeft, fadeRight, viewportOnce } from '@/utils/animations';
+import { fadeLeft, fadeRight, viewportOnce } from '@/utils/animations';
 
 const highlights = [
   'Licensed & NBC-compliant construction',
-  '15+ years serving Pokhara & Gandaki Province',
-  'In-house architects and structural engineers',
-  'Transparent pricing with detailed BOQ',
-  'Timely project delivery with quality assurance',
-  'Post-construction support & warranty',
+  'Experienced engineering team',
+  'In-house architects & structural engineers',
+  'Transparent pricing & detailed BOQ',
+  'Timely project delivery',
 ];
 
 export default function AboutPreview() {
   const { company } = useAdmin();
   return (
     <section
-      className="section-padding bg-white"
+      className="py-10 md:py-14 bg-[#f1f5f9] text-slate-900"
       aria-label="About company preview"
     >
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Images Grid */}
+          
+          {/* Left Side: Symmetric 2x2 Image Grid */}
           <motion.div
             className="relative"
             initial="hidden"
@@ -35,67 +34,83 @@ export default function AboutPreview() {
               <img
                 src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80"
                 alt="Architect reviewing construction blueprints"
-                className="rounded-xl object-cover h-56 w-full"
+                className="rounded-lg object-cover h-36 sm:h-48 md:h-52 w-full shadow-sm"
                 loading="lazy"
               />
               <img
-                src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&q=80"
-                alt="Construction workers at work on a building site in Nepal"
-                className="rounded-xl object-cover h-56 w-full mt-8"
+                src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=600&q=80"
+                alt="Residential construction in Kathmandu Valley"
+                className="rounded-lg object-cover h-36 sm:h-48 md:h-52 w-full shadow-sm"
                 loading="lazy"
               />
               <img
-                src="https://images.unsplash.com/photo-1621293954908-907159247fc8?w=600&q=80"
-                alt="Modern completed building construction project"
-                className="rounded-xl object-cover h-44 w-full"
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80"
+                alt="Completed commercial building construction"
+                className="rounded-lg object-cover h-36 sm:h-48 md:h-52 w-full shadow-sm"
                 loading="lazy"
               />
               <img
-                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&q=80"
-                alt="Luxury residential home completed by Zeta Construction"
-                className="rounded-xl object-cover h-44 w-full -mt-8"
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80"
+                alt="Completed residential villa design"
+                className="rounded-lg object-cover h-36 sm:h-48 md:h-52 w-full shadow-sm"
                 loading="lazy"
               />
             </div>
-            {/* Experience Badge */}
-            <div className="absolute -bottom-4 -right-4 bg-orange-500 text-white rounded-xl p-5 shadow-xl text-center hidden md:block">
-              <span className="text-3xl font-extrabold block">{company.stats.yearsExperience}</span>
-              <span className="text-xs font-semibold uppercase tracking-wide">Years of<br />Excellence</span>
+
+            {/* Subtle Floating Badge */}
+            <div className="absolute bottom-4 right-4 bg-slate-900/90 backdrop-blur-md border border-slate-800 text-white rounded-lg px-3 py-1.5 shadow-md flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+              <span className="text-[10px] font-bold uppercase tracking-wider">
+                {company.stats.yearsExperience} of Excellence
+              </span>
             </div>
           </motion.div>
 
-          {/* Text Content */}
+          {/* Right Side: Concise Company Information */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
             variants={fadeRight}
+            className="flex flex-col justify-center"
           >
-            <SectionHeader
-              label="About Us"
-              title={`Pokhara's Most Trusted Construction Partner`}
-            />
-            <p className="text-gray-600 leading-relaxed mb-4">
-              Founded in {company.foundedYear}, {company.name} is widely recognized as the <strong>best construction company in Pokhara</strong> and a <strong>top construction company in Nepal</strong>. We specialize in custom <strong>house designing in Nepal</strong>, residential villas, and commercial complexes.
+            {/* Header */}
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-950 tracking-tight leading-tight">
+              Kathmandu’s Trusted Construction Partner
+            </h2>
+            <div className="w-12 h-1 bg-blue-800 rounded-full mt-3 mb-6" />
+
+            {/* Description */}
+            <p className="text-slate-650 text-sm md:text-base leading-relaxed mb-4">
+              At {company.name}, we combine visionary design with solid engineering to build residential villas and commercial spaces that stand the test of time. As Kathmandu’s trusted partner, we manage projects from initial concept through municipal map approval to final construction.
             </p>
-            <p className="text-gray-600 leading-relaxed mb-7">
-              As a premier <strong>builder in Nepal</strong> and a respected <strong>construction company in Pokhara</strong>, we ensure compliance with Nepal National Building Code standards. Our position as a trusted <strong>top 10 construction company</strong> and the <strong>best concern construction company</strong> in the Gandaki region is backed by a solid team of engineers and architects.
+            <p className="text-slate-650 text-sm md:text-base leading-relaxed mb-6">
+              Our integrated team of architects, structural engineers, and project managers ensures a seamless and transparent build process. We focus on Vastu-compliant layouts, earthquake-resistant frames, and premium finishes tailored to your exact budget.
             </p>
 
-            <ul className="space-y-2.5 mb-8" role="list" aria-label="company highlights">
+            {/* Key Benefits Checklist */}
+            <ul className="space-y-3 mb-8" role="list" aria-label="Key highlights">
               {highlights.map((item) => (
-                <li key={item} className="flex items-start gap-2.5">
-                  <CheckCircle className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" aria-hidden="true" />
-                  <span className="text-gray-700 text-sm font-medium">{item}</span>
+                <li key={item} className="flex items-center gap-3">
+                  <CheckCircle className="w-5 h-5 text-blue-800 flex-shrink-0" aria-hidden="true" />
+                  <span className="text-slate-750 text-sm md:text-base font-medium">{item}</span>
                 </li>
               ))}
             </ul>
 
-            <Link to="/about" className="btn-outline" aria-label="Learn more about our company">
-              Learn More About Us
-              <ArrowRight className="w-4 h-4" aria-hidden="true" />
-            </Link>
+            {/* Learn More Button */}
+            <div>
+              <Link 
+                to="/about" 
+                className="inline-flex items-center gap-2 text-blue-800 hover:text-blue-900 font-bold text-sm tracking-wide transition-colors group"
+                aria-label="Learn more about our company"
+              >
+                Learn More
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
           </motion.div>
+
         </div>
       </div>
     </section>

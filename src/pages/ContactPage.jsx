@@ -92,29 +92,29 @@ export default function ContactPage() {
   return (
     <>
       <Helmet>
-        <title>Contact Us | {company.name} — Pokhara, Nepal</title>
+        <title>Contact Us | {company.name} — Kathmandu, Nepal</title>
         <meta
           name="description"
-          content={`Get a free quote and consultation from ${company.name} in Pokhara. Reach us via phone at ${company.phone}, WhatsApp, email, or visit our office.`}
+          content={`Get a free quote and consultation from ${company.name} in Kathmandu. Reach us via phone at ${company.phone}, WhatsApp, email, or visit our office.`}
         />
         <meta
           name="keywords"
-          content="contact construction company, builder contact Nepal, Pokhara contractor office, structural engineers phone Pokhara, building quotes Gandaki"
+          content="contact construction company, builder contact Nepal, Kathmandu contractor office, structural engineers phone Kathmandu, building quotes Bagmati"
         />
-        <link rel="canonical" href="https://zetaconstruction.com.np/contact" />
+        <link rel="canonical" href="https://nexbuildarchitects.com.np/contact" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://zetaconstruction.com.np/contact" />
-        <meta property="og:title" content={`Contact Us | ${company.name} — Pokhara, Nepal`} />
-        <meta property="og:description" content={`Get in touch with ${company.name} in Pokhara, Nepal. Phone: ${company.phone}, Email: ${company.email}, address: ${company.addressShort}.`} />
+        <meta property="og:url" content="https://nexbuildarchitects.com.np/contact" />
+        <meta property="og:title" content={`Contact Us | ${company.name} — Kathmandu, Nepal`} />
+        <meta property="og:description" content={`Get in touch with ${company.name} in Kathmandu, Nepal. Phone: ${company.phone}, Email: ${company.email}, address: ${company.addressShort}.`} />
         <meta property="og:image" content="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&q=80" />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:url" content="https://zetaconstruction.com.np/contact" />
-        <meta name="twitter:title" content={`Contact Us | ${company.name} — Pokhara, Nepal`} />
-        <meta name="twitter:description" content={`Get in touch with ${company.name} in Pokhara, Nepal. Phone: ${company.phone}, Email: ${company.email}.`} />
+        <meta name="twitter:url" content="https://nexbuildarchitects.com.np/contact" />
+        <meta name="twitter:title" content={`Contact Us | ${company.name} — Kathmandu, Nepal`} />
+        <meta name="twitter:description" content={`Get in touch with ${company.name} in Kathmandu, Nepal. Phone: ${company.phone}, Email: ${company.email}.`} />
         <meta name="twitter:image" content="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&q=80" />
       </Helmet>
 
@@ -146,13 +146,13 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
             className="text-gray-300 max-w-lg mx-auto text-base md:text-lg"
           >
-            Reach out for a free consultation. We're available across Pokhara and Gandaki Province.
+            Reach out for a free consultation. We're available across Kathmandu and Bagmati Province.
           </motion.p>
         </div>
       </section>
 
       {/* Contact Content */}
-      <section className="section-padding bg-white" aria-label="Contact information and form">
+      <section className="section-padding bg-[#f1f5f9]" aria-label="Contact information and form">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14">
 
@@ -433,7 +433,7 @@ export default function ContactPage() {
             initial="hidden" whileInView="visible" viewport={viewportOnce} variants={fadeUp}
             className="mt-14"
           >
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Find Us in Pokhara</h2>
+            <h2 className="text-xl font-bold text-gray-900 mb-4">Find Us in Kathmandu</h2>
             <div className="rounded-2xl overflow-hidden h-72 md:h-96 border border-gray-100 shadow-sm">
               <iframe
                 src={company.mapEmbedUrl}
@@ -443,8 +443,8 @@ export default function ContactPage() {
                 allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Zeta Construction location in Pokhara, Nepal"
-                aria-label="Google Maps showing Pokhara, Nepal"
+                title="Nexbuild Architects location in Kathmandu, Nepal"
+                aria-label="Google Maps showing Kathmandu, Nepal"
               />
             </div>
           </motion.div>

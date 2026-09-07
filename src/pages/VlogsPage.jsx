@@ -27,28 +27,28 @@ export default function VlogsPage() {
   return (
     <>
       <Helmet>
-        <title>Vlog & Articles | {company.name} — Pokhara, Nepal</title>
+        <title>Vlog & Articles | {company.name} — Kathmandu, Nepal</title>
         <meta
           name="description"
           content={`Watch our video construction vlogs and read helpful guides from ${company.name} on house construction, architectural designs, building codes, and safety in Nepal.`}
         />
         <meta
           name="keywords"
-          content="construction vlogs Nepal, building tips Pokhara, house design guides, civil engineering videos Nepal, building code compliance, builder blogs Kaski"
+          content="construction vlogs Nepal, building tips Kathmandu, house design guides, civil engineering videos Nepal, building code compliance, builder blogs Kathmandu"
         />
-        <link rel="canonical" href="https://zetaconstruction.com.np/vlogs" />
+        <link rel="canonical" href="https://nexbuildarchitects.com.np/vlogs" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://zetaconstruction.com.np/vlogs" />
-        <meta property="og:title" content={`Vlog & Articles | ${company.name} — Pokhara, Nepal`} />
+        <meta property="og:url" content="https://nexbuildarchitects.com.np/vlogs" />
+        <meta property="og:title" content={`Vlog & Articles | ${company.name} — Kathmandu, Nepal`} />
         <meta property="og:description" content={`Watch video construction vlogs and read building guides on designs, permits, and engineering in Nepal by ${company.name}.`} />
         <meta property="og:image" content="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80" />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:url" content="https://zetaconstruction.com.np/vlogs" />
-        <meta name="twitter:title" content={`Vlog & Articles | ${company.name} — Pokhara, Nepal`} />
+        <meta name="twitter:url" content="https://nexbuildarchitects.com.np/vlogs" />
+        <meta name="twitter:title" content={`Vlog & Articles | ${company.name} — Kathmandu, Nepal`} />
         <meta name="twitter:description" content={`Watch video construction vlogs and read building guides on designs, permits, and engineering in Nepal by ${company.name}.`} />
         <meta name="twitter:image" content="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80" />
       </Helmet>
@@ -59,8 +59,8 @@ export default function VlogsPage() {
         aria-label="Vlog page header"
       >
         <img
-          src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80"
-          alt="Camera and engineering plans layout"
+          src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1600&q=80"
+          alt="Kathmandu valley cityscape and engineering background"
           className="absolute inset-0 w-full h-full object-cover opacity-25"
           loading="eager"
         />
@@ -81,13 +81,13 @@ export default function VlogsPage() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
             className="text-gray-300 max-w-xl mx-auto text-base md:text-lg"
           >
-            Educational videos, site walk-throughs, and expert construction advice straight from our engineering team in Pokhara.
+            Educational videos, site walk-throughs, and expert construction advice straight from our engineering team in Kathmandu.
           </motion.p>
         </div>
       </section>
 
       {/* Search and Filters Bar */}
-      <section className="bg-gray-50 border-b border-gray-100 py-6" aria-label="Search and filter vlogs">
+      <section className="bg-[#f1f5f9] border-b border-gray-200 py-6" aria-label="Search and filter vlogs">
         <div className="container-custom flex flex-col md:flex-row gap-4 items-center justify-between">
           {/* Search Box */}
           <div className="relative w-full md:max-w-sm">
@@ -109,11 +109,12 @@ export default function VlogsPage() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex-shrink-0 border ${
+                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 whitespace-nowrap border ${
                   selectedCategory === cat
-                    ? 'bg-blue-800 text-white border-blue-800'
-                    : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
+                    ? 'bg-blue-800 text-white border-blue-800 shadow-md'
+                    : 'bg-white text-gray-600 border-gray-200 hover:border-orange-400 hover:text-orange-500'
                 }`}
+                aria-pressed={selectedCategory === cat}
               >
                 {cat}
               </button>
@@ -123,7 +124,7 @@ export default function VlogsPage() {
       </section>
 
       {/* Vlog Grid */}
-      <section className="section-padding bg-white" aria-label="Vlogs grid list">
+      <section className="section-padding bg-[#f1f5f9]" aria-label="Vlogs grid list">
         <div className="container-custom">
           {filteredVlogs.length > 0 ? (
             <motion.div

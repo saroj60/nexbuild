@@ -1,6 +1,6 @@
-# Zeta Construction — Website
+# Nexbuild Architects — Website
 
-A modern, fully responsive React frontend website for a construction company based in **Pokhara, Nepal**.
+A modern, fully responsive React frontend website for an architecture & construction company based in **Kathmandu, Nepal**.
 
 ---
 
@@ -37,7 +37,7 @@ Open it and replace the placeholder values:
 | Placeholder | Replace With |
 |---|---|
 | `[PHONE NUMBER]` | e.g. `9800000000` |
-| `[EMAIL]` | e.g. `info` (before `@zetaconstruction.com.np`) |
+| `[EMAIL]` | e.g. `nexbuild44` (before `@gmail.com` or custom domain) |
 | `[WHATSAPP NUMBER]` | e.g. `9800000000` |
 | `[ADDRESS]` | e.g. `Lakeside-6, Ward No. 6` |
 | `[COMPANY NAME]` placeholders in team | Replace with real names |
@@ -170,5 +170,5 @@ All images are currently loaded from **Unsplash URLs**. To use your own:
 
 ## 📞 Contact & Support
 
-Built for **[COMPANY NAME]** — Pokhara, Nepal  
-Replace all `[PLACEHOLDER]` values in `src/data.jsx` before going live.
+Built for **Nexbuild Architects** — Kathmandu, Nepal  
+Replace all details in `src/data.jsx` before going live.

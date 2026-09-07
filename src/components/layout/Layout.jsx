@@ -20,7 +20,7 @@ export default function Layout() {
     <>
       <ScrollToTop />
       <Navbar />
-      <main id="main-content">
+      <main id="main-content" className="bg-[#f1f5f9] min-h-screen">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}

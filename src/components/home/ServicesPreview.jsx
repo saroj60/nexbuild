@@ -10,15 +10,15 @@ export default function ServicesPreview() {
   const { services } = useAdmin();
   return (
     <section
-      className="section-padding bg-gray-50"
+      className="section-padding bg-[#f1f5f9]"
       aria-label="Our construction services"
     >
       <div className="container-custom">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-14">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-6 md:mb-8">
           <SectionHeader
             label="Our Services"
             title={<>What We <span className="text-orange-500">Build & Deliver</span></>}
-            subtitle="From custom homes to large commercial complexes, we provide comprehensive construction services across Pokhara and Gandaki Province."
+            subtitle="From custom homes to large commercial complexes, we provide comprehensive construction services across Kathmandu and Bagmati Province."
           />
           <Link
             to="/services"

@@ -35,7 +35,22 @@ export default function ProjectDetailPage() {
     );
   }
 
-  const allImages = project.gallery || [project.image];
+  function normalizeUrl(url) {
+    if (!url) return '';
+    if (url.startsWith('data:')) return url;
+    try {
+      const parsed = new URL(url);
+      return parsed.origin + parsed.pathname;
+    } catch (e) {
+      return url.split('?')[0];
+    }
+  }
+
+  const coverImage = project.image;
+  const galleryImages = project.gallery || [];
+  const normalizedCover = normalizeUrl(coverImage);
+  const uniqueGallery = galleryImages.filter((img) => normalizeUrl(img) !== normalizedCover);
+  const allImages = coverImage ? [coverImage, ...uniqueGallery] : galleryImages;
 
   function openLightbox(i) {
     setLightboxIndex(i);
@@ -61,26 +76,50 @@ export default function ProjectDetailPage() {
   return (
     <>
       <Helmet>
-        <title>{project.title} | {company.name}</title>
+        <title>{project.title} | Construction Project | {company.name}</title>
         <meta
           name="description"
           content={`${project.title} in ${project.location}. A ${project.category.toLowerCase()} construction project by ${company.name}. ${project.description.slice(0, 120)}...`}
         />
-        <link rel="canonical" href={`https://zetaconstruction.com.np/projects/${project.id}`} />
+        <meta
+          name="keywords"
+          content={`${project.title}, ${project.location} construction, ${project.category} architecture Nepal, building project Kathmandu, ${company.name}`}
+        />
+        <link rel="canonical" href={`https://nexbuildarchitects.com.np/projects/${project.id}`} />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https://zetaconstruction.com.np/projects/${project.id}`} />
+        <meta property="og:url" content={`https://nexbuildarchitects.com.np/projects/${project.id}`} />
         <meta property="og:title" content={`${project.title} | ${company.name}`} />
         <meta property="og:description" content={`${project.description.slice(0, 150)}...`} />
         <meta property="og:image" content={project.image} />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={`https://zetaconstruction.com.np/projects/${project.id}`} />
+        <meta name="twitter:url" content={`https://nexbuildarchitects.com.np/projects/${project.id}`} />
         <meta name="twitter:title" content={`${project.title} | ${company.name}`} />
         <meta name="twitter:description" content={`${project.description.slice(0, 150)}...`} />
         <meta name="twitter:image" content={project.image} />
+
+        {/* JSON-LD Schema */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            "name": project.title,
+            "image": project.image,
+            "description": project.description,
+            "creator": {
+              "@type": "Organization",
+              "name": company.name,
+              "url": "https://nexbuildarchitects.com.np"
+            },
+            "locationCreated": {
+              "@type": "Place",
+              "name": project.location
+            }
+          })}
+        </script>
       </Helmet>
 
       {/* Back button */}
@@ -130,7 +169,7 @@ export default function ProjectDetailPage() {
       </section>
 
       {/* Main Content */}
-      <section className="section-padding bg-white" aria-label="Project details">
+      <section className="section-padding bg-[#f1f5f9]" aria-label="Project details">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             {/* Left: Description + Gallery */}
@@ -258,15 +297,15 @@ export default function ProjectDetailPage() {
               className="mt-16"
             >
               <h2 className="text-xl font-bold text-gray-900 mb-6">Related {project.category} Projects</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
                 {relatedProjects.map((rp) => (
                   <Link
                     key={rp.id}
                     to={`/projects/${rp.id}`}
-                    className="group bg-white rounded-xl overflow-hidden card-shadow hover:-translate-y-1 transition-transform duration-300"
+                    className="group bg-white rounded-xl overflow-hidden card-shadow hover:-translate-y-1 transition-transform duration-300 flex flex-col h-full"
                     aria-label={`View ${rp.title} project`}
                   >
-                    <div className="h-40 overflow-hidden">
+                    <div className="h-28 xs:h-36 sm:h-40 overflow-hidden flex-shrink-0">
                       <img
                         src={rp.image}
                         alt={rp.title}
@@ -274,11 +313,11 @@ export default function ProjectDetailPage() {
                         loading="lazy"
                       />
                     </div>
-                    <div className="p-4">
-                      <h3 className="font-bold text-gray-900 text-sm group-hover:text-blue-700 transition-colors">{rp.title}</h3>
-                      <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
-                        <MapPin className="w-3 h-3 text-orange-400" aria-hidden="true" />
-                        {rp.location}
+                    <div className="p-2.5 sm:p-4 flex flex-col justify-between flex-1">
+                      <h3 className="font-bold text-gray-900 text-xs sm:text-sm group-hover:text-blue-700 transition-colors line-clamp-1">{rp.title}</h3>
+                      <p className="text-[10px] sm:text-xs text-gray-500 mt-1 flex items-center gap-1 line-clamp-1">
+                        <MapPin className="w-3 h-3 text-orange-400 flex-shrink-0" aria-hidden="true" />
+                        <span className="truncate">{rp.location}</span>
                       </p>
                     </div>
                   </Link>

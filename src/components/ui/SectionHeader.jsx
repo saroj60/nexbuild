@@ -23,7 +23,7 @@ export default function SectionHeader({
 
   return (
     <motion.div
-      className={`flex flex-col ${align} mb-10 md:mb-14`}
+      className={`flex flex-col ${align} mb-6 md:mb-8`}
       initial="hidden"
       whileInView="visible"
       viewport={viewportOnce}

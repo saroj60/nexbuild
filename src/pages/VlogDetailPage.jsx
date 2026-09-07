@@ -41,18 +41,18 @@ export default function VlogDetailPage() {
       <Helmet>
         <title>{vlog.title} | {company.name}</title>
         <meta name="description" content={vlog.description} />
-        <link rel="canonical" href={`https://zetaconstruction.com.np/vlogs/${vlog.id}`} />
+        <link rel="canonical" href={`https://nexbuildarchitects.com.np/vlogs/${vlog.id}`} />
 
         {/* Open Graph */}
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https://zetaconstruction.com.np/vlogs/${vlog.id}`} />
+        <meta property="og:url" content={`https://nexbuildarchitects.com.np/vlogs/${vlog.id}`} />
         <meta property="og:title" content={`${vlog.title} | ${company.name}`} />
         <meta property="og:description" content={vlog.description} />
         <meta property="og:image" content={vlog.imageUrl} />
       </Helmet>
 
       {/* Back navigation */}
-      <div className="bg-gray-50 border-b border-gray-100 pt-20">
+      <div className="bg-[#f1f5f9] border-b border-gray-200 pt-20">
         <div className="container-custom py-4 flex items-center justify-between">
           <button
             onClick={() => navigate('/vlogs')}
@@ -71,7 +71,7 @@ export default function VlogDetailPage() {
         </div>
       </div>
 
-      <article className="py-12 bg-white min-h-screen">
+      <article className="py-12 bg-[#f1f5f9] min-h-screen">
         <div className="container-custom max-w-4xl">
           {/* Header info */}
           <div className="mb-6">

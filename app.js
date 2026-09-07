@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const isLocal = !process.env.PORT && !process.env.NODE_ENV;
-const PORT = process.env.PORT || (isLocal ? 5005 : 3000);
+const PORT = process.env.PORT || (isLocal ? 5010 : 3000);
 const DB_FILE = path.join(__dirname, 'db.json');
 const distPath = path.join(__dirname, 'dist');
 
@@ -21,11 +21,11 @@ app.use(express.json({ limit: '25mb' })); // Support base64 image uploads
 app.use(express.static(distPath));
 
 const ADMIN_CREDENTIALS = {
-  username: 'zetaconstruction@gmail.com',
-  password: 'zetaconstruction@@2026',
+  username: 'nexbuild44@gmail.com',
+  password: 'nexbuild@@2026',
 };
 
-const VALID_TOKEN = 'zeta_session_token_2026';
+const VALID_TOKEN = 'nexbuild_session_token_2026';
 
 function checkAuth(req) {
   const authHeader = req.headers.authorization;
@@ -94,5 +94,5 @@ app.get(/.*/, (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Zeta Construction backend server running on http://localhost:${PORT}`);
+  console.log(`🚀 Nexbuild Architects backend server running on http://localhost:${PORT}`);
 });

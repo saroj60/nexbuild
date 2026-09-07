@@ -41,12 +41,29 @@ export default function HouseDesignsPage() {
   return (
     <>
       <Helmet>
-        <title>Designs & Plans | {company.name} — Pokhara, Nepal</title>
+        <title>House Designs & Architectural Plans in Nepal | {company.name}</title>
         <meta
           name="description"
-          content={`Browse our collection of modern, traditional, and minimalist designs in Pokhara, Nepal by ${company.name}. Complete architectural floor plans and 3D elevations.`}
+          content={`Browse our collection of modern, traditional, and minimalist house designs in Kathmandu, Nepal by ${company.name}. Complete architectural floor plans, 2D blueprints, and 3D elevations.`}
         />
-        <link rel="canonical" href="https://zetaconstruction.com.np/house-designs" />
+        <meta
+          name="keywords"
+          content="House designing in Nepal, modern house designs Kathmandu, traditional Nepali house plan, 3D house elevation Nepal, residential floor plans Kathmandu, duplex house designs Nepal"
+        />
+        <link rel="canonical" href="https://nexbuildarchitects.com.np/house-designs" />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://nexbuildarchitects.com.np/house-designs" />
+        <meta property="og:title" content={`House Designs & Architectural Plans in Nepal | ${company.name}`} />
+        <meta property="og:description" content="Explore custom architectural house plans, 3D elevations, and engineering drawings across Kathmandu, Nepal." />
+        <meta property="og:image" content="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`House Designs & Architectural Plans in Nepal | ${company.name}`} />
+        <meta name="twitter:description" content="Explore custom architectural house plans, 3D elevations, and engineering drawings across Kathmandu, Nepal." />
+        <meta name="twitter:image" content="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80" />
       </Helmet>
 
       {/* Page Hero */}
@@ -56,7 +73,7 @@ export default function HouseDesignsPage() {
       >
         <img
           src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80"
-          alt="Architectural designs and floor planning Pokhara"
+          alt="Architectural designs and floor planning Kathmandu"
           className="absolute inset-0 w-full h-full object-cover opacity-20"
           loading="eager"
         />
@@ -74,7 +91,7 @@ export default function HouseDesignsPage() {
       </section>
 
       {/* Main Catalog Section */}
-      <section className="section-padding bg-gray-50 min-h-screen" aria-label="Catalog search and filters">
+      <section className="section-padding bg-[#f1f5f9] min-h-screen" aria-label="Catalog search and filters">
         <div className="container-custom">
           {/* Controls Bar */}
           <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 mb-8 flex flex-col md:flex-row gap-4 items-center justify-between">
@@ -202,64 +219,75 @@ export default function HouseDesignsPage() {
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6"
           >
             {filtered.map((design) => (
               <motion.article
                 key={design.id}
                 variants={fadeUp}
-                className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-150 group hover:shadow-md transition-all duration-300 flex flex-col h-full"
+                className="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm border border-gray-150 group hover:shadow-md transition-all duration-300 flex flex-col h-full"
               >
                 {/* Thumbnail */}
-                <div className="relative h-56 overflow-hidden bg-gray-100 flex-shrink-0">
+                <div className="relative h-32 xs:h-40 sm:h-56 overflow-hidden bg-gray-100 flex-shrink-0">
                   <img
                     src={design.image}
                     alt={design.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                  <span className="absolute top-3 left-3 bg-blue-800 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  <span className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-blue-800 text-white text-[9px] xs:text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:px-3 sm:py-1 rounded-full uppercase tracking-wider">
                     {design.style}
+                  </span>
+                  <span className="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 bg-slate-900/90 backdrop-blur-md text-white text-[9px] xs:text-[10px] sm:text-xs font-bold px-1.5 py-0.5 sm:px-3 sm:py-1 rounded-lg truncate max-w-[120px]">
+                    {design.price ? `Rs. ${parseInt(design.price).toLocaleString()}` : 'Contact'}
                   </span>
                 </div>
 
                 {/* Details */}
-                <div className="p-5 flex-1 flex flex-col justify-between">
+                <div className="p-2.5 sm:p-5 flex-1 flex flex-col justify-between">
                   <div>
-                    <h2 className="font-extrabold text-gray-905 text-lg group-hover:text-orange-500 transition-colors line-clamp-1 mb-2">
+                    <h2 className="font-extrabold text-gray-900 text-xs sm:text-lg group-hover:text-orange-500 transition-colors line-clamp-1 mb-1 sm:mb-2">
                       {design.title}
                     </h2>
-                    <p className="text-gray-500 text-sm line-clamp-2 leading-relaxed mb-4">
+                    <p className="hidden sm:block text-gray-500 text-sm line-clamp-2 leading-relaxed mb-4">
                       {design.description}
                     </p>
 
+                    {/* Price Row for Tablet/Desktop */}
+                    <div className="hidden sm:flex items-center justify-between mb-4 mt-2">
+                      <span className="text-[10px] font-bold text-gray-450 uppercase tracking-wider">Starting Price</span>
+                      <span className="text-base font-black text-blue-800">
+                        {design.price ? `Rs. ${parseInt(design.price).toLocaleString()}` : 'Contact for Price'}
+                      </span>
+                    </div>
+
                     {/* Specs List */}
-                    <div className="grid grid-cols-2 gap-y-3 gap-x-2 border-t border-gray-100 pt-4 mb-5 text-gray-600">
-                      <div className="flex items-center gap-2 text-xs font-medium">
-                        <Maximize className="w-4 h-4 text-orange-500" />
-                        <span>{design.area} Area</span>
+                    <div className="grid grid-cols-2 gap-y-1.5 sm:gap-y-3 gap-x-1 sm:gap-x-2 border-t border-gray-100 pt-2 sm:pt-4 mb-2.5 sm:mb-5 text-gray-600">
+                      <div className="flex items-center gap-1 sm:gap-2 text-[10px] sm:text-xs font-medium">
+                        <Maximize className="w-3 h-3 sm:w-4 sm:h-4 text-orange-500 flex-shrink-0" />
+                        <span className="truncate">{design.area}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-xs font-medium">
-                        <Layers className="w-4 h-4 text-orange-500" />
-                        <span>{design.floors} Floors</span>
+                      <div className="flex items-center gap-1 sm:gap-2 text-[10px] sm:text-xs font-medium">
+                        <Layers className="w-3 h-3 sm:w-4 sm:h-4 text-orange-500 flex-shrink-0" />
+                        <span className="truncate">{design.floors} Fl</span>
                       </div>
-                      <div className="flex items-center gap-2 text-xs font-medium">
-                        <Bed className="w-4 h-4 text-orange-500" />
-                        <span>{design.bedrooms} Bedrooms</span>
+                      <div className="flex items-center gap-1 sm:gap-2 text-[10px] sm:text-xs font-medium">
+                        <Bed className="w-3 h-3 sm:w-4 sm:h-4 text-orange-500 flex-shrink-0" />
+                        <span className="truncate">{design.bedrooms} Bed</span>
                       </div>
-                      <div className="flex items-center gap-2 text-xs font-medium">
-                        <Bath className="w-4 h-4 text-orange-500" />
-                        <span>{design.bathrooms} Bathrooms</span>
+                      <div className="flex items-center gap-1 sm:gap-2 text-[10px] sm:text-xs font-medium">
+                        <Bath className="w-3 h-3 sm:w-4 sm:h-4 text-orange-500 flex-shrink-0" />
+                        <span className="truncate">{design.bathrooms} Bath</span>
                       </div>
                     </div>
                   </div>
 
                   <Link
                     to={`/house-designs/${design.id}`}
-                    className="flex items-center justify-center gap-2 w-full text-center bg-gray-100 hover:bg-orange-500 text-gray-700 hover:text-white font-bold py-2.5 rounded-xl text-sm transition-colors duration-300"
+                    className="flex items-center justify-center gap-1.5 sm:gap-2 w-full text-center bg-gray-100 hover:bg-orange-500 text-gray-700 hover:text-white font-bold py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm transition-colors duration-300"
                   >
-                    <span>View Plan Details</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <span>View Plan</span>
+                    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
                   </Link>
                 </div>
               </motion.article>

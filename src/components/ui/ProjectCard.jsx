@@ -20,13 +20,13 @@ export default function ProjectCard({ project }) {
   return (
     <motion.article
       variants={scaleIn}
-      className="bg-white rounded-xl overflow-hidden card-shadow group cursor-pointer"
+      className="bg-white rounded-xl overflow-hidden card-shadow group cursor-pointer flex flex-col h-full"
       whileHover={{ y: -6, boxShadow: '0 20px 40px -12px rgba(0,0,0,0.15)' }}
       transition={{ duration: 0.25 }}
     >
-      <Link to={`/projects/${project.id}`} className="block" aria-label={`View ${project.title} project details`}>
+      <Link to={`/projects/${project.id}`} className="flex flex-col h-full" aria-label={`View ${project.title} project details`}>
         {/* Image */}
-        <div className="relative overflow-hidden h-52 sm:h-60">
+        <div className="relative overflow-hidden h-32 xs:h-40 sm:h-52 md:h-60 flex-shrink-0">
           <img
             src={project.image}
             alt={`${project.title} - ${project.category} project in ${project.location}`}
@@ -37,35 +37,37 @@ export default function ProjectCard({ project }) {
 
           {/* Status Badge */}
           <span
-            className={`absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${statusColors[project.status] || statusColors.Completed}`}
+            className={`absolute top-2 right-2 sm:top-3 sm:right-3 flex items-center gap-1 px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] xs:text-[10px] sm:text-xs font-semibold ${statusColors[project.status] || statusColors.Completed}`}
           >
-            <StatusIcon className="w-3 h-3" aria-hidden="true" />
-            {project.status}
+            <StatusIcon className="w-2.5 h-2.5 sm:w-3 sm:h-3" aria-hidden="true" />
+            <span className="truncate max-w-[60px] xs:max-w-none">{project.status}</span>
           </span>
 
           {/* Category */}
-          <span className="absolute top-3 left-3 flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-800 text-white text-xs font-semibold">
-            <Tag className="w-3 h-3" aria-hidden="true" />
-            {project.category}
+          <span className="absolute top-2 left-2 sm:top-3 sm:left-3 flex items-center gap-1 px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-blue-800 text-white text-[9px] xs:text-[10px] sm:text-xs font-semibold">
+            <Tag className="w-2.5 h-2.5 sm:w-3 sm:h-3" aria-hidden="true" />
+            <span className="truncate max-w-[60px] xs:max-w-none">{project.category}</span>
           </span>
         </div>
 
         {/* Content */}
-        <div className="p-5">
-          <h3 className="font-bold text-gray-900 text-base mb-2 group-hover:text-blue-700 transition-colors line-clamp-1">
-            {project.title}
-          </h3>
-          <div className="flex items-center gap-1.5 text-gray-500 text-sm mb-3">
-            <MapPin className="w-3.5 h-3.5 text-orange-500 flex-shrink-0" aria-hidden="true" />
-            <span className="line-clamp-1">{project.location}</span>
+        <div className="p-2.5 sm:p-5 flex flex-col justify-between flex-1">
+          <div>
+            <h3 className="font-bold text-gray-900 text-xs sm:text-base mb-1 sm:mb-2 group-hover:text-blue-700 transition-colors line-clamp-1">
+              {project.title}
+            </h3>
+            <div className="flex items-center gap-1 text-gray-500 text-[10px] sm:text-sm mb-2 sm:mb-3">
+              <MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-orange-500 flex-shrink-0" aria-hidden="true" />
+              <span className="line-clamp-1">{project.location}</span>
+            </div>
           </div>
-          <div className="flex items-center justify-between pt-3 border-t border-gray-100">
-            <span className="text-xs text-gray-400 font-medium">{project.year}</span>
+          <div className="flex items-center justify-between pt-2 sm:pt-3 border-t border-gray-100 text-[9px] sm:text-xs">
+            <span className="text-gray-400 font-medium">{project.year}</span>
             {project.area && (
-              <span className="text-xs text-gray-500 font-medium">{project.area}</span>
+              <span className="text-gray-500 font-medium hidden xs:inline">{project.area}</span>
             )}
-            <span className="text-xs font-bold text-orange-500 group-hover:underline">
-              View Details →
+            <span className="font-bold text-orange-500 group-hover:underline">
+              Details →
             </span>
           </div>
         </div>

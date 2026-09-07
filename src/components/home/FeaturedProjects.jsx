@@ -8,19 +8,19 @@ import { staggerContainer, viewportOnce } from '@/utils/animations';
 
 export default function FeaturedProjects() {
   const { projects } = useAdmin();
-  const featured = projects.filter((p) => p.featured).slice(0, 3);
+  const featured = projects.filter((p) => p.featured).slice(0, 4);
 
   return (
     <section
-      className="section-padding bg-white"
+      className="section-padding bg-[#f1f5f9]"
       aria-label="Featured construction projects"
     >
       <div className="container-custom">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-14">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-6 md:mb-8">
           <SectionHeader
             label="Featured Projects"
             title={<>Our Recent <span className="text-orange-500">Landmark Work</span></>}
-            subtitle="A selection of residential, commercial, and renovation projects we've proudly completed across Pokhara and surrounding areas."
+            subtitle="A selection of residential, commercial, and renovation projects we've proudly completed across Kathmandu and surrounding areas."
           />
           <Link
             to="/projects"
@@ -33,7 +33,7 @@ export default function FeaturedProjects() {
         </div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6"
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}

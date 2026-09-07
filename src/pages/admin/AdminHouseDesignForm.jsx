@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useAdmin, slugify } from '@/context/AdminContext';
+import { useAdmin } from '@/context/AdminContext';
+import { slugify } from '@/utils/slugify';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { Upload, Link2, X, Plus, AlertCircle, CheckCircle, Image as ImageIcon } from 'lucide-react';
 import { compressImage } from '@/utils/imageCompressor';
@@ -15,6 +16,7 @@ const EMPTY_FORM = {
   floors: 2,
   dimensions: '',
   style: 'Modern',
+  price: '',
   description: '',
   image: '',
   gallery: [],
@@ -262,7 +264,7 @@ export default function AdminHouseDesignForm() {
                 />
               </Field>
 
-              <Field label="Floors">
+               <Field label="Floors">
                 <input
                   type="number"
                   value={form.floors}
@@ -270,6 +272,16 @@ export default function AdminHouseDesignForm() {
                   className={inputStyle()}
                   step="0.5"
                   min="0"
+                />
+              </Field>
+
+              <Field label="Design Price (Rs.)" error={errors.price}>
+                <input
+                  type="text"
+                  value={form.price || ''}
+                  onChange={(e) => setField('price', e.target.value)}
+                  placeholder="e.g. 15,000"
+                  className={inputStyle(errors.price)}
                 />
               </Field>
             </div>

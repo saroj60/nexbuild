@@ -33,7 +33,7 @@ export default function AdminLayout({ children }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
+    <div className="h-screen bg-gray-100 flex flex-col overflow-hidden">
 
       {/* ── Top Bar ───────────────────────────────────────── */}
       <header className="bg-gray-900 text-white px-4 sm:px-6 py-3 flex items-center justify-between shadow-md sticky top-0 z-40">
@@ -41,7 +41,7 @@ export default function AdminLayout({ children }) {
           <div className="w-7 h-7 rounded-lg bg-orange-500 flex items-center justify-center flex-shrink-0">
             <HardHat className="w-4 h-4 text-white" aria-hidden="true" />
           </div>
-          <span className="font-bold text-sm tracking-wide hidden sm:block">Zeta Admin Panel</span>
+          <span className="font-bold text-sm tracking-wide hidden sm:block">Nexbuild Admin Panel</span>
           <span className="font-bold text-sm sm:hidden">Admin Portal</span>
         </div>
 
@@ -67,7 +67,7 @@ export default function AdminLayout({ children }) {
         </div>
       </header>
 
-      <div className="flex flex-1">
+      <div className="flex flex-1 overflow-hidden">
 
         {/* ── Sidebar (desktop only) ──────────────────────── */}
         <aside className="w-56 bg-white shadow-sm border-r border-gray-200 flex-shrink-0 hidden lg:block">

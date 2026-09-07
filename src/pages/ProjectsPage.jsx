@@ -22,29 +22,29 @@ export default function ProjectsPage() {
   return (
     <>
       <Helmet>
-        <title>Our Projects | {company.name} — Pokhara, Nepal</title>
+        <title>Our Projects | {company.name} — Kathmandu, Nepal</title>
         <meta
           name="description"
-          content={`Explore our portfolio of completed and ongoing construction projects in Pokhara, Nepal by ${company.name} — residential villas, hotel resorts, commercial centers, and renovations.`}
+          content={`Explore our portfolio of completed and ongoing construction projects in Kathmandu, Nepal by ${company.name} — residential villas, hotel resorts, commercial centers, and renovations.`}
         />
         <meta
           name="keywords"
-          content="construction projects Pokhara, best builders Nepal, luxury homes Pokhara, completed buildings Kaski, commercial designs Nepal, top 10 construction company"
+          content="construction projects Kathmandu, best builders Nepal, luxury homes Kathmandu, completed buildings Kathmandu, commercial designs Nepal, top 10 construction company"
         />
-        <link rel="canonical" href="https://zetaconstruction.com.np/projects" />
+        <link rel="canonical" href="https://nexbuildarchitects.com.np/projects" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://zetaconstruction.com.np/projects" />
-        <meta property="og:title" content={`Our Projects | ${company.name} — Pokhara, Nepal`} />
-        <meta property="og:description" content={`Explore completed and ongoing construction projects in Pokhara by ${company.name}. See our portfolio of villas, hotels, and complexes.`} />
+        <meta property="og:url" content="https://nexbuildarchitects.com.np/projects" />
+        <meta property="og:title" content={`Our Projects | ${company.name} — Kathmandu, Nepal`} />
+        <meta property="og:description" content={`Explore completed and ongoing construction projects in Kathmandu by ${company.name}. See our portfolio of villas, hotels, and complexes.`} />
         <meta property="og:image" content="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80" />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:url" content="https://zetaconstruction.com.np/projects" />
-        <meta name="twitter:title" content={`Our Projects | ${company.name} — Pokhara, Nepal`} />
-        <meta name="twitter:description" content={`Explore completed and ongoing construction projects in Pokhara by ${company.name}. See our portfolio of villas, hotels, and complexes.`} />
+        <meta name="twitter:url" content="https://nexbuildarchitects.com.np/projects" />
+        <meta name="twitter:title" content={`Our Projects | ${company.name} — Kathmandu, Nepal`} />
+        <meta name="twitter:description" content={`Explore completed and ongoing construction projects in Kathmandu by ${company.name}. See our portfolio of villas, hotels, and complexes.`} />
         <meta name="twitter:image" content="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80" />
       </Helmet>
 
@@ -54,8 +54,8 @@ export default function ProjectsPage() {
         aria-label="Projects page header"
       >
         <img
-          src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80"
-          alt="Portfolio of construction projects in Pokhara Nepal"
+          src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1600&q=80"
+          alt="Portfolio of construction projects in Kathmandu Nepal"
           className="absolute inset-0 w-full h-full object-cover opacity-25"
           loading="eager"
         />
@@ -76,13 +76,13 @@ export default function ProjectsPage() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
             className="text-gray-300 max-w-xl mx-auto text-base md:text-lg"
           >
-            {company.stats.projectsCompleted} projects completed across Pokhara and Gandaki Province — homes, commercial buildings, hotels, schools, and more.
+            {company.stats.projectsCompleted} projects completed across Kathmandu and Bagmati Province — homes, commercial buildings, hotels, schools, and more.
           </motion.p>
         </div>
       </section>
 
       {/* Filter + Grid */}
-      <section className="section-padding bg-white" aria-label="Project portfolio">
+      <section className="section-padding bg-[#f1f5f9]" aria-label="Project portfolio">
         <div className="container-custom">
           {/* Filter Tabs */}
           <motion.div
@@ -125,7 +125,7 @@ export default function ProjectsPage() {
           <AnimatePresence mode="wait">
             <motion.div
               key={active}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+              className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6"
               initial="hidden"
               animate="visible"
               exit={{ opacity: 0, transition: { duration: 0.15 } }}

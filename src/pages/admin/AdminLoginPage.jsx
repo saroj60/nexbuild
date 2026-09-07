@@ -36,7 +36,7 @@ export default function AdminLoginPage() {
           <div className="w-14 h-14 bg-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <HardHat className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-xl font-bold text-white">Zeta Construction</h1>
+          <h1 className="text-xl font-bold text-white">Nexbuild Architects</h1>
           <p className="text-gray-400 text-sm mt-1">Admin Panel — Staff Only</p>
         </div>
 

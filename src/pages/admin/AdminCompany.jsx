@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useAdmin } from '@/context/AdminContext';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { CheckCircle, AlertCircle, RotateCcw, Link2, Upload, Trash2, Image as ImageIcon } from 'lucide-react';
@@ -12,6 +12,14 @@ export default function AdminCompany() {
   const [heroUrlInput, setHeroUrlInput] = useState('');
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef(null);
+  const bgFileInputRef = useRef(null);
+
+  // Sync form state when company data loads or changes in context
+  useEffect(() => {
+    if (company) {
+      setForm(company);
+    }
+  }, [company]);
 
   function handleAddHeroUrl() {
     const url = heroUrlInput.trim();
@@ -48,6 +56,35 @@ export default function AdminCompany() {
         setForm((f) => ({
           ...f,
           heroImages: [...(f.heroImages || []), compressedBase64],
+        }));
+        setUploading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        alert('Failed to compress image.');
+        setUploading(false);
+      });
+    e.target.value = '';
+  }
+
+  function handleBgUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      alert('Please select an image file.');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      alert('File size exceeds the 5MB limit.');
+      return;
+    }
+
+    setUploading(true);
+    compressImage(file, 1920, 0.75)
+      .then((compressedBase64) => {
+        setForm((f) => ({
+          ...f,
+          heroBgImage: compressedBase64,
         }));
         setUploading(false);
       })
@@ -214,7 +251,7 @@ export default function AdminCompany() {
                   className={input()}
                 />
               </Field>
-              <Field label="Short Location (e.g. Pokhara, Nepal)">
+              <Field label="Short Location (e.g. Kathmandu, Nepal)">
                 <input
                   type="text"
                   name="addressShort"
@@ -339,21 +376,70 @@ export default function AdminCompany() {
             </div>
           </Section>
 
-          {/* Hero Slider Images */}
-          <Section title="Hero Section Slider Images">
-            <p className="text-xs text-gray-400 mb-3">
-              Add the images that slide in the background of the home page hero section. Paste a URL or upload from your device.
+          {/* Hero Section Background Image */}
+          <Section title="Hero Background Image (Behind the Text)">
+            <p className="text-xs text-gray-500 mb-3">
+              This image displays across the background of the hero section behind the main headline and text (the on-site engineers photo).
+            </p>
+            <div className="space-y-3">
+              <Field label="Background Image URL">
+                <input
+                  type="text"
+                  name="heroBgImage"
+                  value={form.heroBgImage || ''}
+                  onChange={handleChange}
+                  placeholder="https://... or /hero-engineers-site.jpg"
+                  className={input()}
+                />
+              </Field>
+
+              <div className="flex items-center gap-3">
+                <input
+                  ref={bgFileInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleBgUpload}
+                />
+                <button
+                  type="button"
+                  onClick={() => bgFileInputRef.current?.click()}
+                  disabled={uploading}
+                  className="flex items-center gap-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors border border-gray-300"
+                >
+                  <Upload className="w-4 h-4 text-gray-500" />
+                  <span>{uploading ? 'Uploading…' : 'Upload background from device (max 5MB)'}</span>
+                </button>
+              </div>
+
+              {form.heroBgImage && (
+                <div className="relative mt-2 rounded-xl overflow-hidden border border-gray-200 w-full max-w-sm h-36">
+                  <img
+                    src={form.heroBgImage}
+                    alt="Hero Background Preview"
+                    className="w-full h-full object-cover"
+                    onError={(e) => { e.target.style.display = 'none'; }}
+                  />
+                </div>
+              )}
+            </div>
+          </Section>
+
+          {/* Hero Right-Side Card Slider Images */}
+          <Section title="Hero Showcase Slider Cards (Right-Side Rounded Frame)">
+            <p className="text-xs text-gray-500 mb-3">
+              These images rotate every 6 seconds in the rounded card on the right side of the hero section (e.g. Modern Residential Villa, Himalayan Heritage Resort).
             </p>
 
             {/* Slider Images Grid */}
             {(form.heroImages || []).length > 0 && (
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
                 {(form.heroImages || []).map((url, i) => (
-                  <div key={i} className="relative group rounded-xl overflow-hidden border border-gray-200">
+                  <div key={i} className="relative group rounded-xl overflow-hidden border border-gray-200 shadow-xs">
                     <img
                       src={url}
                       alt={`Hero Slide ${i + 1}`}
-                      className="w-full h-24 object-cover"
+                      className="w-full h-28 object-cover"
                       onError={(e) => { e.target.style.display = 'none'; }}
                     />
                     <button
@@ -404,10 +490,10 @@ export default function AdminCompany() {
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
                 disabled={uploading}
-                className="flex items-center gap-2 text-sm bg-gray-105 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors w-full justify-center border border-dashed border-gray-300 hover:border-blue-400 py-3.5"
+                className="flex items-center gap-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors w-full justify-center border border-dashed border-gray-300 hover:border-blue-400 py-3.5"
               >
                 <Upload className="w-4 h-4 text-gray-400" />
-                <span>{uploading ? 'Uploading…' : 'Upload from device (max 5MB)'}</span>
+                <span>{uploading ? 'Uploading…' : 'Upload slide card image from device (max 5MB)'}</span>
               </button>
             </div>
           </Section>

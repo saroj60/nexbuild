@@ -4,4 +4,5 @@ Disallow: /admin
 Disallow: /admin/
 Disallow: /admin/*
 
-Sitemap: https://zetaconstruction.com.np/sitemap.xml
+Host: https://nexbuildarchitects.com.np
+Sitemap: https://nexbuildarchitects.com.np/sitemap.xml

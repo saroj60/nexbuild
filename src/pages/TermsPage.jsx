@@ -11,7 +11,7 @@ export default function TermsPage() {
       <Helmet>
         <title>Terms of Service | {company.name}</title>
       </Helmet>
-      <div className="min-h-screen bg-white pt-28 pb-20">
+      <div className="min-h-screen bg-[#f1f5f9] pt-28 pb-20">
         <div className="container-custom max-w-3xl">
           <motion.div initial="hidden" animate="visible" variants={fadeUp}>
             <Link to="/" className="text-sm text-orange-500 hover:underline mb-6 inline-block">← Back to Home</Link>

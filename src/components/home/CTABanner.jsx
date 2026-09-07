@@ -8,18 +8,19 @@ export default function CTABanner() {
   const { company } = useAdmin();
   return (
     <section
-      className="relative py-20 md:py-28 overflow-hidden"
+      className="relative py-12 md:py-16 overflow-hidden"
       aria-label="Call to action"
     >
-      {/* Background */}
+      {/* Background with Nexbuild Custom Image */}
       <div className="absolute inset-0 z-0">
         <img
-          src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1600&q=80"
-          alt="Modern construction building background"
-          className="w-full h-full object-cover"
+          src="/nexx.png"
+          alt="Nexbuild Architects Kathmandu"
+          className="w-full h-full object-cover object-center"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-blue-900/85" />
+        <div className="absolute inset-0 bg-[#051532]/75" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050A18]/90 via-transparent to-[#050A18]/70" />
       </div>
 
       <div className="relative z-10 container-custom text-center text-white">
@@ -43,7 +44,7 @@ export default function CTABanner() {
 
           <p className="text-base md:text-lg text-gray-300 leading-relaxed mb-10">
             Whether it's your dream home, a commercial complex, or a renovation project — our
-            team is ready to bring your vision to life in Pokhara, Nepal. Get a free consultation
+            team is ready to bring your vision to life in Kathmandu, Nepal. Get a free consultation
             and detailed quote today.
           </p>
 
