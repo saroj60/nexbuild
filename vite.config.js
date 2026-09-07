@@ -11,6 +11,7 @@ export default defineConfig({
     alias: {
       '@': import.meta.dirname + '/src',
     },
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
   },
   server: {
     watch: {
