@@ -82,7 +82,7 @@ export default function ServicesPage() {
           />
 
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-8"
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
@@ -94,10 +94,10 @@ export default function ServicesPage() {
                 <motion.article
                   key={service.id}
                   variants={scaleIn}
-                  className="bg-white border border-gray-100 rounded-2xl overflow-hidden card-shadow group hover:-translate-y-2 transition-all duration-300 hover:shadow-xl"
+                  className="bg-white border border-gray-100 rounded-xl sm:rounded-2xl overflow-hidden card-shadow group hover:-translate-y-2 transition-all duration-300 hover:shadow-xl flex flex-col h-full"
                 >
                   {/* Image */}
-                  <div className="relative h-52 overflow-hidden">
+                  <div className="relative h-28 xs:h-36 sm:h-52 flex-shrink-0 overflow-hidden">
                     <img
                       src={service.image}
                       alt={service.title}
@@ -106,41 +106,43 @@ export default function ServicesPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                     {/* Icon Badge */}
-                    <div className="absolute bottom-4 left-4 w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center shadow-lg">
-                      <IconComponent className="w-6 h-6 text-white" aria-hidden="true" />
+                    <div className="absolute bottom-2 left-2 w-8 h-8 sm:bottom-4 sm:left-4 sm:w-12 sm:h-12 bg-orange-500 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
+                      <IconComponent className="w-4 h-4 sm:w-6 sm:h-6 text-white" aria-hidden="true" />
                     </div>
                     {/* Number */}
-                    <span className="absolute top-4 right-4 text-white/50 text-4xl font-extrabold leading-none">
+                    <span className="absolute top-2 right-2 text-white/50 text-lg sm:top-4 sm:right-4 sm:text-4xl font-extrabold leading-none">
                       {String(i + 1).padStart(2, '0')}
                     </span>
                   </div>
 
                   {/* Content */}
-                  <div className="p-6">
-                    <h2 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-700 transition-colors">
-                      {service.title}
-                    </h2>
-                    <p className="text-sm text-gray-600 leading-relaxed mb-4">
-                      {service.fullDesc}
-                    </p>
+                  <div className="p-3 sm:p-6 flex flex-col justify-between flex-1">
+                    <div>
+                      <h2 className="text-xs sm:text-lg font-bold text-gray-900 mb-1 sm:mb-2 group-hover:text-blue-700 transition-colors line-clamp-1">
+                        {service.title}
+                      </h2>
+                      <p className="text-[10px] sm:text-sm text-gray-600 leading-relaxed mb-2 sm:mb-4 line-clamp-2 sm:line-clamp-3">
+                        {service.fullDesc}
+                      </p>
 
-                    {/* Features */}
-                    <ul className="space-y-1.5 mb-5" role="list">
-                      {service.features.map((f) => (
-                        <li key={f} className="flex items-center gap-2 text-xs text-gray-600 font-medium">
-                          <span className="w-1.5 h-1.5 bg-orange-400 rounded-full flex-shrink-0" aria-hidden="true" />
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
+                      {/* Features */}
+                      <ul className="hidden sm:block space-y-1.5 mb-5" role="list">
+                        {service.features.map((f) => (
+                          <li key={f} className="flex items-center gap-2 text-xs text-gray-600 font-medium">
+                            <span className="w-1.5 h-1.5 bg-orange-400 rounded-full flex-shrink-0" aria-hidden="true" />
+                            {f}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
 
                     <Link
                       to="/contact"
-                      className="inline-flex items-center gap-1.5 text-sm font-bold text-orange-500 hover:text-orange-600 group/link"
+                      className="inline-flex items-center gap-1 sm:gap-1.5 text-[10px] sm:text-sm font-bold text-orange-500 hover:text-orange-600 group/link"
                       aria-label={`Inquire about ${service.title}`}
                     >
-                      Get a Quote for This Service
-                      <ArrowRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1" aria-hidden="true" />
+                      <span>Get a Quote</span>
+                      <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 transition-transform group-hover/link:translate-x-1" aria-hidden="true" />
                     </Link>
                   </div>
                 </motion.article>
