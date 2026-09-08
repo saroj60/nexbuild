@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
-    "dev:client": "vite --host --port 8095",
+    "dev:client": "vite --host --port 8098",
     "dev:server": "nodemon --watch app.js app.js",
     "start": "node app.js",
     "build": "vite build",

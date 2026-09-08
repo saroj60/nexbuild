@@ -219,37 +219,37 @@ export default function HouseDesignsPage() {
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
-            className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             {filtered.map((design) => (
               <motion.article
                 key={design.id}
                 variants={fadeUp}
-                className="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm border border-gray-150 group hover:shadow-md transition-all duration-300 flex flex-col h-full"
+                className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-150 group hover:shadow-md transition-all duration-300 flex flex-col h-full"
               >
                 {/* Thumbnail */}
-                <div className="relative h-32 xs:h-40 sm:h-56 overflow-hidden bg-gray-100 flex-shrink-0">
+                <div className="relative h-56 overflow-hidden bg-gray-100 flex-shrink-0">
                   <img
                     src={design.image}
                     alt={design.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                  <span className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-blue-800 text-white text-[9px] xs:text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:px-3 sm:py-1 rounded-full uppercase tracking-wider">
+                  <span className="absolute top-3 left-3 bg-blue-800 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                     {design.style}
                   </span>
-                  <span className="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 bg-slate-900/90 backdrop-blur-md text-white text-[9px] xs:text-[10px] sm:text-xs font-bold px-1.5 py-0.5 sm:px-3 sm:py-1 rounded-lg truncate max-w-[120px]">
-                    {design.price ? `Rs. ${parseInt(design.price).toLocaleString()}` : 'Contact'}
+                  <span className="absolute bottom-3 right-3 bg-slate-900/90 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-lg">
+                    {design.price ? `Rs. ${parseInt(design.price).toLocaleString()}` : 'Contact for Price'}
                   </span>
                 </div>
 
                 {/* Details */}
-                <div className="p-2.5 sm:p-5 flex-1 flex flex-col justify-between">
+                <div className="p-5 flex-1 flex flex-col justify-between">
                   <div>
-                    <h2 className="font-extrabold text-gray-900 text-xs sm:text-lg group-hover:text-orange-500 transition-colors line-clamp-1 mb-1 sm:mb-2">
+                    <h2 className="font-extrabold text-gray-900 text-lg group-hover:text-orange-500 transition-colors line-clamp-1 mb-2">
                       {design.title}
                     </h2>
-                    <p className="hidden sm:block text-gray-500 text-sm line-clamp-2 leading-relaxed mb-4">
+                    <p className="text-gray-500 text-sm line-clamp-2 leading-relaxed mb-4">
                       {design.description}
                     </p>
 

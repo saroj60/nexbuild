@@ -297,7 +297,7 @@ export default function ProjectDetailPage() {
               className="mt-16"
             >
               <h2 className="text-xl font-bold text-gray-900 mb-6">Related {project.category} Projects</h2>
-              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {relatedProjects.map((rp) => (
                   <Link
                     key={rp.id}
