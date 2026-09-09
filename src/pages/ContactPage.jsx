@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import {
-  MapPin, Phone, Mail, MessageCircle, Clock, Send, CheckCircle, AlertCircle,
+  MapPin, Phone, Mail, MessageCircle, Clock, Send, CheckCircle, AlertCircle, Building2, FileText,
 } from 'lucide-react';
 import { fadeUp, fadeLeft, fadeRight, staggerContainer, viewportOnce } from '@/utils/animations';
 
@@ -168,8 +168,23 @@ export default function ContactPage() {
                       <MapPin className="w-5 h-5 text-blue-700" aria-hidden="true" />
                     </div>
                     <div>
-                      <p className="text-xs font-bold uppercase text-gray-400 tracking-wider mb-0.5">Office Address</p>
-                      <address className="not-italic text-sm text-gray-700 leading-relaxed">{company.address}</address>
+                      <p className="text-xs font-bold uppercase text-gray-400 tracking-wider mb-0.5">Registered Office</p>
+                      <address className="not-italic text-sm text-gray-700 font-medium leading-relaxed">
+                        {company.registeredOffice || company.address}
+                      </address>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4 p-4 bg-blue-50/70 border border-blue-100 rounded-xl">
+                    <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0 text-white shadow-sm">
+                      <FileText className="w-5 h-5" aria-hidden="true" />
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-xs font-bold uppercase text-blue-900 tracking-wider">Company Registration & Tax Info</p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-0.5 text-xs text-gray-700">
+                        <p><span className="font-semibold text-gray-900">Company Reg. No.:</span> {company.companyRegNo || '391105/82/83'}</p>
+                        <p><span className="font-semibold text-gray-900">VAT No.:</span> {company.vatNo || '623604209'}</p>
+                      </div>
                     </div>
                   </div>
 

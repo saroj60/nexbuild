@@ -161,12 +161,17 @@ export default function Footer() {
             <h3 className="text-white font-bold text-sm uppercase tracking-widest mb-5">
               Contact Us
             </h3>
-            <ul className="space-y-4" role="list">
+            <ul className="space-y-3.5" role="list">
               <li className="flex gap-3">
                 <MapPin className="w-4 h-4 text-orange-400 mt-0.5 flex-shrink-0" aria-hidden="true" />
                 <address className="not-italic text-sm text-gray-400 leading-relaxed">
-                  {company.address}
+                  <span className="font-semibold text-gray-300 block text-xs uppercase tracking-wider mb-0.5">Registered Office</span>
+                  {company.registeredOffice || company.address}
                 </address>
+              </li>
+              <li className="bg-gray-800/60 p-3 rounded-lg text-xs space-y-1.5 border border-gray-700/50">
+                <p className="text-gray-300"><span className="text-gray-400 font-medium">Company Reg. No.:</span> <span className="font-semibold text-orange-400">{company.companyRegNo || '391105/82/83'}</span></p>
+                <p className="text-gray-300"><span className="text-gray-400 font-medium">VAT No.:</span> <span className="font-semibold text-orange-400">{company.vatNo || '623604209'}</span></p>
               </li>
               <li>
                 <a
@@ -212,6 +217,8 @@ export default function Footer() {
             &copy; {currentYear} {company.name}. All rights reserved. Kathmandu, Nepal.
           </p>
           <div className="flex items-center gap-4 flex-wrap justify-center sm:justify-end">
+            <span>Reg. No: {company.companyRegNo || '391105/82/83'}</span>
+            <span>VAT: {company.vatNo || '623604209'}</span>
             <Link to="/privacy-policy" className="hover:text-gray-300 transition-colors">
               Privacy Policy
             </Link>

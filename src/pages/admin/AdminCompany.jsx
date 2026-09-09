@@ -265,10 +265,40 @@ export default function AdminCompany() {
                 <input
                   type="text"
                   name="address"
-                  value={form.address}
+                  value={form.address || ''}
                   onChange={handleChange}
                   className={input()}
                   required
+                />
+              </Field>
+              <Field label="Registered Office Address">
+                <input
+                  type="text"
+                  name="registeredOffice"
+                  value={form.registeredOffice || ''}
+                  onChange={handleChange}
+                  placeholder="Babarmahal, Rajesh Marg, Kathmandu, Nepal"
+                  className={input()}
+                />
+              </Field>
+              <Field label="Company Registration No.">
+                <input
+                  type="text"
+                  name="companyRegNo"
+                  value={form.companyRegNo || ''}
+                  onChange={handleChange}
+                  placeholder="391105/82/83"
+                  className={input()}
+                />
+              </Field>
+              <Field label="VAT No.">
+                <input
+                  type="text"
+                  name="vatNo"
+                  value={form.vatNo || ''}
+                  onChange={handleChange}
+                  placeholder="623604209"
+                  className={input()}
                 />
               </Field>
             </div>
