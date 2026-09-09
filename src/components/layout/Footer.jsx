@@ -95,9 +95,8 @@ export default function Footer() {
                 Nexbuild <span className="text-orange-400">Architects</span>
               </span>
             </Link>
-            <p className="text-sm text-gray-400 leading-relaxed mb-5">
-              {company.name} is a trusted architecture and construction company based in Kathmandu, Nepal, delivering
-              premium residential and commercial construction services since {company.foundedYear}.
+            <p className="text-xs text-gray-400 leading-relaxed mb-4">
+              {company.legalName || 'Nexbuild Architects And Construction Pvt. Ltd.'} is a Nepal-based engineering and construction company operating from its registered head office in Kathmandu, with project execution coordination in Chitwan and Pokhara.
             </p>
             {/* Social Links */}
             <div className="flex items-center gap-3">

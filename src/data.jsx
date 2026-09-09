@@ -11,7 +11,19 @@ export const ADMIN_CONFIG = {
 // ============================================================
 export const COMPANY = {
   name: 'Nexbuild Architects',
+  legalName: 'Nexbuild Architects And Construction Pvt. Ltd.',
   tagline: 'Designing Spaces. Building Futures.',
+  description: 'Nexbuild Architects And Construction Pvt. Ltd. is a Nepal-based engineering and construction company. The company delivers building construction, infrastructure development, land development, and technical consulting services for public and private sector clients. Operating from its registered head office in Kathmandu, Nexbuild maintains professional coordination with affiliated entities in Chitwan and Pokhara for the execution of regional projects.',
+  mission: 'To provide reliable, high-quality engineering and construction services that meet client specifications, comply with regulatory standards, and promote sustainable development.',
+  vision: 'To be recognized as the leading engineering and construction firm in Nepal, delivering projects that exemplify technical excellence and integrity.',
+  coreCompetencies: [
+    'Design-Build execution for residential, commercial, and infrastructure projects',
+    'Structural design, civil works, and architectural coordination',
+    'Land development, site planning, and drainage network implementation',
+    'Project management, scheduling, and cost control',
+    'Technical consulting and feasibility studies',
+  ],
+  regionalOffices: 'Head Office: Kathmandu | Affiliated Operations: Chitwan & Pokhara',
   phone: '+977 9843604439',
   email: 'nexbuild44@gmail.com',
   whatsapp: '9843604439',
@@ -20,7 +32,7 @@ export const COMPANY = {
   registeredOffice: 'Babarmahal, Rajesh Marg, Kathmandu, Nepal',
   companyRegNo: '391105/82/83',
   vatNo: '623604209',
-  addressShort: 'Kathmandu, Nepal',
+  addressShort: 'Kathmandu, Nepal (Operations in Chitwan & Pokhara)',
   mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.99!2d85.328!3d27.69!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb199658b1f5c3%3A0xe54e66601b0f5b33!2sRosebud%20School!5e0!3m2!1sen!2snp!4v1724000000000!5m2!1sen!2snp',
   businessHours: {
     weekdays: 'Sunday – Friday: 8:00 AM – 6:00 PM',

@@ -135,24 +135,20 @@ export default function AboutPage() {
 
             {/* Story Content */}
             <motion.div initial="hidden" whileInView="visible" viewport={viewportOnce} variants={fadeRight}>
-              <SectionHeader label="Our Story" title={<>From Humble Beginnings to <span className="text-orange-500">Kathmandu's Best</span></>} />
-              <p className="text-gray-600 leading-relaxed mb-4">
-                {company.name} was founded in {company.foundedYear} by a group of licensed civil engineers who shared a
-                common belief: that quality construction should be accessible, transparent, and honest.
-                Starting with small residential projects in the Kathmandu District, we grew steadily through
-                referrals, repeat clients, and a reputation for never cutting corners.
+              <SectionHeader label="Company Profile" title={<>Engineering & Construction <span className="text-orange-500">Excellence in Nepal</span></>} />
+              <p className="font-bold text-gray-900 text-lg mb-3">
+                {company.legalName || 'Nexbuild Architects And Construction Pvt. Ltd.'}
               </p>
               <p className="text-gray-600 leading-relaxed mb-4">
-                Today, we are one of Kathmandu's most trusted construction companies — with a portfolio of
-                over 250 completed projects spanning luxury villas, commercial complexes, hotels, schools,
-                and government buildings across Bagmati Province.
+                {company.description || `${company.legalName} is a Nepal-based engineering and construction company. The company delivers building construction, infrastructure development, land development, and technical consulting services for public and private sector clients.`}
               </p>
-              <p className="text-gray-600 leading-relaxed">
-                Our team of 80+ professionals — engineers, architects, site supervisors, and skilled
-                tradespeople — is united by a culture of excellence, accountability, and pride in our work.
-                Every structure we build is a testament to Kathmandu's growth and our commitment to raising
-                construction standards in Nepal.
+              <p className="text-gray-600 leading-relaxed mb-4">
+                Operating from our registered head office in Kathmandu, we maintain professional coordination with affiliated entities in Chitwan and Pokhara for the seamless execution of regional engineering and construction projects across Nepal.
               </p>
+              <div className="bg-blue-50 border-l-4 border-blue-800 p-4 rounded-r-xl">
+                <p className="text-xs font-bold uppercase text-blue-900 tracking-wider mb-1">Regional Operations & Coordination</p>
+                <p className="text-sm text-blue-800 font-medium">Registered Head Office: Babarmahal, Rajesh Marg, Kathmandu | Affiliated Operations: Chitwan & Pokhara</p>
+              </div>
             </motion.div>
 
           </div>
@@ -162,43 +158,61 @@ export default function AboutPage() {
       {/* Mission & Vision */}
       <section className="section-padding bg-[#f1f5f9]" aria-label="Mission and vision">
         <div className="container-custom">
-          <SectionHeader label="Our Direction" title={<>Mission, <span className="text-orange-500">Vision</span> & Values</>} center />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
+          <SectionHeader label="Our Direction" title={<>Mission, <span className="text-orange-500">Vision</span> & Core Competencies</>} center />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             {/* Mission */}
             <motion.div
               initial="hidden" whileInView="visible" viewport={viewportOnce} variants={fadeLeft}
-              className="bg-blue-800 text-white rounded-2xl p-8"
+              className="bg-blue-800 text-white rounded-2xl p-8 shadow-md"
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
                   <Target className="w-6 h-6 text-orange-400" aria-hidden="true" />
                 </div>
-                <h3 className="text-xl font-bold">Our Mission</h3>
+                <h3 className="text-xl font-bold">1.1 Our Mission</h3>
               </div>
-              <p className="text-blue-100 leading-relaxed">
-                To deliver premium, earthquake-resistant, and aesthetically excellent construction
-                services to the people of Kathmandu and Nepal — with full transparency, timely
-                completion, and unwavering commitment to client satisfaction.
+              <p className="text-blue-100 leading-relaxed text-base">
+                "{company.mission || 'To provide reliable, high-quality engineering and construction services that meet client specifications, comply with regulatory standards, and promote sustainable development.'}"
               </p>
             </motion.div>
 
             {/* Vision */}
             <motion.div
               initial="hidden" whileInView="visible" viewport={viewportOnce} variants={fadeRight}
-              className="bg-orange-500 text-white rounded-2xl p-8"
+              className="bg-orange-500 text-white rounded-2xl p-8 shadow-md"
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 bg-white/15 rounded-lg flex items-center justify-center">
                   <Eye className="w-6 h-6 text-white" aria-hidden="true" />
                 </div>
-                <h3 className="text-xl font-bold">Our Vision</h3>
+                <h3 className="text-xl font-bold">1.1 Our Vision</h3>
               </div>
-              <p className="text-orange-50 leading-relaxed">
-                To be the most trusted and respected construction company in Nepal — known for
-                transforming dreams into landmarks, raising industry standards, and contributing
-                to the sustainable development of Kathmandu and Bagmati Province.
+              <p className="text-orange-50 leading-relaxed text-base">
+                "{company.vision || 'To be recognized as the leading engineering and construction firm in Nepal, delivering projects that exemplify technical excellence and integrity.'}"
               </p>
             </motion.div>
+          </div>
+
+          {/* Core Competencies */}
+          <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm mb-14">
+            <h3 className="text-xl font-extrabold text-gray-900 mb-6 flex items-center gap-2">
+              <span className="w-2.5 h-6 bg-orange-500 rounded-full inline-block" />
+              1.2 Core Competencies
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {(company.coreCompetencies || [
+                'Design-Build execution for residential, commercial, and infrastructure projects',
+                'Structural design, civil works, and architectural coordination',
+                'Land development, site planning, and drainage network implementation',
+                'Project management, scheduling, and cost control',
+                'Technical consulting and feasibility studies'
+              ]).map((item, idx) => (
+                <div key={idx} className="flex items-start gap-3 p-3.5 bg-gray-50 rounded-xl border border-gray-100">
+                  <CheckCircle className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                  <span className="text-sm font-semibold text-gray-800">{item}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Core Values */}
