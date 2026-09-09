@@ -354,9 +354,22 @@ export const TEAM = [
     color: '#1e40af',
     featuredKeyPerson: true,
   },
-  { id: 2, name: 'Ar. Nexbuild Architect', designation: 'Chief Architect & Design Director', qualification: 'B.Arch, SONA Member', experience: '15+ years', avatar: 'AD', color: '#f97316' },
-  { id: 3, name: 'Er. Nexbuild Engineer', designation: 'Head of Structural Engineering', qualification: 'M.E. Structural Engineering, NEA Member', experience: '12+ years', avatar: 'SE', color: '#1e40af' },
-  { id: 4, name: 'Er. Ramesh Thapa', designation: 'Project Manager', qualification: 'B.E. Civil Engineering, PMP Certified', experience: '10+ years', avatar: 'PM', color: '#f97316' },
+  {
+    id: 2,
+    name: 'Er. Rajesh Yadav',
+    designation: 'Chief Structural Engineer & Technical Director',
+    qualification: 'Master’s Degree in Structural Engineering, TU (2079 B.S.) | B.E. Civil (2072 B.S.)',
+    experience: 'M.E. Structural (TU 2079 B.S.)',
+    phone: '9843456230',
+    permanentAddress: 'Gadhimai-04, Rautahat, Nepal',
+    temporaryAddress: 'Tikathali, Kathmandu, Nepal',
+    image: '/rajesh-yadav.png',
+    avatar: 'RY',
+    color: '#f97316',
+    featuredKeyPerson: true,
+  },
+  { id: 3, name: 'Ar. Nexbuild Architect', designation: 'Chief Architect & Design Director', qualification: 'B.Arch, SONA Member', experience: '15+ years', avatar: 'AD', color: '#f97316' },
+  { id: 4, name: 'Er. Ramesh Thapa', designation: 'Project Manager', qualification: 'B.E. Civil Engineering, PMP Certified', experience: '10+ years', avatar: 'PM', color: '#1e40af' },
 ];
 
 // ============================================================

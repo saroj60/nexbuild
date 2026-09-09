@@ -376,12 +376,17 @@
     },
     {
       "id": 2,
-      "name": "Ar. Nexbuild Architect",
-      "designation": "Chief Architect & Design Director",
-      "qualification": "B.Arch, SONA Member",
-      "experience": "15+ years",
-      "avatar": "AD",
-      "color": "#f97316"
+      "name": "Er. Rajesh Yadav",
+      "designation": "Chief Structural Engineer & Technical Director",
+      "qualification": "Master’s Degree in Structural Engineering, TU (2079 B.S.) | B.E. Civil (2072 B.S.)",
+      "experience": "M.E. Structural (TU 2079 B.S.)",
+      "phone": "9843456230",
+      "permanentAddress": "Gadhimai-04, Rautahat, Nepal",
+      "temporaryAddress": "Tikathali, Kathmandu, Nepal",
+      "image": "/rajesh-yadav.png",
+      "avatar": "RY",
+      "color": "#f97316",
+      "featuredKeyPerson": true
     },
     {
       "id": 3,
