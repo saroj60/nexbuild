@@ -20,10 +20,8 @@ app.use(express.json({ limit: '25mb' })); // Support base64 image uploads
 // Serve static compiled frontend React files
 app.use(express.static(distPath));
 
-const ADMIN_CREDENTIALS = {
-  username: 'nexbuild44@gmail.com',
-  password: 'nexbuild@@2026',
-};
+const VALID_USERNAMES = ['nexbuild@gmail.com', 'nexbuild44@gmail.com', 'admin'];
+const VALID_PASSWORDS = ['nexbuild@@2026', 'nexbuild2026'];
 
 const VALID_TOKEN = 'nexbuild_session_token_2026';
 
@@ -76,7 +74,7 @@ app.post('/api/auth/login', (req, res) => {
   }
 
   const cleanUser = username.trim().toLowerCase();
-  if (cleanUser === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+  if (VALID_USERNAMES.includes(cleanUser) && VALID_PASSWORDS.includes(password)) {
     return res.json({ success: true, token: VALID_TOKEN });
   }
 

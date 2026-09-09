@@ -137,34 +137,47 @@ export default function ProjectDetailPage() {
       </div>
 
       {/* Hero Image */}
-      <section aria-label="Project hero image">
-        <div className="relative h-64 sm:h-80 md:h-[28rem] overflow-hidden">
+      <section aria-label="Project hero image" className="relative bg-slate-950 overflow-hidden">
+        {/* Ambient Blurred Background for visual fill */}
+        <img
+          src={allImages[0]}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-30 scale-110 pointer-events-none"
+          aria-hidden="true"
+        />
+
+        {/* Hero Banner Container */}
+        <div className="relative min-h-[420px] sm:min-h-[500px] md:min-h-[580px] lg:h-[640px] flex items-center justify-center container-custom py-8 pb-24">
           <img
             src={allImages[0]}
             alt={`${project.title} — ${project.category} project in ${project.location}`}
-            className="w-full h-full object-cover"
+            className="max-h-[340px] sm:max-h-[420px] md:max-h-[480px] lg:max-h-[540px] w-auto max-w-full object-contain rounded-2xl shadow-2xl z-10 my-auto cursor-pointer transition-transform duration-300 hover:scale-[1.01]"
             loading="eager"
+            onClick={() => openLightbox(0)}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-          {/* Overlay info */}
-          <div className="absolute bottom-6 left-0 right-0 container-custom text-white">
-            <div className="flex flex-wrap items-center gap-2 mb-2">
-              <span className={`text-xs font-bold px-3 py-1 rounded-full ${statusColors[project.status] || statusColors.Completed}`}>
-                {project.status === 'Completed'
-                  ? <CheckCircle className="inline w-3 h-3 mr-1" />
-                  : <Clock className="inline w-3 h-3 mr-1" />}
-                {project.status}
-              </span>
-              <span className="text-xs bg-blue-700 text-white font-bold px-3 py-1 rounded-full">
-                {project.category}
-              </span>
-            </div>
-            <h1 className="text-2xl md:text-4xl font-extrabold">{project.title}</h1>
-            <p className="flex items-center gap-1.5 mt-1.5 text-gray-200 text-sm">
-              <MapPin className="w-4 h-4 text-orange-400" aria-hidden="true" />
-              {project.location}
-            </p>
+        </div>
+
+        {/* Gradient Overlay for Text Contrast */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent pointer-events-none z-10" />
+
+        {/* Overlay info */}
+        <div className="absolute bottom-6 left-0 right-0 container-custom text-white z-20">
+          <div className="flex flex-wrap items-center gap-2 mb-2">
+            <span className={`text-xs font-bold px-3 py-1 rounded-full ${statusColors[project.status] || statusColors.Completed}`}>
+              {project.status === 'Completed'
+                ? <CheckCircle className="inline w-3 h-3 mr-1" />
+                : <Clock className="inline w-3 h-3 mr-1" />}
+              {project.status}
+            </span>
+            <span className="text-xs bg-blue-700 text-white font-bold px-3 py-1 rounded-full">
+              {project.category}
+            </span>
           </div>
+          <h1 className="text-2xl md:text-4xl font-extrabold">{project.title}</h1>
+          <p className="flex items-center gap-1.5 mt-1.5 text-gray-200 text-sm font-medium">
+            <MapPin className="w-4 h-4 text-orange-400" aria-hidden="true" />
+            {project.location}
+          </p>
         </div>
       </section>
 

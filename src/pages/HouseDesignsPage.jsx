@@ -57,13 +57,36 @@ export default function HouseDesignsPage() {
         <meta property="og:url" content="https://nexbuildarchitects.com.np/house-designs" />
         <meta property="og:title" content={`House Designs & Architectural Plans in Nepal | ${company.name}`} />
         <meta property="og:description" content="Explore custom architectural house plans, 3D elevations, and engineering drawings across Kathmandu, Nepal." />
-        <meta property="og:image" content="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80" />
+        <meta property="og:image" content="https://nexbuildarchitects.com.np/projects/budhanilkantha-1.png" />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={`House Designs & Architectural Plans in Nepal | ${company.name}`} />
         <meta name="twitter:description" content="Explore custom architectural house plans, 3D elevations, and engineering drawings across Kathmandu, Nepal." />
-        <meta name="twitter:image" content="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80" />
+        <meta name="twitter:image" content="https://nexbuildarchitects.com.np/projects/budhanilkantha-1.png" />
+
+        {/* JSON-LD Schema */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "House Designs & Architectural Plans",
+            "itemListElement": (houseDesigns || []).map((d, idx) => ({
+              "@type": "ListItem",
+              "position": idx + 1,
+              "item": {
+                "@type": "Product",
+                "name": d.title,
+                "description": d.description,
+                "image": d.image,
+                "brand": {
+                  "@type": "Brand",
+                  "name": company.name
+                }
+              }
+            }))
+          })}
+        </script>
       </Helmet>
 
       {/* Page Hero */}

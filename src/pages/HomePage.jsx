@@ -30,14 +30,14 @@ export default function HomePage() {
         <meta property="og:url" content="https://nexbuildarchitects.com.np/" />
         <meta property="og:title" content={`${company.name} | Best Construction Company in Kathmandu | Top Builder in Nepal`} />
         <meta property="og:description" content="Nexbuild Architects is the best construction company in Kathmandu, offering top-tier house designing in Nepal and quality commercial/residential construction." />
-        <meta property="og:image" content="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80" />
+        <meta property="og:image" content="https://nexbuildarchitects.com.np/projects/budhanilkantha-1.png" />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content="https://nexbuildarchitects.com.np/" />
         <meta name="twitter:title" content={`${company.name} | Best Construction Company in Kathmandu | Top Builder in Nepal`} />
         <meta name="twitter:description" content="Nexbuild Architects is the best construction company in Kathmandu, offering top-tier house designing in Nepal and quality commercial/residential construction." />
-        <meta name="twitter:image" content="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80" />
+        <meta name="twitter:image" content="https://nexbuildarchitects.com.np/projects/budhanilkantha-1.png" />
 
         {/* JSON-LD LocalBusiness & ArchitecturalFirm Schema Markup */}
         <script type="application/ld+json">

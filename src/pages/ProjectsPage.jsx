@@ -22,30 +22,50 @@ export default function ProjectsPage() {
   return (
     <>
       <Helmet>
-        <title>Our Projects | {company.name} — Kathmandu, Nepal</title>
+        <title>Portfolio & Completed Projects in Kathmandu | {company.name}</title>
         <meta
           name="description"
-          content={`Explore our portfolio of completed and ongoing construction projects in Kathmandu, Nepal by ${company.name} — residential villas, hotel resorts, commercial centers, and renovations.`}
+          content={`Explore our portfolio of completed and ongoing construction projects in Kathmandu, Nepal by ${company.name} — residential villas, commercial complexes, Maitidevi, Radhe Radhe, Budhanilkantha, Dhapakhel, Chitwan.`}
         />
         <meta
           name="keywords"
-          content="construction projects Kathmandu, best builders Nepal, luxury homes Kathmandu, completed buildings Kathmandu, commercial designs Nepal, top 10 construction company"
+          content="construction projects Kathmandu, best builders Nepal, luxury homes Kathmandu, completed buildings Kathmandu, commercial designs Nepal, top 10 construction company, Maitidevi building, Chitwan residence"
         />
         <link rel="canonical" href="https://nexbuildarchitects.com.np/projects" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://nexbuildarchitects.com.np/projects" />
-        <meta property="og:title" content={`Our Projects | ${company.name} — Kathmandu, Nepal`} />
-        <meta property="og:description" content={`Explore completed and ongoing construction projects in Kathmandu by ${company.name}. See our portfolio of villas, hotels, and complexes.`} />
-        <meta property="og:image" content="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80" />
+        <meta property="og:title" content={`Portfolio & Completed Projects in Kathmandu | ${company.name}`} />
+        <meta property="og:description" content={`Explore completed and ongoing construction projects in Kathmandu by ${company.name}. See our portfolio of villas, commercial complexes, and residences.`} />
+        <meta property="og:image" content="https://nexbuildarchitects.com.np/projects/maitidevi-1.png" />
 
         {/* Twitter */}
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content="https://nexbuildarchitects.com.np/projects" />
-        <meta name="twitter:title" content={`Our Projects | ${company.name} — Kathmandu, Nepal`} />
-        <meta name="twitter:description" content={`Explore completed and ongoing construction projects in Kathmandu by ${company.name}. See our portfolio of villas, hotels, and complexes.`} />
-        <meta name="twitter:image" content="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80" />
+        <meta name="twitter:title" content={`Portfolio & Completed Projects in Kathmandu | ${company.name}`} />
+        <meta name="twitter:description" content={`Explore completed and ongoing construction projects in Kathmandu by ${company.name}.`} />
+        <meta name="twitter:image" content="https://nexbuildarchitects.com.np/projects/maitidevi-1.png" />
+
+        {/* JSON-LD Schema */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Construction Projects Portfolio",
+            "itemListElement": (projects || []).map((p, idx) => ({
+              "@type": "ListItem",
+              "position": idx + 1,
+              "item": {
+                "@type": "CreativeWork",
+                "name": p.title,
+                "url": `https://nexbuildarchitects.com.np/projects/${p.id}`,
+                "image": p.image,
+                "locationCreated": p.location
+              }
+            }))
+          })}
+        </script>
       </Helmet>
 
       {/* Page Hero */}
@@ -54,9 +74,9 @@ export default function ProjectsPage() {
         aria-label="Projects page header"
       >
         <img
-          src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1600&q=80"
-          alt="Portfolio of construction projects in Kathmandu Nepal"
-          className="absolute inset-0 w-full h-full object-cover opacity-25"
+          src="/projects-banner-bg.jpg"
+          alt="Portfolio of building construction projects in Kathmandu Nepal"
+          className="absolute inset-0 w-full h-full object-cover opacity-35"
           loading="eager"
         />
         <div className="relative z-10 container-custom text-center">

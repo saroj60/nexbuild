@@ -59,9 +59,9 @@ export default function VlogsPage() {
         aria-label="Vlog page header"
       >
         <img
-          src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1600&q=80"
-          alt="Kathmandu valley cityscape and engineering background"
-          className="absolute inset-0 w-full h-full object-cover opacity-25"
+          src="/hero-engineers-site.jpg"
+          alt="Kathmandu building construction and engineering site"
+          className="absolute inset-0 w-full h-full object-cover opacity-30"
           loading="eager"
         />
         <div className="relative z-10 container-custom text-center">

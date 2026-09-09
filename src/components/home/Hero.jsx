@@ -5,40 +5,57 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const DEFAULT_HERO_SLIDES = [
   {
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80",
-    title: "MODERN RESIDENTIAL VILLA",
-    location: "Budhanilkantha, Kathmandu",
+    id: 'maitidevi-commercial-building',
+    image: '/projects/maitidevi-1.png',
+    title: 'MAITIDEVI COMMERCIAL BUILDING',
+    location: 'Maitidevi, Kathmandu',
   },
   {
-    image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1920&q=80",
-    title: "HILLSIDE RESIDENTIAL VILLA",
-    location: "Nagarkot Road, Kathmandu",
+    id: 'radhe-radhe-commercial-building',
+    image: '/projects/radhe-radhe-1.png',
+    title: 'RADHE RADHE COMMERCIAL BUILDING',
+    location: 'Radhe Radhe Chowk, Bhaktapur',
   },
   {
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80",
-    title: "CONTEMPORARY URBAN HOME",
-    location: "Baluwatar, Kathmandu",
+    id: 'tinchuli-commercial-building',
+    image: '/projects/tinchuli-1.png',
+    title: 'TINCHULI COMMERCIAL BUILDING',
+    location: 'Tinchuli, Kathmandu',
   },
   {
-    image: "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?w=1920&q=80",
-    title: "BRICK CRAFTSMANSHIP & RCC RESIDENCE",
-    location: "Jhamsikhel, Lalitpur",
+    id: 'budhanilkantha-residence',
+    image: '/projects/budhanilkantha-1.png',
+    title: 'BUDHANILKANTHA RESIDENCE',
+    location: 'Budhanilkantha, Kathmandu',
+  },
+  {
+    id: 'chitwan-residence',
+    image: '/projects/chitwan-1.png',
+    title: 'CHITWAN RESIDENCE',
+    location: 'Bharatpur, Chitwan',
+  },
+  {
+    id: 'raniban-neo-classical-residence',
+    image: '/projects/raniban-1.png',
+    title: 'RANIBAN NEO-CLASSICAL RESIDENCE',
+    location: 'Raniban, Kathmandu',
   },
 ];
 
 export default function Hero() {
-  const { company } = useAdmin();
+  const { company, projects } = useAdmin();
 
-  const slides = (company?.heroImages && company.heroImages.length > 0)
-    ? company.heroImages.map((img, idx) => {
-        const fallback = DEFAULT_HERO_SLIDES[idx % DEFAULT_HERO_SLIDES.length];
-        return {
-          image: img,
-          title: fallback.title,
-          location: fallback.location,
-        };
-      })
-    : DEFAULT_HERO_SLIDES;
+  // Dynamically collect real project hero slides from projects with custom uploaded images
+  const customProjectSlides = (projects || [])
+    .filter((p) => p.image && !p.image.includes('unsplash.com'))
+    .map((p) => ({
+      id: p.id,
+      image: p.image,
+      title: p.title.toUpperCase(),
+      location: p.location,
+    }));
+
+  const slides = customProjectSlides.length > 0 ? customProjectSlides : DEFAULT_HERO_SLIDES;
 
   const [currentIdx, setCurrentIdx] = useState(0);
 
@@ -170,11 +187,15 @@ export default function Hero() {
               className="pt-5 sm:pt-8 border-t border-slate-800/80 grid grid-cols-3 gap-2 xs:gap-3 sm:gap-6 items-center max-w-[580px]"
             >
               <div>
-                <p className="text-xl xs:text-2xl sm:text-3xl lg:text-[32px] font-extrabold text-[#F5F7FA] tracking-tight">120+</p>
-                <p className="text-[10px] xs:text-[11px] sm:text-xs text-[#AAB4C5] font-medium tracking-wide mt-0.5 leading-snug">Clients &amp; Projects</p>
+                <p className="text-xl xs:text-2xl sm:text-3xl lg:text-[32px] font-extrabold text-[#F5F7FA] tracking-tight">
+                  {company?.stats?.projectsCompleted || '15+'}
+                </p>
+                <p className="text-[10px] xs:text-[11px] sm:text-xs text-[#AAB4C5] font-medium tracking-wide mt-0.5 leading-snug">Projects Completed</p>
               </div>
               <div className="border-l border-slate-800/80 pl-2 xs:pl-3 sm:pl-6">
-                <p className="text-xl xs:text-2xl sm:text-3xl lg:text-[32px] font-extrabold text-[#F5F7FA] tracking-tight">3+</p>
+                <p className="text-xl xs:text-2xl sm:text-3xl lg:text-[32px] font-extrabold text-[#F5F7FA] tracking-tight">
+                  {company?.stats?.yearsExperience || '6+'}
+                </p>
                 <p className="text-[10px] xs:text-[11px] sm:text-xs text-[#AAB4C5] font-medium tracking-wide mt-0.5 leading-snug">Years Experience</p>
               </div>
               <div className="border-l border-slate-800/80 pl-2 xs:pl-3 sm:pl-6">
@@ -201,7 +222,11 @@ export default function Hero() {
             />
 
             {/* Showcase Container - Responsive height on mobile */}
-            <div className="relative w-full h-[280px] xs:h-[340px] sm:h-[420px] lg:h-[540px] xl:h-[580px] rounded-[20px] sm:rounded-[26px] overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(5,10,24,0.7)] bg-[#0B1530] group">
+            <Link
+              to={slides[currentIdx]?.id ? `/projects/${slides[currentIdx].id}` : '/projects'}
+              className="relative block w-full h-[280px] xs:h-[340px] sm:h-[420px] lg:h-[540px] xl:h-[580px] rounded-[20px] sm:rounded-[26px] overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(5,10,24,0.7)] bg-[#0B1530] group cursor-pointer"
+              aria-label={`View ${slides[currentIdx]?.title || 'project'}`}
+            >
               <AnimatePresence mode="wait">
                 <motion.img
                   key={currentIdx}
@@ -235,10 +260,10 @@ export default function Hero() {
 
                 {/* Bottom Right: Slide Counter */}
                 <div className="text-[11px] sm:text-sm font-semibold tracking-wider text-[#F5F7FA]/90 bg-[#050A18]/65 backdrop-blur-md px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg border border-white/10 shrink-0">
-                  0{currentIdx + 1} / 0{slides.length}
+                  {currentIdx + 1 < 10 ? '0' : ''}{currentIdx + 1} / {slides.length < 10 ? '0' : ''}{slides.length}
                 </div>
               </div>
-            </div>
+            </Link>
 
             {/* Slider Navigation Dots */}
             <div className="flex justify-center items-center gap-2 mt-4 sm:mt-5">

@@ -12,9 +12,10 @@ export default function AdminHighlights() {
   const {
     whyChooseUs, addWhyItem, updateWhyItem, deleteWhyItem, resetWhyChooseUs,
     processSteps, addProcessStep, updateProcessStep, deleteProcessStep, resetProcessSteps,
+    processVideo, updateProcessVideo,
   } = useAdmin();
 
-  // Mode: 'why' or 'process'
+  // Mode: 'why', 'process', or 'video'
   const [tab, setTab] = useState('why');
 
   // Form State
@@ -22,9 +23,23 @@ export default function AdminHighlights() {
   const [showForm, setShowForm] = useState(false);
   const [whyForm, setWhyForm] = useState(EMPTY_WHY);
   const [processForm, setProcessForm] = useState(EMPTY_PROCESS);
+  const [videoForm, setVideoForm] = useState(processVideo || {
+    title: 'See How We Build in Kathmandu',
+    subtitle: 'From foundation excavation to luxury interior finishing',
+    youtubeUrl: 'https://www.youtube.com/watch?v=wnuiJNXbfYM',
+    thumbnail: '',
+    badge: 'Live On-Site Process'
+  });
 
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState('');
+
+  function handleSaveVideo(e) {
+    e.preventDefault();
+    updateProcessVideo(videoForm);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  }
 
   // Why Choose Us CRUD Handlers
   function openNewWhy() {
@@ -141,21 +156,33 @@ export default function AdminHighlights() {
           >
             Process Timeline
           </button>
+          <button
+            onClick={() => { setTab('video'); setShowForm(false); }}
+            className={`py-3 px-6 font-bold text-sm border-b-2 transition-colors ${
+              tab === 'video'
+                ? 'border-blue-800 text-blue-800'
+                : 'border-transparent text-gray-500 hover:text-gray-800'
+            }`}
+          >
+            Process Video
+          </button>
         </div>
 
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-xl font-bold text-gray-900">
-              {tab === 'why' ? 'Why Choose Us Configuration' : 'How We Work Timeline'}
+              {tab === 'why' ? 'Why Choose Us Configuration' : tab === 'process' ? 'How We Work Timeline' : 'Construction Process Video Showcase'}
             </h1>
             <p className="text-gray-500 text-sm mt-0.5">
               {tab === 'why'
                 ? 'Configure items listed in the "Nexbuild Advantage" highlights grid'
-                : 'Configure steps displayed in the horizontal/vertical desktop and mobile timelines'}
+                : tab === 'process'
+                ? 'Configure steps displayed in the horizontal/vertical desktop and mobile timelines'
+                : 'Configure YouTube video, titles, and thumbnail for the live construction process section'}
             </p>
           </div>
-          {!showForm && (
+          {!showForm && tab !== 'video' && (
             <div className="flex gap-2">
               <button
                 type="button"
@@ -304,6 +331,58 @@ export default function AdminHighlights() {
                 Cancel
               </button>
             </div>
+          </form>
+        ) : tab === 'video' ? (
+          /* Process Video Form */
+          <form onSubmit={handleSaveVideo} className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 space-y-4">
+            <h2 className="font-bold text-gray-900 text-sm pb-3 border-b border-gray-100">
+              Live Construction Process Video Settings
+            </h2>
+            <Field label="Section Header Title">
+              <input
+                type="text"
+                value={videoForm.title || ''}
+                onChange={(e) => setVideoForm(v => ({ ...v, title: e.target.value }))}
+                placeholder="e.g. See How We Build in Kathmandu"
+                className={input()}
+                required
+              />
+            </Field>
+            <Field label="Section Subtitle / Description">
+              <input
+                type="text"
+                value={videoForm.subtitle || ''}
+                onChange={(e) => setVideoForm(v => ({ ...v, subtitle: e.target.value }))}
+                placeholder="e.g. From foundation excavation to luxury interior finishing"
+                className={input()}
+              />
+            </Field>
+            <Field label="YouTube Video URL (e.g. https://www.youtube.com/watch?v=...)">
+              <input
+                type="url"
+                value={videoForm.youtubeUrl || ''}
+                onChange={(e) => setVideoForm(v => ({ ...v, youtubeUrl: e.target.value }))}
+                placeholder="https://www.youtube.com/watch?v=..."
+                className={input()}
+                required
+              />
+            </Field>
+            <Field label="Top Badge Label">
+              <input
+                type="text"
+                value={videoForm.badge || ''}
+                onChange={(e) => setVideoForm(v => ({ ...v, badge: e.target.value }))}
+                placeholder="e.g. Live On-Site Process"
+                className={input()}
+              />
+            </Field>
+
+            <button
+              type="submit"
+              className="bg-blue-800 hover:bg-blue-900 text-white font-bold px-8 py-3 rounded-xl transition-colors text-sm"
+            >
+              Save Process Video Settings
+            </button>
           </form>
         ) : (
           /* List Views */

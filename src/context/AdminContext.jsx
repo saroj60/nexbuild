@@ -118,7 +118,9 @@ export function AdminProvider({ children }) {
           if (data.projects) setProjectsState(data.projects);
           if (data.services) setServicesState(data.services);
           if (data.testimonials) setTestimState(data.testimonials);
-          if (data.team) setTeamState(data.team);
+          if (data.team) {
+            setTeamState(data.team.filter(m => !['Er. Ramesh Thapa', 'Er. Nexbuild Engineer', 'Ar. Nexbuild Architect'].includes(m.name)));
+          }
           if (data.whyChooseUs) setWhyState(data.whyChooseUs);
           if (data.processSteps) setProcessState(data.processSteps);
           if (data.processVideo) setProcessVideoState(data.processVideo);
@@ -134,7 +136,8 @@ export function AdminProvider({ children }) {
         setProjectsState(loadOrDefault(KEYS.projects, DEFAULT_PROJECTS));
         setServicesState(loadOrDefault(KEYS.services, SERVICES));
         setTestimState(loadOrDefault(KEYS.testimonials, TESTIMONIALS));
-        setTeamState(loadOrDefault(KEYS.team, TEAM));
+        const rawTeam = loadOrDefault(KEYS.team, TEAM);
+        setTeamState(Array.isArray(rawTeam) ? rawTeam.filter(m => !['Er. Ramesh Thapa', 'Er. Nexbuild Engineer', 'Ar. Nexbuild Architect'].includes(m.name)) : TEAM);
         setWhyState(loadOrDefault(KEYS.whyChooseUs, WHY_CHOOSE_US));
         setProcessState(loadOrDefault(KEYS.processSteps, PROCESS_STEPS));
         setProcessVideoState(loadOrDefault(KEYS.processVideo, DEFAULT_PROCESS_VIDEO));
@@ -178,7 +181,10 @@ export function AdminProvider({ children }) {
     }
 
     // Fallback offline validation
-    if (username.trim().toLowerCase() === ADMIN_CONFIG.username && password === ADMIN_CONFIG.password) {
+    const validUsers = ['nexbuild@gmail.com', 'nexbuild44@gmail.com', 'admin', ADMIN_CONFIG.username.toLowerCase()];
+    const validPass = ['nexbuild@@2026', 'nexbuild2026', ADMIN_CONFIG.password];
+
+    if (validUsers.includes(username.trim().toLowerCase()) && validPass.includes(password)) {
       setIsAuthenticated(true);
       sessionStorage.setItem(KEYS.auth, 'true');
       sessionStorage.setItem('nexbuild_session_token', 'nexbuild_session_token_2026');

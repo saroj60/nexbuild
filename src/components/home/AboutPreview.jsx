@@ -13,7 +13,22 @@ const highlights = [
 ];
 
 export default function AboutPreview() {
-  const { company } = useAdmin();
+  const { company, projects } = useAdmin();
+
+  // Dynamically select 4 real project images from projects list
+  const realProjectImages = (projects || [])
+    .filter((p) => p.image && !p.image.includes('unsplash.com'))
+    .map((p) => ({ image: p.image, title: p.title }));
+
+  const gridImages = realProjectImages.length >= 4
+    ? realProjectImages.slice(0, 4)
+    : [
+        { image: '/projects/raniban-1.png', title: 'Raniban Neo-Classical Residence' },
+        { image: '/projects/chitwan-1.png', title: 'Chitwan Residence' },
+        { image: '/projects/maitidevi-1.png', title: 'Maitidevi Commercial Building' },
+        { image: '/projects/budhanilkantha-1.png', title: 'Budhanilkantha Residence' },
+      ];
+
   return (
     <section
       className="py-10 md:py-14 bg-[#f1f5f9] text-slate-900"
@@ -31,30 +46,15 @@ export default function AboutPreview() {
             variants={fadeLeft}
           >
             <div className="grid grid-cols-2 gap-4">
-              <img
-                src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80"
-                alt="Architect reviewing construction blueprints"
-                className="rounded-lg object-cover h-36 sm:h-48 md:h-52 w-full shadow-sm"
-                loading="lazy"
-              />
-              <img
-                src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=600&q=80"
-                alt="Residential construction in Kathmandu Valley"
-                className="rounded-lg object-cover h-36 sm:h-48 md:h-52 w-full shadow-sm"
-                loading="lazy"
-              />
-              <img
-                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80"
-                alt="Completed commercial building construction"
-                className="rounded-lg object-cover h-36 sm:h-48 md:h-52 w-full shadow-sm"
-                loading="lazy"
-              />
-              <img
-                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80"
-                alt="Completed residential villa design"
-                className="rounded-lg object-cover h-36 sm:h-48 md:h-52 w-full shadow-sm"
-                loading="lazy"
-              />
+              {gridImages.map((imgItem, idx) => (
+                <img
+                  key={idx}
+                  src={imgItem.image}
+                  alt={imgItem.title}
+                  className="rounded-lg object-cover h-36 sm:h-48 md:h-52 w-full shadow-sm hover:scale-[1.02] transition-transform duration-300"
+                  loading="lazy"
+                />
+              ))}
             </div>
 
             {/* Subtle Floating Badge */}
@@ -82,7 +82,7 @@ export default function AboutPreview() {
 
             {/* Description */}
             <p className="text-slate-650 text-sm md:text-base leading-relaxed mb-4">
-              At {company.name}, we combine visionary design with solid engineering to build residential villas and commercial spaces that stand the test of time. As Kathmandu’s trusted partner, we manage projects from initial concept through municipal map approval to final construction.
+              {company.description || `At ${company.name}, we combine visionary design with solid engineering to build residential villas and commercial spaces that stand the test of time. As Kathmandu’s trusted partner, we manage projects from initial concept through municipal map approval to final construction.`}
             </p>
             <p className="text-slate-650 text-sm md:text-base leading-relaxed mb-6">
               Our integrated team of architects, structural engineers, and project managers ensures a seamless and transparent build process. We focus on Vastu-compliant layouts, earthquake-resistant frames, and premium finishes tailored to your exact budget.

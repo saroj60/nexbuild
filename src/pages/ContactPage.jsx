@@ -92,30 +92,52 @@ export default function ContactPage() {
   return (
     <>
       <Helmet>
-        <title>Contact Us | {company.name} — Kathmandu, Nepal</title>
+        <title>Contact Us & Free Consultation | {company.name} Kathmandu</title>
         <meta
           name="description"
-          content={`Get a free quote and consultation from ${company.name} in Kathmandu. Reach us via phone at ${company.phone}, WhatsApp, email, or visit our office.`}
+          content={`Get a free quote and architectural consultation from ${company.name} in Kathmandu. Phone: ${company.phone}, WhatsApp: ${company.whatsapp}, Email: ${company.email}.`}
         />
         <meta
           name="keywords"
-          content="contact construction company, builder contact Nepal, Kathmandu contractor office, structural engineers phone Kathmandu, building quotes Bagmati"
+          content="contact construction company, builder contact Nepal, Kathmandu contractor office, structural engineers phone Kathmandu, building quotes Kathmandu, Er. Karun Pandey contact"
         />
         <link rel="canonical" href="https://nexbuildarchitects.com.np/contact" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://nexbuildarchitects.com.np/contact" />
-        <meta property="og:title" content={`Contact Us | ${company.name} — Kathmandu, Nepal`} />
-        <meta property="og:description" content={`Get in touch with ${company.name} in Kathmandu, Nepal. Phone: ${company.phone}, Email: ${company.email}, address: ${company.addressShort}.`} />
-        <meta property="og:image" content="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&q=80" />
+        <meta property="og:title" content={`Contact Us & Free Consultation | ${company.name} Kathmandu`} />
+        <meta property="og:description" content={`Get in touch with ${company.name} in Kathmandu, Nepal. Phone: ${company.phone}, Email: ${company.email}, Address: ${company.address}.`} />
+        <meta property="og:image" content="https://nexbuildarchitects.com.np/projects/budhanilkantha-1.png" />
 
         {/* Twitter */}
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content="https://nexbuildarchitects.com.np/contact" />
-        <meta name="twitter:title" content={`Contact Us | ${company.name} — Kathmandu, Nepal`} />
+        <meta name="twitter:title" content={`Contact Us & Free Consultation | ${company.name} Kathmandu`} />
         <meta name="twitter:description" content={`Get in touch with ${company.name} in Kathmandu, Nepal. Phone: ${company.phone}, Email: ${company.email}.`} />
-        <meta name="twitter:image" content="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&q=80" />
+        <meta name="twitter:image" content="https://nexbuildarchitects.com.np/projects/budhanilkantha-1.png" />
+
+        {/* JSON-LD Schema */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            "name": "Contact Nexbuild Architects",
+            "url": "https://nexbuildarchitects.com.np/contact",
+            "mainEntity": {
+              "@type": "LocalBusiness",
+              "name": company.name,
+              "telephone": company.phone,
+              "email": company.email,
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": company.address,
+                "addressLocality": "Kathmandu",
+                "addressCountry": "NP"
+              }
+            }
+          })}
+        </script>
       </Helmet>
 
       {/* Page Hero */}

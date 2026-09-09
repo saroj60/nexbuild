@@ -3,7 +3,7 @@
 // ============================================================
 export const ADMIN_CONFIG = {
   password: 'nexbuild@@2026',
-  username: 'nexbuild44@gmail.com',
+  username: 'nexbuild@gmail.com',
 };
 
 // ============================================================
@@ -46,8 +46,8 @@ export const COMPANY = {
     linkedin: 'https://linkedin.com/',
   },
   stats: {
-    projectsCompleted: '150+',
-    yearsExperience: '3+',
+    projectsCompleted: '15+',
+    yearsExperience: '6+',
     happyClients: '120+',
     professionals: '25+',
   },
@@ -74,7 +74,7 @@ export const SERVICES = [
     fullDesc:
       'We specialize in constructing a wide range of residential properties across Kathmandu and surrounding areas — bungalows, multi-storey homes, villas, and row houses. Our team ensures earthquake-resistant RCC construction following Nepal National Building Code (NBC) standards.',
     icon: 'Home',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
+    image: '/projects/raniban-1.png',
     features: ['NBC Compliant', 'Earthquake Resistant', 'Custom Designs', 'Quality Materials'],
   },
   {
@@ -85,7 +85,7 @@ export const SERVICES = [
     fullDesc:
       'Our commercial construction expertise spans office buildings, shopping complexes, hotels, resorts, and institutional buildings across Kathmandu and Bagmati Province. We handle projects from foundation to finishing with professional project management.',
     icon: 'Building2',
-    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
+    image: '/projects/maitidevi-1.png',
     features: ['Large-Scale Projects', 'Professional PM', 'MEP Integration', 'Modern Design'],
   },
   {
@@ -96,7 +96,7 @@ export const SERVICES = [
     fullDesc:
       'We provide comprehensive architectural and structural design services including 2D floor plans, 3D visualization, structural drawings, and permit-ready documentation for submission to Kathmandu Metropolitan City Office.',
     icon: 'PenTool',
-    image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80',
+    image: '/projects/chitwan-1.png',
     features: ['3D Visualization', 'Structural Design', 'Permit Documentation', 'Site Analysis'],
   },
   {
@@ -107,7 +107,7 @@ export const SERVICES = [
     fullDesc:
       'We handle complete and partial renovation projects for homes, offices, and commercial buildings in Kathmandu. Whether you need a kitchen remodel, bathroom upgrade, façade makeover, or full interior renovation, our team delivers quality results.',
     icon: 'Wrench',
-    image: 'https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=800&q=80',
+    image: '/projects/nayabazar-1.png',
     features: ['Full Renovation', 'Partial Remodel', 'Façade Works', 'Interior Upgrade'],
   },
   {
@@ -118,7 +118,7 @@ export const SERVICES = [
     fullDesc:
       'Our structural construction services are carried out by licensed civil engineers with deep expertise in earthquake-prone regions. We use M20–M40 grade concrete, Fe500 TMT bars, and modern formwork systems to ensure structural integrity.',
     icon: 'Columns',
-    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80',
+    image: '/projects/radhe-radhe-3.png',
     features: ['RCC Framework', 'Deep Foundation', 'Retaining Walls', 'Seismic Design'],
   },
   {
@@ -129,7 +129,7 @@ export const SERVICES = [
     fullDesc:
       'We provide complete interior and exterior finishing works including marble and granite flooring, gypsum ceiling, modular kitchen, paint finishing, exterior cladding, facade works, landscaping, and compound wall construction.',
     icon: 'Layers',
-    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80',
+    image: '/projects/budhanilkantha-2.png',
     features: ['Luxury Flooring', 'Gypsum Ceiling', 'Paint & Texture', 'Exterior Cladding'],
   },
   {
@@ -140,7 +140,7 @@ export const SERVICES = [
     fullDesc:
       'Our licensed engineers and architects offer professional consultancy services for individuals, businesses, and government bodies. We provide DPR preparation, structural audits, NBC compliance checks, and construction supervision services.',
     icon: 'ClipboardList',
-    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80',
+    image: '/projects/tinchuli-2.png',
     features: ['DPR Preparation', 'Structural Audit', 'NBC Compliance', 'Cost Advisory'],
   },
   {
@@ -151,138 +151,476 @@ export const SERVICES = [
     fullDesc:
       'From permit acquisition to project closeout, our project managers coordinate every aspect of construction — scheduling, procurement, quality control, safety management, and stakeholder communication — so your project runs smoothly.',
     icon: 'BarChart2',
-    image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80',
+    image: '/projects/dhapakhel-2.png',
     features: ['Scheduling', 'Budget Control', 'Quality Assurance', 'Safety Management'],
   },
 ];
 
 // ============================================================
-// DEFAULT PROJECTS DATA (used as seed — admin can add more)
+// DEFAULT PROJECTS DATA (Real Ongoing & Completed Projects)
 // ============================================================
 export const DEFAULT_PROJECTS = [
+  // ── ONGOING PROJECTS ─────────────────────────────────────
   {
-    id: 'lakeside-luxury-villa',
-    title: 'Babarmahal Luxury Villa',
-    location: 'Babarmahal, Kathmandu',
-    category: 'Residential',
-    status: 'Completed',
-    year: 2023,
-    client: 'Private Client',
-    area: '4,200 sq. ft.',
-    duration: '18 months',
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80',
-    gallery: [
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80',
-      'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200&q=80',
-    ],
-    description: 'A stunning 4-bedroom luxury villa overlooking Kathmandu Valley. This project showcases our ability to blend modern architecture with the natural beauty of Kathmandu, featuring panoramic lake views, premium Italian marble flooring, and a rooftop infinity pool.',
-    highlights: [
-      'Panoramic Kathmandu Valley views from all major rooms',
-      'Infinity pool and rooftop terrace',
-      'Premium Italian marble and granite finishes',
-      'Smart home automation system',
-      'Earthquake-resistant RCC frame structure',
-    ],
-    specifications: {
-      'Built-up Area': '4,200 sq. ft.',
-      Structure: 'RCC Frame, G+3',
-      Bedrooms: '4 BHK + 1 Guest Room',
-      Completion: 'June 2023',
-    },
-    featured: true,
-  },
-  {
-    id: 'kathmandu-business-center',
-    title: 'Kathmandu Business Center',
-    location: 'Baneshwor, Kathmandu',
+    id: 'maitidevi-commercial-building',
+    title: 'Maitidevi Commercial Building',
+    location: 'Maitidevi, Kathmandu (~100m from Seto Pul)',
     category: 'Commercial',
-    status: 'Completed',
-    year: 2022,
-    client: 'ABC Holdings Pvt. Ltd.',
-    area: '18,500 sq. ft.',
+    status: 'Ongoing',
+    year: 2026,
+    client: 'Private Commercial Client',
+    area: '16,500 sq. ft.',
+    contractValue: 'NPR 13 Crore',
     duration: '24 months',
-    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
+    image: '/projects/maitidevi-1.png',
     gallery: [
-      'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&q=80',
-      'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80',
+      '/projects/maitidevi-1.png',
+      '/projects/maitidevi-2.png',
+      '/projects/maitidevi-3.png',
+      '/projects/maitidevi-4.png',
+      '/projects/maitidevi-5.png'
     ],
-    description: 'A modern 6-storey commercial complex in the heart of Kathmandu city, housing offices, retail spaces, and a food court.',
+    description: 'Construction of a multi-storey commercial building at Maitidevi, located approximately 100 meters from Seto Pul. The project features one basement level and a robust reinforced-concrete (RCC) structural frame system.',
     highlights: [
-      'Grade A office space with central air conditioning',
-      'High-speed passenger elevators',
-      '100 KVA backup generator system',
+      'Contract Value: NPR 13 Crore',
+      'One basement level for dedicated parking & utility',
+      'Reinforced-concrete (RCC) structural frame system',
+      'Located 100m from Seto Pul, Maitidevi'
     ],
     specifications: {
-      'Built-up Area': '18,500 sq. ft.',
-      Floors: 'G+5 (6 Storeys)',
-      Completion: 'March 2022',
+      'Contract Value': 'NPR 13 Crore',
+      'Basement Levels': '1 Basement',
+      Structure: 'Reinforced Concrete (RCC) Frame',
+      Status: 'Ongoing Construction'
     },
     featured: true,
   },
   {
-    id: 'himalaya-resort-hotel',
-    title: 'Himalaya View Resort & Hotel',
-    location: 'Budhanilkantha, Kathmandu',
+    id: 'radhe-radhe-commercial-building',
+    title: 'Radhe Radhe Commercial Building',
+    location: 'Radhe Radhe Chowk, Bhaktapur (Near Bhatbhateni)',
     category: 'Commercial',
-    status: 'Completed',
-    year: 2023,
-    client: 'Himalayan Hospitality Group',
-    area: '22,000 sq. ft.',
-    duration: '30 months',
-    image: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&q=80',
+    status: 'Ongoing',
+    year: 2026,
+    client: 'Commercial Complex Client',
+    area: '24,000 sq. ft.',
+    contractValue: 'NPR 16 Crore',
+    duration: '28 months',
+    image: '/projects/radhe-radhe-1.png',
     gallery: [
-      'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1200&q=80',
-      'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&q=80',
+      '/projects/radhe-radhe-1.png',
+      '/projects/radhe-radhe-2.png',
+      '/projects/radhe-radhe-3.png',
+      '/projects/radhe-radhe-4.png'
     ],
-    description: 'A boutique resort hotel on Budhanilkantha with breathtaking Himalaya and Kathmandu Valley views. The 28-room property features a restaurant, spa, infinity pool, and conference facilities.',
+    description: 'A major commercial complex situated at Radhe Radhe Chowk, Bhaktapur near Bhatbhateni. Features two basement levels and mezzanine flooring, requiring deep excavation and specialized structural engineering coordination.',
     highlights: [
-      'Panoramic Himalayan views',
-      '28 deluxe rooms and suites',
-      'Infinity pool overlooking Kathmandu Valley',
+      'Contract Value: NPR 16 Crore',
+      'Two basement levels for underground parking',
+      'Mezzanine flooring & high-capacity structural design',
+      'Deep excavation & RCC structural engineering'
     ],
     specifications: {
-      'Built-up Area': '22,000 sq. ft.',
-      Floors: 'G+4',
-      Rooms: '28 deluxe rooms & suites',
-      Completion: 'November 2023',
+      'Contract Value': 'NPR 16 Crore',
+      'Basement Levels': '2 Basements + Mezzanine',
+      Location: 'Near Bhatbhateni, Radhe Radhe Chowk',
+      Status: 'Ongoing Construction'
     },
     featured: true,
   },
   {
-    id: 'machhapuchhre-hotel-renovation',
-    title: 'Himalayas Hotel Renovation',
-    location: 'Babarmahal-6, Kathmandu',
-    category: 'Renovation',
-    status: 'Completed',
-    year: 2024,
-    client: 'Himalayas Hotel Group',
-    area: '8,200 sq. ft.',
-    duration: '8 months',
-    image: 'https://images.unsplash.com/photo-1621293954908-907159247fc8?w=800&q=80',
-    gallery: ['https://images.unsplash.com/photo-1621293954908-907159247fc8?w=1200&q=80'],
-    description: 'Complete interior and exterior renovation of a 30-room hotel in Babarmahal, transforming a dated property into a modern boutique hotel.',
-    highlights: ['Complete interior and exterior overhaul', 'New MEP systems', '30 rooms redesigned'],
-    specifications: { 'Renovated Area': '8,200 sq. ft.', Rooms: '30', Completion: 'September 2024' },
+    id: 'dhapakhel-residence-phase-1-2',
+    title: 'Dhapakhel Residence — Phase 1 & 2',
+    location: 'Dhapakhel, Kathmandu Valley',
+    category: 'Residential',
+    status: 'Ongoing',
+    year: 2026,
+    client: 'Private Homeowners',
+    area: '6,800 sq. ft.',
+    duration: '18 months',
+    image: '/projects/dhapakhel-1.png',
+    gallery: [
+      '/projects/dhapakhel-1.png',
+      '/projects/dhapakhel-2.png',
+      '/projects/dhapakhel-3.png'
+    ],
+    description: 'Multi-phase residential building construction project located in Dhapakhel, Kathmandu Valley. Currently carrying out structural frame casting and initial finishing works across Phase 1 & 2.',
+    highlights: [
+      'Multi-phase residential development (Phase 1 & 2)',
+      'Seismic-resistant RCC structural design',
+      'Modern open-concept architectural floor plan'
+    ],
+    specifications: {
+      Phases: 'Phase 1 & Phase 2',
+      Type: 'Residential Building',
+      Status: 'Ongoing Construction'
+    },
+    featured: true,
+  },
+  {
+    id: 'lolang-residence-phase-1-2-3',
+    title: 'Lolang Residence — Phase 1, 2 & 3',
+    location: 'Lolang, Kathmandu Valley',
+    category: 'Residential',
+    status: 'Ongoing',
+    year: 2026,
+    client: 'Residential Community Clients',
+    area: '9,500 sq. ft.',
+    duration: '24 months',
+    image: '/projects/lolang-1.png',
+    gallery: [
+      '/projects/lolang-1.png',
+      '/projects/lolang-2.png',
+      '/projects/lolang-3.png',
+      '/projects/lolang-4.png',
+      '/projects/lolang-5.png'
+    ],
+    description: 'Comprehensive residential building construction spanning three distinct phases (Phase 1, Phase 2, & Phase 3) in Lolang, Kathmandu Valley.',
+    highlights: [
+      '3-Phase comprehensive residential construction',
+      'Quality RCC foundation & structural framing',
+      'Custom interior and layout options'
+    ],
+    specifications: {
+      Phases: 'Phase 1, 2 & 3',
+      Type: 'Residential Building Project',
+      Status: 'Ongoing Construction'
+    },
     featured: false,
   },
   {
-    id: 'gandaki-tech-park',
-    title: 'Bagmati IT Park Office Tower',
-    location: 'New Road, Kathmandu',
-    category: 'Commercial',
+    id: 'budhanilkantha-residence',
+    title: 'Budhanilkantha Residence',
+    location: 'Budhanilkantha, Kathmandu Valley',
+    category: 'Residential',
     status: 'Ongoing',
-    year: 2025,
-    client: 'Bagmati Province Government',
-    area: '35,000 sq. ft.',
-    duration: '36 months',
-    image: 'https://images.unsplash.com/photo-1448630360428-65456885c650?w=800&q=80',
-    gallery: ['https://images.unsplash.com/photo-1448630360428-65456885c650?w=1200&q=80'],
-    description: 'A landmark 10-storey IT and commercial tower commissioned by Bagmati Province, currently under construction.',
-    highlights: ['10-storey landmark commercial tower', 'Dedicated IT company floors', 'Underground parking for 120 vehicles'],
-    specifications: { 'Built-up Area': '35,000 sq. ft.', Floors: 'G+9', 'Expected Completion': 'December 2026', Status: '45% Complete' },
+    year: 2026,
+    client: 'Private Client',
+    area: '4,500 sq. ft.',
+    duration: '16 months',
+    image: '/projects/budhanilkantha-1.png',
+    gallery: [
+      '/projects/budhanilkantha-1.png',
+      '/projects/budhanilkantha-2.png',
+      '/projects/budhanilkantha-3.png',
+      '/projects/budhanilkantha-4.png'
+    ],
+    description: 'Premium modern residential building construction in the serene foothills of Budhanilkantha, featuring elegant architectural elevation and earthquake-resistant structural engineering.',
+    highlights: [
+      'High-end residential building construction',
+      'Panoramic Kathmandu Valley orientation',
+      'NBC 105:2020 earthquake-resistant design'
+    ],
+    specifications: {
+      Location: 'Budhanilkantha, Kathmandu',
+      Type: 'Residential Villa',
+      Status: 'Ongoing Construction'
+    },
     featured: true,
   },
+  {
+    id: 'nayabazar-semi-commercial-building',
+    title: 'Nayabazar Semi-Commercial Building',
+    location: 'Nayabazar, Kathmandu Valley',
+    category: 'Mixed-use',
+    status: 'Ongoing',
+    year: 2026,
+    client: 'Commercial & Private Developer',
+    area: '7,200 sq. ft.',
+    duration: '18 months',
+    image: '/projects/nayabazar-1.png',
+    gallery: [
+      '/projects/nayabazar-1.png',
+      '/projects/nayabazar-2.png',
+      '/projects/nayabazar-3.png'
+    ],
+    description: 'Mixed-use semi-commercial building construction in Nayabazar, combining ground-floor retail/office spaces with upper residential apartments.',
+    highlights: [
+      'Mixed-use semi-commercial layout',
+      'Ground floor commercial retail & office space',
+      'Seismic RCC frame construction'
+    ],
+    specifications: {
+      Category: 'Mixed-use / Semi-commercial',
+      Location: 'Nayabazar, Kathmandu',
+      Status: 'Ongoing Construction'
+    },
+    featured: false,
+  },
+  {
+    id: 'jorpati-semi-commercial-building',
+    title: 'Jorpati Semi-Commercial Building',
+    location: 'Jorpati, Kathmandu Valley',
+    category: 'Mixed-use',
+    status: 'Ongoing',
+    year: 2026,
+    client: 'Local Business Client',
+    area: '8,000 sq. ft.',
+    duration: '18 months',
+    image: '/projects/jorpati-1.png',
+    gallery: [
+      '/projects/jorpati-1.png',
+      '/projects/jorpati-2.png',
+      '/projects/jorpati-3.png',
+      '/projects/jorpati-4.png'
+    ],
+    description: 'Ongoing mixed-use semi-commercial building project in Jorpati, featuring ground floor commercial shutters and upper-level apartments.',
+    highlights: [
+      'Mixed-use semi-commercial project',
+      'Commercial ground floor + residential floors',
+      'RCC frame & quality brickwork'
+    ],
+    specifications: {
+      Category: 'Mixed-use / Semi-commercial',
+      Location: 'Jorpati, Kathmandu',
+      Status: 'Ongoing Construction'
+    },
+    featured: false,
+  },
+  {
+    id: 'kalanki-residence',
+    title: 'Kalanki Residence',
+    location: 'Kalanki, Kathmandu Valley',
+    category: 'Residential',
+    status: 'Ongoing',
+    year: 2026,
+    client: 'Private Client',
+    area: '3,800 sq. ft.',
+    duration: '14 months',
+    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80',
+    gallery: ['https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80'],
+    description: 'Contemporary multi-storey residential building under construction at Kalanki, Kathmandu Valley.',
+    highlights: [
+      'Modern residential family home',
+      'Earthquake-resistant RCC construction',
+      'Custom floor planning & site supervision'
+    ],
+    specifications: {
+      Location: 'Kalanki, Kathmandu',
+      Type: 'Residential Home',
+      Status: 'Ongoing Construction'
+    },
+    featured: false,
+  },
+
+  // ── COMPLETED PROJECTS ───────────────────────────────────
+  {
+    id: 'chitwan-residence',
+    title: 'Chitwan Residence',
+    location: 'Bharatpur, Chitwan, Nepal',
+    category: 'Residential',
+    status: 'Completed',
+    year: 2025,
+    client: 'Private Residence Client',
+    area: '5,200 sq. ft.',
+    duration: '18 months',
+    image: '/projects/chitwan-1.png',
+    gallery: [
+      '/projects/chitwan-1.png',
+      '/projects/chitwan-2.png',
+      '/projects/chitwan-3.png',
+      '/projects/chitwan-4.png',
+      '/projects/chitwan-5.png'
+    ],
+    description: 'Luxury neo-classical private villa constructed in Chitwan through Nexbuild’s regional coordination branch. Features grand double-height entrance columns, classical arches, custom wooden carved doors, and high-end exterior finishing.',
+    highlights: [
+      'Grand neo-classical architectural elevation & pillars',
+      'Custom hand-carved wooden main door & classical mouldings',
+      'Seismic RCC frame design following NBC standards',
+      'Executed under Nexbuild Chitwan regional operations'
+    ],
+    specifications: {
+      Location: 'Bharatpur, Chitwan, Nepal',
+      Type: 'Neo-Classical Luxury Villa',
+      Status: 'Completed',
+      Structure: 'Seismic RCC Frame'
+    },
+    featured: true,
+  },
+  {
+    id: 'tinchuli-commercial-building',
+    title: 'Tinchuli Commercial Building',
+    location: 'Tinchuli, Kathmandu',
+    category: 'Commercial',
+    status: 'Completed',
+    year: 2025,
+    client: 'Commercial Property Owner',
+    area: '14,000 sq. ft.',
+    duration: '20 months',
+    image: '/projects/tinchuli-1.png',
+    gallery: [
+      '/projects/tinchuli-1.png',
+      '/projects/tinchuli-2.png',
+      '/projects/tinchuli-3.png',
+      '/projects/tinchuli-4.png',
+      '/projects/tinchuli-5.png'
+    ],
+    description: 'Reinforced-concrete (RCC) commercial structure located in Tinchuli, Kathmandu, featuring full basement parking facilities and modern commercial spaces.',
+    highlights: [
+      'Reinforced-concrete commercial structure',
+      'Underground basement parking & utility',
+      'Completed on schedule with NBC compliance'
+    ],
+    specifications: {
+      Structure: 'RCC Frame with Basement',
+      Category: 'Commercial Complex',
+      Completion: '2025'
+    },
+    featured: true,
+  },
+  {
+    id: 'naikap-residential-building',
+    title: 'Naikap Residential Building',
+    location: 'Naikap, Kathmandu Valley',
+    category: 'Residential',
+    status: 'Completed',
+    year: 2024,
+    client: 'Private Client',
+    area: '4,200 sq. ft.',
+    duration: '14 months',
+    image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80',
+    gallery: ['https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80'],
+    description: 'Multi-story residential building construction in Naikap featuring modern architectural design, spacious interiors, and seismic RCC structural framing.',
+    highlights: [
+      'Multi-story residential construction',
+      'Modern architectural elevation & interiors',
+      'Fully handed over to satisfied homeowner'
+    ],
+    specifications: {
+      Location: 'Naikap, Kathmandu',
+      Type: 'Residential Residence',
+      Completion: '2024'
+    },
+    featured: false,
+  },
+  {
+    id: 'temple-suits-hotel-thamel',
+    title: 'Temple Suits Hotel, Thamel',
+    location: 'Thamel, Kathmandu',
+    category: 'Hospitality',
+    status: 'Completed',
+    year: 2024,
+    client: 'Temple Hospitality Group',
+    area: '12,500 sq. ft.',
+    duration: '22 months',
+    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80',
+    gallery: ['https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80'],
+    description: 'A 3-star hospitality hotel project located in prime Thamel, Kathmandu, featuring luxury guest suites, welcoming reception lobby, and dining facilities.',
+    highlights: [
+      '3-Star hospitality hotel suites & facilities',
+      'Prime tourist hub location in Thamel',
+      'Complete structural and interior fit-out'
+    ],
+    specifications: {
+      Category: 'Hospitality / 3-Star Hotel',
+      Location: 'Thamel, Kathmandu',
+      Completion: '2024'
+    },
+    featured: true,
+  },
+  {
+    id: 'thamel-boutique-hotel',
+    title: 'Thamel Boutique Hotel',
+    location: 'Thamel, Kathmandu',
+    category: 'Hospitality',
+    status: 'Completed',
+    year: 2024,
+    client: 'Boutique Hotel Developer',
+    area: '11,000 sq. ft.',
+    duration: '18 months',
+    image: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&q=80',
+    gallery: ['https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1200&q=80'],
+    description: 'Elegant boutique hotel project in Thamel, Kathmandu, constructed with premium interior finishes, guest amenities, and soundproof acoustics.',
+    highlights: [
+      'Boutique hotel with premium interior finishes',
+      'Modern guest amenities & dining area',
+      'Quality MEP and structural engineering'
+    ],
+    specifications: {
+      Category: 'Hospitality / Boutique Hotel',
+      Location: 'Thamel, Kathmandu',
+      Completion: '2024'
+    },
+    featured: true,
+  },
+  {
+    id: 'airport-office-interior-works',
+    title: 'Airport Office Interior Works',
+    location: 'Kathmandu Valley',
+    category: 'Commercial',
+    status: 'Completed',
+    year: 2025,
+    client: 'Biman Bangladesh & Air India',
+    area: '5,500 sq. ft.',
+    duration: '6 months',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80',
+    gallery: ['https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80'],
+    description: 'Corporate office interior fit-out project at Tribhuvan Airport area for international airline clients Biman Bangladesh and Air India. Included custom furniture, modular glass partitions, acoustic ceilings, and electrical/data cabling works.',
+    highlights: [
+      'Clients: Biman Bangladesh & Air India',
+      'Corporate office interior fit-out & partitions',
+      'Custom furniture, electrical, and data works'
+    ],
+    specifications: {
+      Clients: 'Biman Bangladesh & Air India',
+      Category: 'Corporate Interior Fit-out',
+      Completion: '2025'
+    },
+    featured: true,
+  },
+  {
+    id: 'temple-himalayan-hotel-spa-pokhara',
+    title: 'Temple Himalayan Hotel & Spa',
+    location: 'Pokhara',
+    category: 'Hospitality',
+    status: 'Completed',
+    year: 2023,
+    client: 'Temple Group Pokhara',
+    area: '26,000 sq. ft.',
+    duration: '32 months',
+    image: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&q=80',
+    gallery: ['https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1200&q=80'],
+    description: 'A landmark 4-star hospitality resort project in Pokhara featuring luxury suites, rejuvenating spa center, fine dining restaurants, and swimming pool facilities.',
+    highlights: [
+      '4-Star hotel and spa complex in Pokhara',
+      'Luxury guest suites & wellness spa',
+      'Landscaped gardens & swimming pool'
+    ],
+    specifications: {
+      Category: '4-Star Hospitality & Spa',
+      Location: 'Pokhara',
+      Completion: '2023'
+    },
+    featured: true,
+  },
+  {
+    id: 'raniban-neo-classical-residence',
+    title: 'Raniban Neo-Classical Residential Building',
+    location: 'Raniban, Kathmandu',
+    category: 'Residential',
+    status: 'Completed',
+    year: 2024,
+    client: 'Private Client',
+    area: '4,800 sq. ft.',
+    duration: '16 months',
+    image: '/projects/raniban-1.png',
+    gallery: [
+      '/projects/raniban-1.png',
+      '/projects/raniban-2.png'
+    ],
+    description: 'Multi-story residential building featuring magnificent neo-classical architectural facade, custom mouldings, and modern RCC structural integrity.',
+    highlights: [
+      'Classic neo-classical architectural elevation',
+      'Multi-story residential construction',
+      'Premium exterior plaster mouldings & finishes'
+    ],
+    specifications: {
+      Style: 'Neo-Classical Architecture',
+      Location: 'Raniban, Kathmandu',
+      Completion: '2024'
+    },
+    featured: true,
+  }
 ];
 
 // ============================================================
@@ -368,8 +706,6 @@ export const TEAM = [
     color: '#f97316',
     featuredKeyPerson: true,
   },
-  { id: 3, name: 'Ar. Nexbuild Architect', designation: 'Chief Architect & Design Director', qualification: 'B.Arch, SONA Member', experience: '15+ years', avatar: 'AD', color: '#f97316' },
-  { id: 4, name: 'Er. Ramesh Thapa', designation: 'Project Manager', qualification: 'B.E. Civil Engineering, PMP Certified', experience: '10+ years', avatar: 'PM', color: '#1e40af' },
 ];
 
 // ============================================================

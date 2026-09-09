@@ -40,30 +40,68 @@ export default function AboutPage() {
   return (
     <>
       <Helmet>
-        <title>About Us | {company.name} — Kathmandu, Nepal</title>
+        <title>About Us | {company.name} — Best Construction Company in Kathmandu</title>
         <meta
           name="description"
-          content={`Learn about ${company.name} — a trusted construction company in Kathmandu, Nepal founded in ${company.foundedYear}. Meet our team of engineers and architects delivering structural excellence across Bagmati Province.`}
+          content={`Learn about ${company.name} — a trusted construction company in Kathmandu, Nepal. Meet our key leadership team: Er. Karun Pandey (Managing Director) and Er. Rajesh Yadav (Technical Director).`}
         />
         <meta
           name="keywords"
-          content="Best construction company in Kathmandu, Top construction company in Nepal, builder in Nepal, structural engineers Kathmandu, architectural design Kathmandu, construction contractors Nepal"
+          content="Best construction company in Kathmandu, Top construction company in Nepal, builder in Nepal, structural engineers Kathmandu, architectural design Kathmandu, Er. Karun Pandey, Er. Rajesh Yadav, construction contractors Nepal"
         />
         <link rel="canonical" href="https://nexbuildarchitects.com.np/about" />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://nexbuildarchitects.com.np/about" />
-        <meta property="og:title" content={`About Us | ${company.name} — Kathmandu, Nepal`} />
-        <meta property="og:description" content={`Learn about ${company.name} — a trusted construction company in Kathmandu, Nepal founded in ${company.foundedYear}. Meet our team of engineers and architects.`} />
-        <meta property="og:image" content="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&q=80" />
+        <meta property="og:title" content={`About Us | ${company.name} — Best Construction Company in Kathmandu`} />
+        <meta property="og:description" content={`Learn about ${company.name} — a trusted construction company in Kathmandu, Nepal. Meet our key leadership team.`} />
+        <meta property="og:image" content="https://nexbuildarchitects.com.np/karun-pandey.png" />
 
         {/* Twitter */}
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content="https://nexbuildarchitects.com.np/about" />
-        <meta name="twitter:title" content={`About Us | ${company.name} — Kathmandu, Nepal`} />
-        <meta name="twitter:description" content={`Learn about ${company.name} — a trusted construction company in Kathmandu, Nepal founded in ${company.foundedYear}.`} />
-        <meta name="twitter:image" content="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1200&q=80" />
+        <meta name="twitter:title" content={`About Us | ${company.name} — Best Construction Company in Kathmandu`} />
+        <meta name="twitter:description" content={`Learn about ${company.name} — a trusted construction company in Kathmandu, Nepal.`} />
+        <meta name="twitter:image" content="https://nexbuildarchitects.com.np/karun-pandey.png" />
+
+        {/* JSON-LD Schema */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            "name": "About Nexbuild Architects",
+            "url": "https://nexbuildarchitects.com.np/about",
+            "mainEntity": {
+              "@type": "Organization",
+              "name": company.name,
+              "legalName": company.legalName,
+              "url": "https://nexbuildarchitects.com.np",
+              "employee": [
+                {
+                  "@type": "Person",
+                  "name": "Er. Karun Pandey",
+                  "jobTitle": "Executive Civil Engineer & Managing Director",
+                  "telephone": "+977 9843604439",
+                  "worksFor": {
+                    "@type": "Organization",
+                    "name": company.name
+                  }
+                },
+                {
+                  "@type": "Person",
+                  "name": "Er. Rajesh Yadav",
+                  "jobTitle": "Chief Structural Engineer & Technical Director",
+                  "telephone": "+977 9843456230",
+                  "worksFor": {
+                    "@type": "Organization",
+                    "name": company.name
+                  }
+                }
+              ]
+            }
+          })}
+        </script>
       </Helmet>
 
       {/* Page Hero */}
@@ -104,33 +142,14 @@ export default function AboutPage() {
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             
-            {/* Image Placeholder Section */}
+            {/* Company Visual / Logo Section */}
             <motion.div initial="hidden" whileInView="visible" viewport={viewportOnce} variants={fadeLeft}>
-              <div className="relative bg-gradient-to-br from-slate-100 to-slate-200/90 rounded-2xl border-2 border-dashed border-slate-300 shadow-sm flex flex-col items-center justify-center p-8 h-80 md:h-96 text-center group overflow-hidden">
-                
-                {/* Blueprint Grid Pattern */}
-                <div
-                  className="absolute inset-0 bg-[linear-gradient(to_right,#94a3b818_1px,transparent_1px),linear-gradient(to_bottom,#94a3b818_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] pointer-events-none"
-                  aria-hidden="true"
+              <div className="relative bg-slate-950 rounded-2xl border border-slate-800 shadow-xl overflow-hidden flex items-center justify-center p-6 h-80 md:h-96 group">
+                <img
+                  src="/nexbuild-logo-about.png"
+                  alt={`${company.name} Logo`}
+                  className="w-full h-full object-contain filter drop-shadow-lg group-hover:scale-105 transition-transform duration-500"
                 />
-
-                <div className="relative z-10 flex flex-col items-center">
-                  <div className="w-16 h-16 rounded-2xl bg-white/90 border border-slate-200 shadow-sm flex items-center justify-center mb-4 text-slate-400 group-hover:text-blue-600 group-hover:scale-105 transition-all duration-300">
-                    <ImageIcon className="w-8 h-8" aria-hidden="true" />
-                  </div>
-                  <h4 className="text-sm font-bold text-slate-700 uppercase tracking-wider mb-1">
-                    Image Placeholder
-                  </h4>
-                  <p className="text-xs text-slate-400 max-w-xs leading-relaxed">
-                    Company visual / official photo placeholder
-                  </p>
-                </div>
-
-                {/* Founded Badge */}
-                <div className="absolute -bottom-5 -left-5 bg-blue-800 text-white rounded-xl p-5 shadow-xl hidden md:block border-2 border-white z-20">
-                  <span className="text-3xl font-extrabold block">{company.foundedYear}</span>
-                  <span className="text-xs font-semibold uppercase tracking-wide">Founded in<br />Kathmandu</span>
-                </div>
               </div>
             </motion.div>
 
@@ -274,255 +293,247 @@ export default function AboutPage() {
             center
           />
 
-          {/* Featured Key Persons Profiles - Er. Karun Pandey & Er. Rajesh Yadav */}
-          <div className="space-y-8 mb-12">
+          {/* Featured Key Persons Profiles - Side by Side Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
             {/* Er. Karun Pandey Card */}
             <motion.div
               initial="hidden" whileInView="visible" viewport={viewportOnce} variants={fadeUp}
-              className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-gray-200 shadow-lg relative overflow-hidden group"
+              className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-lg relative overflow-hidden flex flex-col justify-between group"
             >
               <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-blue-600/15 to-transparent rounded-bl-full pointer-events-none" />
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                
-                {/* Photo Column */}
-                <div className="md:col-span-4 lg:col-span-3 flex flex-col items-center text-center">
-                  <div className="relative w-44 h-44 sm:w-48 sm:h-48 rounded-2xl overflow-hidden shadow-md border-4 border-white ring-2 ring-blue-800/20 mb-4 bg-gray-100">
+              
+              <div className="space-y-6">
+                {/* Header Profile Info */}
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left">
+                  <div className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-md border-4 border-white ring-2 ring-blue-800/20 bg-gray-100 flex-shrink-0">
                     <img
                       src="/karun-pandey.png"
                       alt="Er. Karun Pandey - Executive Civil Engineer"
                       className="w-full h-full object-cover object-top"
                     />
-                    <div className="absolute bottom-2 left-2 right-2 bg-blue-900/90 text-white text-[11px] font-bold py-1 px-2 rounded-md backdrop-blur-xs">
-                      Managing Director
-                    </div>
                   </div>
-                  <span className="inline-flex items-center gap-1.5 text-xs bg-blue-50 text-blue-800 font-bold px-3 py-1 rounded-full border border-blue-200">
-                    <ShieldCheck className="w-3.5 h-3.5" /> Licensed Civil Engineer
-                  </span>
-                </div>
 
-                {/* Details Column */}
-                <div className="md:col-span-8 lg:col-span-9 space-y-4">
-                  <div>
-                    <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900">Er. Karun Pandey</h3>
+                  <div className="space-y-1.5 pt-1">
+                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                      <h3 className="text-2xl font-extrabold text-gray-900">Er. Karun Pandey</h3>
                       <span className="text-xs bg-blue-100 text-blue-800 font-extrabold px-2.5 py-0.5 rounded-md">
                         TU 2073 B.S.
                       </span>
                     </div>
-                    <p className="text-orange-500 font-bold text-base sm:text-lg">
+                    <p className="text-orange-500 font-bold text-sm sm:text-base leading-snug">
                       Executive Civil Engineer & Managing Director
                     </p>
-                  </div>
-
-                  {/* Key Info Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                    <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
-                      <GraduationCap className="w-5 h-5 text-blue-700 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Education</p>
-                        <p className="text-xs sm:text-sm font-semibold text-gray-800">
-                          Bachelor’s Degree in Civil Engineering, TU (2073 B.S.)
-                        </p>
-                      </div>
+                    <div className="pt-1">
+                      <span className="inline-flex items-center gap-1.5 text-xs bg-blue-50 text-blue-800 font-bold px-3 py-1 rounded-full border border-blue-200">
+                        <ShieldCheck className="w-3.5 h-3.5" /> Licensed Civil Engineer
+                      </span>
                     </div>
-
-                    <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
-                      <Phone className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Mobile Contact</p>
-                        <a href="tel:9843604439" className="text-xs sm:text-sm font-bold text-blue-800 hover:underline">
-                          +977 9843604439
-                        </a>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
-                      <MapPin className="w-5 h-5 text-blue-700 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Permanent Address</p>
-                        <p className="text-xs sm:text-sm font-semibold text-gray-800">
-                          Kakani-07, Nuwakot, Nepal
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
-                      <MapPin className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Temporary Address</p>
-                        <p className="text-xs sm:text-sm font-semibold text-gray-800">
-                          Tarkeshwor-07, Kathmandu, Nepal
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Quick Action Buttons */}
-                  <div className="flex flex-wrap items-center gap-3 pt-2">
-                    <a
-                      href="tel:9843604439"
-                      className="inline-flex items-center gap-2 bg-blue-800 hover:bg-blue-900 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-colors shadow-xs"
-                    >
-                      <Phone className="w-4 h-4" />
-                      Call Er. Karun Pandey
-                    </a>
-                    <a
-                      href="https://wa.me/9779843604439"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-colors shadow-xs"
-                    >
-                      <MessageCircle className="w-4 h-4" />
-                      WhatsApp
-                    </a>
                   </div>
                 </div>
 
+                {/* Key Info Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                  <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                    <GraduationCap className="w-5 h-5 text-blue-700 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Education</p>
+                      <p className="text-xs font-semibold text-gray-800">
+                        Bachelor’s Degree in Civil Engineering, TU (2073 B.S.)
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                    <Phone className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Mobile Contact</p>
+                      <a href="tel:9843604439" className="text-xs font-bold text-blue-800 hover:underline">
+                        +977 9843604439
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                    <MapPin className="w-5 h-5 text-blue-700 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Permanent Address</p>
+                      <p className="text-xs font-semibold text-gray-800">
+                        Kakani-07, Nuwakot, Nepal
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                    <MapPin className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Temporary Address</p>
+                      <p className="text-xs font-semibold text-gray-800">
+                        Tarkeshwor-07, Kathmandu, Nepal
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Quick Action Buttons */}
+              <div className="flex flex-wrap items-center gap-3 pt-6 border-t border-gray-100 mt-6">
+                <a
+                  href="tel:9843604439"
+                  className="inline-flex items-center gap-2 bg-blue-800 hover:bg-blue-900 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-colors shadow-xs"
+                >
+                  <Phone className="w-3.5 h-3.5" />
+                  Call Er. Karun Pandey
+                </a>
+                <a
+                  href="https://wa.me/9779843604439"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-colors shadow-xs"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  WhatsApp
+                </a>
               </div>
             </motion.div>
 
             {/* Er. Rajesh Yadav Card */}
             <motion.div
               initial="hidden" whileInView="visible" viewport={viewportOnce} variants={fadeUp}
-              className="bg-white rounded-3xl p-6 sm:p-8 md:p-10 border border-gray-200 shadow-lg relative overflow-hidden group"
+              className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-lg relative overflow-hidden flex flex-col justify-between group"
             >
               <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-orange-400/20 to-transparent rounded-bl-full pointer-events-none" />
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                
-                {/* Photo Column */}
-                <div className="md:col-span-4 lg:col-span-3 flex flex-col items-center text-center">
-                  <div className="relative w-44 h-44 sm:w-48 sm:h-48 rounded-2xl overflow-hidden shadow-md border-4 border-white ring-2 ring-orange-500/20 mb-4 bg-gray-100">
+              
+              <div className="space-y-6">
+                {/* Header Profile Info */}
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 text-center sm:text-left">
+                  <div className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-2xl overflow-hidden shadow-md border-4 border-white ring-2 ring-orange-500/20 bg-gray-100 flex-shrink-0">
                     <img
                       src="/rajesh-yadav.png"
                       alt="Er. Rajesh Yadav - Chief Structural Engineer"
                       className="w-full h-full object-cover object-top"
                     />
-                    <div className="absolute bottom-2 left-2 right-2 bg-orange-600/90 text-white text-[11px] font-bold py-1 px-2 rounded-md backdrop-blur-xs">
-                      Technical Director
-                    </div>
                   </div>
-                  <span className="inline-flex items-center gap-1.5 text-xs bg-orange-50 text-orange-600 font-bold px-3 py-1 rounded-full border border-orange-200">
-                    <ShieldCheck className="w-3.5 h-3.5" /> M.E. Structural Engineer
-                  </span>
-                </div>
 
-                {/* Details Column */}
-                <div className="md:col-span-8 lg:col-span-9 space-y-4">
-                  <div>
-                    <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900">Er. Rajesh Yadav</h3>
+                  <div className="space-y-1.5 pt-1">
+                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                      <h3 className="text-2xl font-extrabold text-gray-900">Er. Rajesh Yadav</h3>
                       <span className="text-xs bg-orange-100 text-orange-800 font-extrabold px-2.5 py-0.5 rounded-md">
-                        M.E. Structural (TU 2079 B.S.)
+                        M.E. Structural (TU 2079)
                       </span>
                     </div>
-                    <p className="text-orange-500 font-bold text-base sm:text-lg">
+                    <p className="text-orange-500 font-bold text-sm sm:text-base leading-snug">
                       Chief Structural Engineer & Technical Director
                     </p>
-                  </div>
-
-                  {/* Key Info Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                    <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100 sm:col-span-2">
-                      <GraduationCap className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Education & Degrees</p>
-                        <p className="text-xs sm:text-sm font-semibold text-gray-800 leading-relaxed">
-                          • Master’s Degree in Structural Engineering, TU (2079 B.S.)<br />
-                          • Bachelor’s Degree in Civil Engineering, TU (2072 B.S.)
-                        </p>
-                      </div>
+                    <div className="pt-1">
+                      <span className="inline-flex items-center gap-1.5 text-xs bg-orange-50 text-orange-600 font-bold px-3 py-1 rounded-full border border-orange-200">
+                        <ShieldCheck className="w-3.5 h-3.5" /> M.E. Structural Engineer
+                      </span>
                     </div>
-
-                    <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
-                      <Phone className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Mobile Contact</p>
-                        <a href="tel:9843456230" className="text-xs sm:text-sm font-bold text-blue-800 hover:underline">
-                          +977 9843456230
-                        </a>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
-                      <MapPin className="w-5 h-5 text-blue-700 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Permanent Address</p>
-                        <p className="text-xs sm:text-sm font-semibold text-gray-800">
-                          Gadhimai-04, Rautahat, Nepal
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100 sm:col-span-2">
-                      <MapPin className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Temporary Address</p>
-                        <p className="text-xs sm:text-sm font-semibold text-gray-800">
-                          Tikathali, Kathmandu, Nepal
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Quick Action Buttons */}
-                  <div className="flex flex-wrap items-center gap-3 pt-2">
-                    <a
-                      href="tel:9843456230"
-                      className="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-colors shadow-xs"
-                    >
-                      <Phone className="w-4 h-4" />
-                      Call Er. Rajesh Yadav
-                    </a>
-                    <a
-                      href="https://wa.me/9779843456230"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-colors shadow-xs"
-                    >
-                      <MessageCircle className="w-4 h-4" />
-                      WhatsApp
-                    </a>
                   </div>
                 </div>
 
+                {/* Key Info Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                  <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100 sm:col-span-2">
+                    <GraduationCap className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Education & Degrees</p>
+                      <p className="text-xs font-semibold text-gray-800 leading-relaxed">
+                        • Master’s Degree in Structural Engineering, TU (2079 B.S.)<br />
+                        • Bachelor’s Degree in Civil Engineering, TU (2072 B.S.)
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                    <Phone className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Mobile Contact</p>
+                      <a href="tel:9843456230" className="text-xs font-bold text-blue-800 hover:underline">
+                        +977 9843456230
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                    <MapPin className="w-5 h-5 text-blue-700 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Permanent Address</p>
+                      <p className="text-xs font-semibold text-gray-800">
+                        Gadhimai-04, Rautahat, Nepal
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100 sm:col-span-2">
+                    <MapPin className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">Temporary Address</p>
+                      <p className="text-xs font-semibold text-gray-800">
+                        Tikathali, Kathmandu, Nepal
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Quick Action Buttons */}
+              <div className="flex flex-wrap items-center gap-3 pt-6 border-t border-gray-100 mt-6">
+                <a
+                  href="tel:9843456230"
+                  className="inline-flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-colors shadow-xs"
+                >
+                  <Phone className="w-3.5 h-3.5" />
+                  Call Er. Rajesh Yadav
+                </a>
+                <a
+                  href="https://wa.me/9779843456230"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-colors shadow-xs"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  WhatsApp
+                </a>
               </div>
             </motion.div>
           </div>
 
           {/* Other Leadership Team Members */}
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6"
-            initial="hidden" whileInView="visible" viewport={viewportOnce} variants={staggerContainer}
-          >
-            {team.filter(m => !m.featuredKeyPerson).map((member) => (
-              <motion.div
-                key={member.id}
-                variants={fadeUp}
-                className="bg-white rounded-xl p-6 text-center card-shadow hover:-translate-y-1 transition-transform duration-300 border border-gray-100"
-              >
-                {member.image ? (
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-16 h-16 rounded-full object-cover mx-auto mb-4 shadow border border-gray-200"
-                  />
-                ) : (
-                  <div
-                    className="w-16 h-16 rounded-full flex items-center justify-center text-white text-lg font-extrabold mx-auto mb-4 shadow"
-                    style={{ backgroundColor: member.color }}
-                    aria-hidden="true"
-                  >
-                    {member.avatar}
-                  </div>
-                )}
-                <h3 className="font-bold text-gray-900 text-sm mb-1">{member.name}</h3>
-                <p className="text-orange-500 text-xs font-semibold mb-1">{member.designation}</p>
-                <p className="text-gray-500 text-xs mb-1">{member.qualification}</p>
-                <p className="text-blue-700 text-xs font-bold">{member.experience} Experience</p>
-              </motion.div>
-            ))}
-          </motion.div>
+          {team.filter(m => !m.featuredKeyPerson).length > 0 && (
+            <motion.div
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-8"
+              initial="hidden" whileInView="visible" viewport={viewportOnce} variants={staggerContainer}
+            >
+              {team.filter(m => !m.featuredKeyPerson).map((member) => (
+                <motion.div
+                  key={member.id}
+                  variants={fadeUp}
+                  className="bg-white rounded-xl p-6 text-center card-shadow hover:-translate-y-1 transition-transform duration-300 border border-gray-100"
+                >
+                  {member.image ? (
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-16 h-16 rounded-full object-cover mx-auto mb-4 shadow border border-gray-200"
+                    />
+                  ) : (
+                    <div
+                      className="w-16 h-16 rounded-full flex items-center justify-center text-white text-lg font-extrabold mx-auto mb-4 shadow"
+                      style={{ backgroundColor: member.color }}
+                      aria-hidden="true"
+                    >
+                      {member.avatar}
+                    </div>
+                  )}
+                  <h3 className="font-bold text-gray-900 text-sm mb-1">{member.name}</h3>
+                  <p className="text-orange-500 text-xs font-semibold mb-1">{member.designation}</p>
+                  <p className="text-gray-500 text-xs mb-1">{member.qualification}</p>
+                  <p className="text-blue-700 text-xs font-bold">{member.experience} Experience</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
         </div>
       </section>
 

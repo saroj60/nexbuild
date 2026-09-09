@@ -168,7 +168,7 @@ export default function AdminCompany() {
           {/* General Branding */}
           <Section title="General Branding">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Field label="Company Name">
+              <Field label="Company Brand Name">
                 <input
                   type="text"
                   name="name"
@@ -176,6 +176,16 @@ export default function AdminCompany() {
                   onChange={handleChange}
                   className={input()}
                   required
+                />
+              </Field>
+              <Field label="Full Legal Entity Name">
+                <input
+                  type="text"
+                  name="legalName"
+                  value={form.legalName || ''}
+                  onChange={handleChange}
+                  placeholder="Nexbuild Architects And Construction Pvt. Ltd."
+                  className={input()}
                 />
               </Field>
               <Field label="Branding Tagline">
@@ -207,6 +217,54 @@ export default function AdminCompany() {
                 />
               </Field>
             </div>
+          </Section>
+
+          {/* Company Story, Mission & Vision */}
+          <Section title="Company Story, Mission & Vision">
+            <Field label="Company Description / Overview">
+              <textarea
+                name="description"
+                rows={3}
+                value={form.description || ''}
+                onChange={handleChange}
+                className={input() + ' resize-none'}
+                placeholder="Enter company introduction description..."
+              />
+            </Field>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Field label="Mission Statement">
+                <textarea
+                  name="mission"
+                  rows={3}
+                  value={form.mission || ''}
+                  onChange={handleChange}
+                  className={input() + ' resize-none'}
+                  placeholder="To provide reliable, high-quality engineering..."
+                />
+              </Field>
+              <Field label="Vision Statement">
+                <textarea
+                  name="vision"
+                  rows={3}
+                  value={form.vision || ''}
+                  onChange={handleChange}
+                  className={input() + ' resize-none'}
+                  placeholder="To be recognized as the leading engineering..."
+                />
+              </Field>
+            </div>
+            <Field label="Core Competencies (One per line)">
+              <textarea
+                rows={4}
+                value={Array.isArray(form.coreCompetencies) ? form.coreCompetencies.join('\n') : (form.coreCompetencies || '')}
+                onChange={(e) => {
+                  const items = e.target.value.split('\n');
+                  setForm(f => ({ ...f, coreCompetencies: items }));
+                }}
+                className={input() + ' resize-none'}
+                placeholder="Design-Build execution...&#10;Structural design..."
+              />
+            </Field>
           </Section>
 
           {/* Contact Details */}

@@ -12,30 +12,54 @@ export default function ServicesPage() {
   return (
     <>
       <Helmet>
-        <title>Construction Services | {company.name} — Kathmandu, Nepal</title>
+        <title>Construction & Architectural Services in Kathmandu | {company.name}</title>
         <meta
           name="description"
-          content={`Explore the full range of engineering & construction services offered by ${company.name} in Kathmandu — residential homes, commercial complexes, building permits design, renovation, and structural auditing.`}
+          content={`Explore the full range of engineering & construction services offered by ${company.name} in Kathmandu — residential construction, commercial complexes, house designing in Nepal, renovation, and structural auditing.`}
         />
         <meta
           name="keywords"
-          content="House designing in Nepal, construction services Kathmandu, building design Nepal, best builder in Kathmandu, renovation contractors Kathmandu, commercial builders Nepal"
+          content="House designing in Nepal, construction services Kathmandu, building design Nepal, best builder in Kathmandu, renovation contractors Kathmandu, commercial builders Nepal, structural engineering Kathmandu"
         />
         <link rel="canonical" href="https://nexbuildarchitects.com.np/services" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://nexbuildarchitects.com.np/services" />
-        <meta property="og:title" content={`Construction Services | ${company.name} — Kathmandu, Nepal`} />
+        <meta property="og:title" content={`Construction & Architectural Services in Kathmandu | ${company.name}`} />
         <meta property="og:description" content={`Quality residential and commercial construction services, 3D designs, and structural work in Kathmandu, Nepal by ${company.name}.`} />
-        <meta property="og:image" content="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=80" />
+        <meta property="og:image" content="https://nexbuildarchitects.com.np/projects/budhanilkantha-1.png" />
 
         {/* Twitter */}
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content="https://nexbuildarchitects.com.np/services" />
-        <meta name="twitter:title" content={`Construction Services | ${company.name} — Kathmandu, Nepal`} />
+        <meta name="twitter:title" content={`Construction & Architectural Services in Kathmandu | ${company.name}`} />
         <meta name="twitter:description" content={`Quality residential and commercial construction services, 3D designs, and structural work in Kathmandu, Nepal by ${company.name}.`} />
-        <meta name="twitter:image" content="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=80" />
+        <meta name="twitter:image" content="https://nexbuildarchitects.com.np/projects/budhanilkantha-1.png" />
+
+        {/* JSON-LD Schema */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Engineering & Construction Services",
+            "itemListElement": (services || []).map((s, idx) => ({
+              "@type": "ListItem",
+              "position": idx + 1,
+              "item": {
+                "@type": "Service",
+                "name": s.title,
+                "description": s.fullDesc || s.shortDesc,
+                "provider": {
+                  "@type": "Organization",
+                  "name": company.name,
+                  "url": "https://nexbuildarchitects.com.np"
+                },
+                "areaServed": "Kathmandu, Nepal"
+              }
+            }))
+          })}
+        </script>
       </Helmet>
 
       {/* Page Hero */}

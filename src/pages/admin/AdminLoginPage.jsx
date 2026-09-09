@@ -64,7 +64,7 @@ export default function AdminLoginPage() {
                 value={form.username}
                 onChange={(e) => setForm((f) => ({ ...f, username: e.target.value }))}
                 className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="admin"
+                placeholder="nexbuild@gmail.com"
               />
             </div>
 
