@@ -362,12 +362,17 @@
   "team": [
     {
       "id": 1,
-      "name": "Er. Nexbuild Engineer",
-      "designation": "Chief Executive Officer & Managing Director",
-      "qualification": "B.E. Civil Engineering, NEA Member",
-      "experience": "20+ years",
-      "avatar": "CE",
-      "color": "#1e40af"
+      "name": "Er. Karun Pandey",
+      "designation": "Executive Civil Engineer & Managing Director",
+      "qualification": "Bachelor’s Degree in Civil Engineering, TU (2073 B.S.)",
+      "experience": "TU Graduate (2073 B.S.)",
+      "phone": "9843604439",
+      "permanentAddress": "Kakani-07, Nuwakot, Nepal",
+      "temporaryAddress": "Tarkeshwor-07, Kathmandu, Nepal",
+      "image": "/karun-pandey.png",
+      "avatar": "KP",
+      "color": "#1e40af",
+      "featuredKeyPerson": true
     },
     {
       "id": 2,

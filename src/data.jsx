@@ -340,7 +340,20 @@ export const TESTIMONIALS = [
 // TEAM DATA
 // ============================================================
 export const TEAM = [
-  { id: 1, name: 'Er. Nexbuild Engineer', designation: 'Chief Executive Officer & Managing Director', qualification: 'B.E. Civil Engineering, NEA Member', experience: '20+ years', avatar: 'CE', color: '#1e40af' },
+  {
+    id: 1,
+    name: 'Er. Karun Pandey',
+    designation: 'Executive Civil Engineer & Managing Director',
+    qualification: 'Bachelor’s Degree in Civil Engineering, TU (2073 B.S.)',
+    experience: 'TU Graduate (2073 B.S.)',
+    phone: '9843604439',
+    permanentAddress: 'Kakani-07, Nuwakot, Nepal',
+    temporaryAddress: 'Tarkeshwor-07, Kathmandu, Nepal',
+    image: '/karun-pandey.png',
+    avatar: 'KP',
+    color: '#1e40af',
+    featuredKeyPerson: true,
+  },
   { id: 2, name: 'Ar. Nexbuild Architect', designation: 'Chief Architect & Design Director', qualification: 'B.Arch, SONA Member', experience: '15+ years', avatar: 'AD', color: '#f97316' },
   { id: 3, name: 'Er. Nexbuild Engineer', designation: 'Head of Structural Engineering', qualification: 'M.E. Structural Engineering, NEA Member', experience: '12+ years', avatar: 'SE', color: '#1e40af' },
   { id: 4, name: 'Er. Ramesh Thapa', designation: 'Project Manager', qualification: 'B.E. Civil Engineering, PMP Certified', experience: '10+ years', avatar: 'PM', color: '#f97316' },
