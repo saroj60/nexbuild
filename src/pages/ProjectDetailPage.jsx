@@ -79,11 +79,11 @@ export default function ProjectDetailPage() {
         <title>{project.title} | Construction Project | {company.name}</title>
         <meta
           name="description"
-          content={`${project.title} in ${project.location}. A ${project.category.toLowerCase()} construction project by ${company.name}. ${project.description.slice(0, 120)}...`}
+          content={`${project.title} in ${project.location}. A ${(project.category || 'Commercial').toLowerCase()} construction project by ${company.name}. ${(project.description || '').slice(0, 120)}...`}
         />
         <meta
           name="keywords"
-          content={`${project.title}, ${project.location} construction, ${project.category} architecture Nepal, building project Kathmandu, ${company.name}`}
+          content={`${project.title}, ${project.location} construction, ${project.category || 'Commercial'} architecture Nepal, building project Kathmandu, ${company.name}`}
         />
         <link rel="canonical" href={`https://nexbuildarchitects.com.np/projects/${project.id}`} />
 

@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAdmin } from '@/context/AdminContext';
 import SectionHeader from '../components/ui/SectionHeader';
+import CostCalculator from '@/components/ui/CostCalculator';
 import { staggerContainer, fadeUp, viewportOnce } from '@/utils/animations';
-import { Home, Search, SlidersHorizontal, ArrowRight, Bed, Bath, Layers, Maximize } from 'lucide-react';
+import { Home, Search, SlidersHorizontal, ArrowRight, Bed, Bath, Layers, Maximize, Calculator } from 'lucide-react';
 
 const STYLES = ['All', 'Modern', 'Minimalist', 'Traditional', 'Contemporary', 'Fusion'];
 
@@ -107,9 +108,17 @@ export default function HouseDesignsPage() {
           <h1 className="text-3xl md:text-5xl font-extrabold mt-4 mb-4 tracking-tight leading-tight">
             Designs & Floor Plans
           </h1>
-          <p className="text-gray-300 text-sm md:text-base leading-relaxed">
+          <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-6">
             Explore our curated catalog of contemporary residential blueprints, elevations, and layout designs optimized for Nepalese land standards and building codes.
           </p>
+
+          <a
+            href="#cost-calculator"
+            className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-extrabold px-5 py-3 rounded-2xl text-xs md:text-sm transition-transform hover:scale-105 shadow-lg shadow-orange-500/20"
+          >
+            <Calculator className="w-4 h-4" />
+            <span>Estimate Your Building Cost</span>
+          </a>
         </div>
       </section>
 
@@ -336,6 +345,11 @@ export default function HouseDesignsPage() {
               </button>
             </div>
           )}
+
+          {/* Interactive Building Cost Calculator */}
+          <div className="pt-12">
+            <CostCalculator />
+          </div>
         </div>
       </section>
     </>

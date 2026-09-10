@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAdmin } from '@/context/AdminContext';
+import CostCalculator from '@/components/ui/CostCalculator';
 import { fadeUp, staggerContainer, viewportOnce } from '@/utils/animations';
 import {
   ArrowLeft, Bed, Bath, Layers, Maximize, CheckCircle, ChevronLeft, ChevronRight, X,
@@ -299,6 +300,14 @@ export default function HouseDesignDetailPage() {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Interactive Cost Calculator for this Plan */}
+          <div className="mt-16">
+            <CostCalculator 
+              initialArea={parseInt(design.area?.replace(/\D/g, '')) || 2500} 
+              initialFloors={design.floors || 2.5} 
+            />
           </div>
         </div>
       </section>
