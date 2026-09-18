@@ -3,13 +3,41 @@ import autoTable from 'jspdf-autotable';
 import { COMPANY, DEFAULT_PROJECTS } from '@/data.jsx';
 
 /**
- * Generates and downloads the official Nexbuild Architects Company Profile PDF instantly.
- * Pure vector-based jsPDF + autoTable generation — zero canvas/CORS errors, ultra-fast download.
+ * Loads an image from a URL and converts it into Base64 PNG data URL.
  */
-export function generateCompanyProfilePDF(customCompany, customProjects) {
+function loadImageAsBase64(url) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.crossOrigin = 'Anonymous';
+    img.onload = () => {
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth || img.width;
+        canvas.height = img.naturalHeight || img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        const dataURL = canvas.toDataURL('image/png');
+        resolve(dataURL);
+      } catch (e) {
+        resolve(null);
+      }
+    };
+    img.onerror = () => resolve(null);
+    img.src = url;
+  });
+}
+
+/**
+ * Generates and downloads the official Nexbuild Architects Company Profile PDF instantly.
+ * Pure vector-based jsPDF + autoTable generation — fast download, zero canvas/CORS errors.
+ */
+export async function generateCompanyProfilePDF(customCompany, customProjects) {
   try {
     const company = customCompany || COMPANY;
     const projects = customProjects && customProjects.length > 0 ? customProjects : DEFAULT_PROJECTS;
+
+    // Load company logo base64 asynchronously
+    const logoBase64 = await loadImageAsBase64('/logo.png');
 
     const doc = new jsPDF({
       orientation: 'portrait',
@@ -38,13 +66,24 @@ export function generateCompanyProfilePDF(customCompany, customProjects) {
     doc.setFillColor(...accentOrange);
     doc.rect(0, 55, pageWidth, 3, 'F');
 
+    // Add Logo to top right of header banner if available
+    if (logoBase64) {
+      doc.setFillColor(255, 255, 255);
+      doc.roundedRect(pageWidth - 46, 7, 32, 32, 4, 4, 'F');
+      try {
+        doc.addImage(logoBase64, 'PNG', pageWidth - 44, 9, 28, 28);
+      } catch (err) {
+        console.warn('Could not render logo in PDF:', err);
+      }
+    }
+
     // Company Header Text
     doc.setTextColor(255, 255, 255);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
     doc.text('OFFICIAL CORPORATE COMPANY PROFILE & PORTFOLIO', 14, 18);
 
-    doc.setFontSize(20);
+    doc.setFontSize(18);
     doc.text(company.legalName || company.name, 14, 28);
 
     doc.setFont('helvetica', 'normal');
@@ -58,13 +97,13 @@ export function generateCompanyProfilePDF(customCompany, customProjects) {
       14,
       44
     );
-    doc.text(`Head Office: ${company.address || 'Kathmandu, Nepal'} | Tel: ${company.phone}`, 14, 50);
+    doc.text(`Head Office: ${company.address || 'Kathmandu, Nepal'} | Tel: ${company.phone || '+977 9843604439'}`, 14, 50);
 
-    // Document Title Box
+    // Executive Summary Section
     let yPos = 70;
     doc.setTextColor(...textDark);
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(14);
+    doc.setFontSize(13);
     doc.text('1. EXECUTIVE SUMMARY & CORPORATE OVERVIEW', 14, yPos);
 
     yPos += 7;
@@ -143,7 +182,7 @@ export function generateCompanyProfilePDF(customCompany, customProjects) {
 
     yPos += 30;
 
-    // Services Summary
+    // Core Services Section
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...textDark);
@@ -170,7 +209,7 @@ export function generateCompanyProfilePDF(customCompany, customProjects) {
     });
 
     // ─────────────────────────────────────────────────────────────
-    // PAGE 2: TOP 25 MAJOR PROJECTS SHOWCASE & DETAILS
+    // PAGE 2: TOP 25 MAJOR COMPLETED PROJECTS SHOWCASE
     // ─────────────────────────────────────────────────────────────
     doc.addPage();
 
@@ -179,12 +218,12 @@ export function generateCompanyProfilePDF(customCompany, customProjects) {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(13);
     doc.setTextColor(...textDark);
-    doc.text(`4. TOP 25 MAJOR COMPLETED PROJECTS SHOWCASE`, 14, 18);
+    doc.text('4. TOP 25 MAJOR COMPLETED PROJECTS SHOWCASE', 14, 18);
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8.5);
     doc.setTextColor(...textLight);
-    doc.text('Detailed breakdown of 25 flagship construction & architectural landmarks executed by Nexbuild Architects.', 14, 24);
+    doc.text('Detailed breakdown of flagship construction & architectural landmarks executed by Nexbuild Architects.', 14, 24);
 
     const top25Rows = top25Projects.map((p, idx) => [
       (idx + 1).toString(),
@@ -202,7 +241,7 @@ export function generateCompanyProfilePDF(customCompany, customProjects) {
       body: top25Rows,
       theme: 'grid',
       headStyles: {
-        fillColor: [249, 115, 22], // Accent orange for Top 25
+        fillColor: [249, 115, 22], // Accent orange
         textColor: [255, 255, 255],
         fontSize: 8,
         fontStyle: 'bold',
@@ -214,7 +253,7 @@ export function generateCompanyProfilePDF(customCompany, customProjects) {
         cellPadding: 2,
       },
       alternateRowStyles: {
-        fillColor: [255, 247, 237], // Light orange tint
+        fillColor: [255, 247, 237],
       },
       columnStyles: {
         0: { cellWidth: 10, halign: 'center' },
@@ -229,82 +268,7 @@ export function generateCompanyProfilePDF(customCompany, customProjects) {
     });
 
     // ─────────────────────────────────────────────────────────────
-    // PAGE 3: COMPLETE PROJECT PORTFOLIO TABLE (ALL 67 PROJECTS)
-    // ─────────────────────────────────────────────────────────────
-    doc.addPage();
-
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(13);
-    doc.setTextColor(...textDark);
-    doc.text(`5. COMPLETE PROJECT PORTFOLIO (${projects.length} COMPLETED CONTRACTS)`, 14, 18);
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8.5);
-    doc.setTextColor(...textLight);
-    doc.text('Comprehensive list of major residential, commercial, hospitality, and interior projects completed by Nexbuild Architects.', 14, 24);
-
-    // Prepare table data from projects array
-    const tableRows = projects.map((p, index) => [
-      (index + 1).toString(),
-      p.title || 'Architectural Project',
-      p.location || 'Kathmandu, Nepal',
-      p.category || 'Residential',
-      p.area || 'Standard',
-      (p.year || 2025).toString(),
-      p.client || 'Private Client'
-    ]);
-
-    autoTable(doc, {
-      startY: 28,
-      head: [['S.N.', 'Project Title', 'Location', 'Category', 'Built Area', 'Year', 'Client']],
-      body: tableRows,
-      theme: 'grid',
-      headStyles: {
-        fillColor: [15, 23, 42],
-        textColor: [255, 255, 255],
-        fontSize: 8,
-        fontStyle: 'bold',
-        halign: 'left',
-      },
-      bodyStyles: {
-        fontSize: 7.5,
-        textColor: [30, 41, 59],
-        cellPadding: 2,
-      },
-      alternateRowStyles: {
-        fillColor: [248, 250, 252],
-      },
-      columnStyles: {
-        0: { cellWidth: 10, halign: 'center' }, // S.N.
-        1: { cellWidth: 52, fontStyle: 'bold' }, // Title
-        2: { cellWidth: 38 }, // Location
-        3: { cellWidth: 22 }, // Category
-        4: { cellWidth: 20 }, // Area
-        5: { cellWidth: 14, halign: 'center' }, // Year
-        6: { cellWidth: 26 }, // Client
-      },
-      margin: { left: 14, right: 14, bottom: 20 },
-      didDrawPage: (data) => {
-        // Footer on every page
-        const currentPage = doc.internal.getNumberOfPages();
-        doc.setFontSize(7.5);
-        doc.setFont('helvetica', 'normal');
-        doc.setTextColor(148, 163, 184);
-
-        // Header line
-        doc.setDrawColor(226, 232, 240);
-        doc.line(14, 10, pageWidth - 14, 10);
-        doc.text(`${company.legalName || 'Nexbuild Architects'} — Official Company Profile`, 14, 8);
-
-        // Footer line
-        doc.line(14, pageHeight - 12, pageWidth - 14, pageHeight - 12);
-        doc.text(`Headquarters: ${company.address || 'Kathmandu, Nepal'} | Tel: ${company.phone}`, 14, pageHeight - 7);
-        doc.text(`Page ${currentPage}`, pageWidth - 25, pageHeight - 7);
-      }
-    });
-
-    // ─────────────────────────────────────────────────────────────
-    // FINAL PAGE: EQUIPMENT, CERTIFICATIONS & CONTACT INFO
+    // PAGE 3: EQUIPMENT, CERTIFICATIONS & CONTACT INFO
     // ─────────────────────────────────────────────────────────────
     doc.addPage();
     let endY = 20;
@@ -312,7 +276,7 @@ export function generateCompanyProfilePDF(customCompany, customProjects) {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(13);
     doc.setTextColor(...textDark);
-    doc.text('6. EQUIPMENT, TECHNICAL RESOURCES & CERTIFICATIONS', 14, endY);
+    doc.text('5. EQUIPMENT, TECHNICAL RESOURCES & CERTIFICATIONS', 14, endY);
     endY += 8;
 
     // Equipment Table
@@ -339,7 +303,7 @@ export function generateCompanyProfilePDF(customCompany, customProjects) {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(12);
     doc.setTextColor(...textDark);
-    doc.text('7. LEGAL REGISTRATION & CREDENTIALS', 14, endY);
+    doc.text('6. LEGAL REGISTRATION & CREDENTIALS', 14, endY);
     endY += 6;
 
     const certs = company.certifications || [
@@ -364,13 +328,19 @@ export function generateCompanyProfilePDF(customCompany, customProjects) {
     endY += 6;
 
     // Contact Card Box
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    doc.setTextColor(...textDark);
+    doc.text('7. CORPORATE HEADQUARTERS & INQUIRIES', 14, endY);
+    endY += 6;
+
     doc.setFillColor(15, 23, 42);
     doc.roundedRect(14, endY, 182, 38, 3, 3, 'F');
 
     doc.setTextColor(249, 115, 22);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(11);
-    doc.text('CORPORATE HEADQUARTERS & INQUIRIES', 20, endY + 10);
+    doc.text('OFFICIAL CORPORATE CONTACT', 20, endY + 10);
 
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(9);
@@ -378,6 +348,30 @@ export function generateCompanyProfilePDF(customCompany, customProjects) {
     doc.text(`Company Name: ${company.legalName || company.name}`, 20, endY + 18);
     doc.text(`Address: ${company.address || 'Babarmahal, Rajesh Marg, Kathmandu, Nepal'}`, 20, endY + 24);
     doc.text(`Phone / WhatsApp: ${company.phone || '+977 9843604439'} | Email: ${company.email || 'nexbuild44@gmail.com'}`, 20, endY + 30);
+
+    // Apply header & footer on all pages
+    const totalPages = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+
+      if (i > 1) {
+        doc.setFontSize(7.5);
+        doc.setFont('helvetica', 'normal');
+        doc.setTextColor(148, 163, 184);
+        doc.setDrawColor(226, 232, 240);
+        doc.line(14, 10, pageWidth - 14, 10);
+        doc.text(`${company.legalName || 'Nexbuild Architects'} — Official Company Profile`, 14, 8);
+      }
+
+      // Footer
+      doc.setFontSize(7.5);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(148, 163, 184);
+      doc.setDrawColor(226, 232, 240);
+      doc.line(14, pageHeight - 12, pageWidth - 14, pageHeight - 12);
+      doc.text(`Headquarters: ${company.address || 'Kathmandu, Nepal'} | Tel: ${company.phone || '+977 9843604439'}`, 14, pageHeight - 7);
+      doc.text(`Page ${i} of ${totalPages}`, pageWidth - 28, pageHeight - 7);
+    }
 
     // Save with official filename format
     doc.save('Nexbuild_Architects_Company_Profile.pdf');

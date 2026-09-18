@@ -25,7 +25,7 @@ export default function AdminCompanyProfile() {
   const handleDownloadPDF = async () => {
     setIsGeneratingPDF(true);
     try {
-      generateCompanyProfilePDF(form, projects);
+      await generateCompanyProfilePDF(form, projects);
     } catch (e) {
       window.print();
     } finally {
