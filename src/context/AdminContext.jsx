@@ -114,7 +114,7 @@ export function AdminProvider({ children }) {
           }).catch(console.error);
         } else {
           // Load database data into state
-          if (data.company) setCompanyState(data.company);
+          if (data.company) setCompanyState({ ...COMPANY, ...data.company, keyPeople: data.company.keyPeople ?? COMPANY.keyPeople });
           if (data.projects) setProjectsState(data.projects);
           if (data.services) setServicesState(data.services);
           if (data.testimonials) setTestimState(data.testimonials);
@@ -132,7 +132,8 @@ export function AdminProvider({ children }) {
       .catch(err => {
         console.warn("Express server unavailable, falling back to LocalStorage:", err);
         // Fallback to local storage values
-        setCompanyState(loadOrDefault(KEYS.company, COMPANY));
+        const storedCompany = loadOrDefault(KEYS.company, COMPANY);
+        setCompanyState({ ...COMPANY, ...storedCompany, keyPeople: storedCompany.keyPeople ?? COMPANY.keyPeople });
         setProjectsState(loadOrDefault(KEYS.projects, DEFAULT_PROJECTS));
         setServicesState(loadOrDefault(KEYS.services, SERVICES));
         setTestimState(loadOrDefault(KEYS.testimonials, TESTIMONIALS));
