@@ -209,7 +209,7 @@ export async function generateCompanyProfilePDF(customCompany, customProjects) {
     });
 
     // ─────────────────────────────────────────────────────────────
-    // PAGE 2: KEY PEOPLE & LEADERSHIP
+    // PAGE 2: KEY PEOPLE & LEADERSHIP — 2 SIDE-BY-SIDE CARDS
     // ─────────────────────────────────────────────────────────────
     const keyPeople = company.keyPeople || [];
     if (keyPeople.length > 0) {
@@ -243,159 +243,168 @@ export async function generateCompanyProfilePDF(customCompany, customProjects) {
         keyPeople.map((p) => loadImageAsBase64(p.image || ''))
       );
 
-      // Each person card — stacked vertically (full width), 2 per page
-      const personCardH = 100; // height per person card
-      const personCardGap = 8;
+      // ── 2-COLUMN SIDE BY SIDE LAYOUT ──────────────────────────
+      const colGap = 6;
+      const totalW = pageWidth - 28;               // 182mm usable
+      const colW = (totalW - colGap) / 2;           // ~88mm each
 
-      for (let pi = 0; pi < keyPeople.length; pi++) {
-        const person = keyPeople[pi];
-        const personImg = keyPeopleImages[pi];
+      // Render pairs of people side by side
+      for (let row = 0; row < Math.ceil(keyPeople.length / 2); row++) {
+        const cardH = 122; // height of each person card
 
         // New page if overflow
-        if (kpY + personCardH > pageHeight - 18) {
+        if (kpY + cardH > pageHeight - 15) {
           doc.addPage();
           kpY = 22;
         }
 
-        const cardX = 14;
-        const cardWidth = pageWidth - 28; // full width
+        for (let col = 0; col < 2; col++) {
+          const pi = row * 2 + col;
+          if (pi >= keyPeople.length) break;
 
-        // Card background
-        doc.setFillColor(248, 250, 252);
-        doc.setDrawColor(226, 232, 240);
-        doc.roundedRect(cardX, kpY, cardWidth, personCardH, 3, 3, 'FD');
+          const person = keyPeople[pi];
+          const personImg = keyPeopleImages[pi];
+          const cardX = 14 + col * (colW + colGap);
 
-        // Left accent bar (navy)
-        doc.setFillColor(...primaryNavy);
-        doc.roundedRect(cardX, kpY, 4, personCardH, 2, 2, 'F');
+          // ── Card background (light gray/white)
+          doc.setFillColor(248, 250, 252);
+          doc.setDrawColor(220, 228, 240);
+          doc.roundedRect(cardX, kpY, colW, cardH, 3, 3, 'FD');
 
-        // Photo area (left side)
-        const photoSize = 30;
-        const photoX = cardX + 10;
-        const photoY = kpY + (personCardH - photoSize) / 2;
+          // ── TOP SECTION: photo + name/role/license ────────────
+          const photoSize = 22;
+          const photoX = cardX + 5;
+          const photoY = kpY + 8;
 
-        if (personImg) {
-          try {
-            // White circle bg
-            doc.setFillColor(255, 255, 255);
-            doc.circle(photoX + photoSize / 2, photoY + photoSize / 2, photoSize / 2 + 1.5, 'F');
-            doc.addImage(personImg, 'JPEG', photoX, photoY, photoSize, photoSize);
-          } catch {
-            doc.setFillColor(203, 213, 225);
-            doc.circle(photoX + photoSize / 2, photoY + photoSize / 2, photoSize / 2, 'F');
+          // Photo rounded rect background
+          doc.setFillColor(226, 232, 240);
+          doc.roundedRect(photoX, photoY, photoSize, photoSize, 2, 2, 'F');
+
+          if (personImg) {
+            try {
+              doc.addImage(personImg, 'JPEG', photoX, photoY, photoSize, photoSize);
+            } catch {
+              // Fallback silhouette
+              doc.setFillColor(148, 163, 184);
+              doc.roundedRect(photoX, photoY, photoSize, photoSize, 2, 2, 'F');
+            }
+          } else {
+            doc.setFillColor(30, 41, 59);
+            doc.roundedRect(photoX, photoY, photoSize, photoSize, 2, 2, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9);
+            const initials = person.name.split(' ').filter(w => !['Er.', 'Ar.'].includes(w)).slice(0, 2).map(w => w[0]).join('');
+            doc.text(initials || 'KP', photoX + photoSize / 2, photoY + photoSize / 2 + 3, { align: 'center' });
           }
-        } else {
-          doc.setFillColor(30, 41, 59);
-          doc.circle(photoX + photoSize / 2, photoY + photoSize / 2, photoSize / 2, 'F');
+
+          // Name area (to right of photo)
+          const nameX = photoX + photoSize + 4;
+          const nameAreaW = colW - photoSize - 12;
+          let ty = photoY + 1;
+
+          // Name in bold navy
+          doc.setTextColor(...primaryNavy);
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(9.5);
+          const nameLines = doc.splitTextToSize(person.name, nameAreaW);
+          doc.text(nameLines, nameX, ty);
+          ty += nameLines.length * 5.5;
+
+          // Credential badge (orange pill)
+          doc.setFillColor(...accentOrange);
+          doc.setFontSize(5.5);
+          const credText = person.credential || '';
+          const credBadgeW = doc.getTextWidth(credText) + 5;
+          doc.roundedRect(nameX, ty, credBadgeW, 5.5, 1.5, 1.5, 'F');
           doc.setTextColor(255, 255, 255);
           doc.setFont('helvetica', 'bold');
-          doc.setFontSize(11);
-          const initials = person.name.split(' ').filter(n => n.startsWith('E') === false).slice(0, 2).map(n => n[0]).join('');
-          doc.text(initials || 'EP', photoX + photoSize / 2, photoY + photoSize / 2 + 4, { align: 'center' });
+          doc.text(credText, nameX + 2.5, ty + 3.8);
+          ty += 8;
+
+          // Role (gray)
+          doc.setTextColor(71, 85, 105);
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(7);
+          const roleLines = doc.splitTextToSize(person.role || '', nameAreaW);
+          doc.text(roleLines.slice(0, 2), nameX, ty);
+          ty += roleLines.slice(0, 2).length * 4.5 + 2;
+
+          // License badge (blue outline)
+          doc.setFillColor(239, 246, 255);
+          doc.setDrawColor(191, 219, 254);
+          const licText = `\u2713 ${person.license || 'Licensed Engineer'}`;
+          const licBadgeW = Math.min(doc.getTextWidth(licText) + 5, nameAreaW);
+          doc.roundedRect(nameX, ty, licBadgeW, 5.5, 1.5, 1.5, 'FD');
+          doc.setTextColor(29, 78, 216);
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(5.5);
+          doc.text(licText, nameX + 2.5, ty + 3.8);
+
+          // ── Divider line
+          const divY = photoY + photoSize + 7;
+          doc.setDrawColor(220, 228, 240);
+          doc.line(cardX + 4, divY, cardX + colW - 4, divY);
+
+          // ── DETAIL GRID: 2×2 boxes below divider ─────────────
+          const gridY = divY + 5;
+          const gridColW = (colW - 12) / 2;
+          const boxH = 20;
+          const gridGap = 3;
+
+          const drawDetailBox = (bx, by, label, value, valueColor = null) => {
+            doc.setFillColor(241, 245, 249);
+            doc.roundedRect(bx, by, gridColW, boxH, 1.5, 1.5, 'F');
+            // Label
+            doc.setTextColor(148, 163, 184);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(5);
+            doc.text(label.toUpperCase(), bx + 3, by + 5.5);
+            // Value
+            doc.setTextColor(...(valueColor || textDark));
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(6.5);
+            const valLines = doc.splitTextToSize(value || '-', gridColW - 6);
+            doc.text(valLines.slice(0, 2), bx + 3, by + 11);
+          };
+
+          // Education (spans full width if only 1 degree, else takes col 1)
+          const eduText = (person.education || []).map(e => `• ${e}`).join('\n');
+          doc.setFillColor(241, 245, 249);
+          doc.roundedRect(cardX + 4, gridY, colW - 8, boxH, 1.5, 1.5, 'F');
+          doc.setTextColor(148, 163, 184);
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(5);
+          doc.text('EDUCATION & DEGREES', cardX + 7, gridY + 5.5);
+          doc.setTextColor(...primaryNavy);
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(6);
+          const eduLines = doc.splitTextToSize(eduText, colW - 14);
+          doc.text(eduLines.slice(0, 3), cardX + 7, gridY + 11);
+
+          // Row 2: Phone (col1) + Permanent Address (col2)
+          const row2Y = gridY + boxH + gridGap;
+          drawDetailBox(cardX + 4, row2Y, 'Mobile Contact', person.phone || '', [249, 115, 22]);
+          drawDetailBox(cardX + 4 + gridColW + gridGap, row2Y, 'Permanent Address', person.permanentAddress || '');
+
+          // Row 3: Temporary address (full width)
+          const row3Y = row2Y + boxH + gridGap;
+          doc.setFillColor(241, 245, 249);
+          doc.roundedRect(cardX + 4, row3Y, colW - 8, 14, 1.5, 1.5, 'F');
+          doc.setTextColor(148, 163, 184);
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(5);
+          doc.text('TEMPORARY ADDRESS', cardX + 7, row3Y + 5.5);
+          doc.setTextColor(...textDark);
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(6.5);
+          doc.text(person.temporaryAddress || '-', cardX + 7, row3Y + 11);
         }
 
-        // Text content starts after photo
-        const textX = photoX + photoSize + 8;
-        const textW = cardWidth - (textX - cardX) - 8;
-        let ty = kpY + 10;
-
-        // Name
-        doc.setTextColor(...primaryNavy);
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(12);
-        doc.text(person.name, textX, ty);
-
-        // Credential badge (inline)
-        const nameW = doc.getTextWidth(person.name);
-        doc.setFillColor(...accentOrange);
-        const credText = person.credential || '';
-        doc.setFontSize(6.5);
-        const credW = doc.getTextWidth(credText) + 6;
-        doc.roundedRect(textX + nameW + 4, ty - 5.5, credW, 6.5, 1.5, 1.5, 'F');
-        doc.setTextColor(255, 255, 255);
-        doc.setFont('helvetica', 'bold');
-        doc.text(credText, textX + nameW + 7, ty - 0.5);
-
-        ty += 6;
-
-        // Role
-        doc.setTextColor(...textDark);
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(8.5);
-        doc.text(person.role || '', textX, ty);
-        ty += 5;
-
-        // License tag
-        doc.setFillColor(239, 246, 255);
-        doc.setDrawColor(191, 219, 254);
-        const licText = `✓ ${person.license || 'Licensed Engineer'}`;
-        const licW = doc.getTextWidth(licText) + 6;
-        doc.roundedRect(textX, ty, licW, 6, 1.5, 1.5, 'FD');
-        doc.setTextColor(29, 78, 216);
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(6.5);
-        doc.text(licText, textX + 3, ty + 4.2);
-        ty += 10;
-
-        // 2-column detail grid
-        const col1 = textX;
-        const col2 = textX + textW / 2;
-        const detailLabelSize = 6;
-        const detailValueSize = 7.5;
-
-        // Education (col 1)
-        doc.setFillColor(241, 245, 249);
-        doc.roundedRect(col1, ty, textW / 2 - 4, 30, 2, 2, 'F');
-        doc.setTextColor(...textLight);
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(detailLabelSize);
-        doc.text('EDUCATION & DEGREES', col1 + 3, ty + 5);
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(detailValueSize - 0.5);
-        doc.setTextColor(...textDark);
-        (person.education || []).forEach((edu, ei) => {
-          const eduLines = doc.splitTextToSize(`• ${edu}`, textW / 2 - 10);
-          doc.text(eduLines, col1 + 3, ty + 11 + ei * 8);
-        });
-
-        // Phone + Addresses (col 2)
-        doc.setFillColor(241, 245, 249);
-        doc.roundedRect(col2, ty, textW / 2 - 4, 30, 2, 2, 'F');
-        doc.setTextColor(...textLight);
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(detailLabelSize);
-        doc.text('MOBILE CONTACT', col2 + 3, ty + 5);
-        doc.setTextColor(249, 115, 22); // orange for phone
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(8);
-        doc.text(person.phone || '', col2 + 3, ty + 12);
-
-        doc.setTextColor(...textLight);
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(detailLabelSize);
-        doc.text('PERMANENT ADDRESS', col2 + 3, ty + 19);
-        doc.setTextColor(...textDark);
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(detailValueSize - 0.5);
-        doc.text(person.permanentAddress || '', col2 + 3, ty + 25);
-
-        ty += 36;
-
-        // Temporary address row
-        doc.setFillColor(241, 245, 249);
-        doc.roundedRect(col1, ty, textW, 14, 2, 2, 'F');
-        doc.setTextColor(...textLight);
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(detailLabelSize);
-        doc.text('TEMPORARY ADDRESS (KATHMANDU):', col1 + 3, ty + 5);
-        doc.setTextColor(...textDark);
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(detailValueSize);
-        doc.text(person.temporaryAddress || '', col1 + 3, ty + 11);
-
-        kpY += personCardH + personCardGap;
+        kpY += cardH + 8;
       }
     }
+
 
     // ─────────────────────────────────────────────────────────────
     // PAGES 3+: TOP 25 MAJOR COMPLETED PROJECTS — CARD GRID (2 per row)
