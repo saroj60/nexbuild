@@ -185,7 +185,42 @@ export const COMPANY = {
     "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1920&q=80",
     "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=80",
     "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?w=1920&q=80"
-  ]
+  ],
+  keyPeople: [
+    {
+      id: 'karun-pandey',
+      name: 'Er. Karun Pandey',
+      credential: 'TU 2073 B.S.',
+      role: 'Executive Civil Engineer & Managing Director',
+      license: 'Licensed Civil Engineer',
+      image: '/team/karun-pandey.jpg',
+      phone: '+977 9843604439',
+      education: [
+        "Bachelor's Degree in Civil Engineering, TU (2073 B.S.)"
+      ],
+      permanentAddress: 'Kakani-07, Nuwakot, Nepal',
+      temporaryAddress: 'Tarkeshwor-07, Kathmandu, Nepal',
+      bio: 'Er. Karun Pandey leads Nexbuild Architects as Managing Director with expertise in civil engineering and project management across Nepal.',
+      whatsapp: '9843604439',
+    },
+    {
+      id: 'rajesh-yadav',
+      name: 'Er. Rajesh Yadav',
+      credential: 'M.E. Structural (TU 2079)',
+      role: 'Chief Structural Engineer & Technical Director',
+      license: 'M.E. Structural Engineer',
+      image: '/team/rajesh-yadav.jpg',
+      phone: '+977 9843456230',
+      education: [
+        "Master's Degree in Structural Engineering, TU (2079 B.S.)",
+        "Bachelor's Degree in Civil Engineering, TU (2072 B.S.)"
+      ],
+      permanentAddress: 'Gadhimai-04, Rautahat, Nepal',
+      temporaryAddress: 'Tikathali, Kathmandu, Nepal',
+      bio: 'Er. Rajesh Yadav leads all structural design and technical operations, ensuring full NBC seismic compliance on every project.',
+      whatsapp: '9843456230',
+    }
+  ],
 };
 
 // ============================================================
