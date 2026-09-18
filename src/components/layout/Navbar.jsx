@@ -62,7 +62,7 @@ export default function Navbar() {
           >
             <div className="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden bg-white flex items-center justify-center shadow-sm flex-shrink-0">
               <img
-                src="/icon.png"
+                src="/logo.png"
                 alt={`${company.name} logo`}
                 className="w-12 h-12 md:w-14 md:h-14 object-contain"
               />

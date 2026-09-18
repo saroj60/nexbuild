@@ -86,7 +86,7 @@ export default function Footer() {
             <Link to="/" className="flex items-center gap-2.5 mb-4" aria-label={`${company.name} - Home`}>
               <div className="w-12 h-12 rounded-full overflow-hidden bg-white flex items-center justify-center flex-shrink-0">
                 <img
-                  src="/icon.png"
+                  src="/logo.png"
                   alt={`${company.name} logo`}
                   className="w-11 h-11 object-contain"
                 />

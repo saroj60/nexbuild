@@ -144,7 +144,7 @@ export default function CompanyProfilePage() {
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
                 <div className="flex items-center gap-5">
                   <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-white p-2 flex items-center justify-center shadow-md shrink-0">
-                    <img src="/icon.png" alt={`${company.name} logo`} className="w-full h-full object-contain" />
+                    <img src="/logo.png" alt={`${company.name} logo`} className="w-full h-full object-contain" />
                   </div>
                   <div>
                     <span className="text-orange-400 text-xs font-extrabold uppercase tracking-widest block">Company Profile & Capability Statement</span>
@@ -324,48 +324,101 @@ export default function CompanyProfilePage() {
               </section>
 
               {/* ─────────────────────────────────────────────────────────────
-                  SECTION 5: MAJOR COMPLETED PROJECTS SHOWCASE
+                  SECTION 5: MAJOR COMPLETED PROJECTS SHOWCASE — CARDS
                  ───────────────────────────────────────────────────────────── */}
               <section id="section-showcase" className="scroll-mt-32 border-t border-gray-100 pt-12">
-                <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center justify-between mb-8">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-blue-800 text-white flex items-center justify-center font-bold">05</div>
                     <div>
-                      <h3 className="text-2xl font-extrabold text-gray-900">Major Completed Projects Showcase ({majorProjects.length} Key Landmarks)</h3>
-                      <p className="text-xs text-gray-500">Detailed showcase of our top 25 major architectural & construction projects with site images, built area, clients, and specifications.</p>
+                      <h3 className="text-2xl font-extrabold text-gray-900">Major Completed Projects Showcase</h3>
+                      <p className="text-xs text-gray-500 mt-0.5">Top {majorProjects.length} flagship construction &amp; architectural landmarks executed by Nexbuild Architects.</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {majorProjects.map((proj) => (
-                    <div key={proj.id} className="bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm flex flex-col">
-                      <div className="relative h-48 bg-gray-100 overflow-hidden">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+                  {majorProjects.map((proj, idx) => (
+                    <motion.div
+                      key={proj.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-60px' }}
+                      transition={{ duration: 0.4, delay: (idx % 3) * 0.08 }}
+                      className="group bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
+                    >
+                      {/* Image */}
+                      <div className="relative h-52 bg-slate-100 overflow-hidden shrink-0">
                         <img
                           src={proj.image}
                           alt={proj.title}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           loading="lazy"
+                          onError={(e) => { e.target.src = '/nexbuild-logo-about.png'; e.target.className = 'w-full h-full object-contain p-8 opacity-30'; }}
                         />
-                        <span className="absolute top-3 left-3 bg-blue-900 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
+                        {/* Gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent" />
+
+                        {/* Category badge */}
+                        <span className="absolute top-3 left-3 bg-orange-500 text-white text-[10px] font-extrabold px-2.5 py-1 rounded-full uppercase tracking-wider shadow">
                           {proj.category}
                         </span>
+
+                        {/* Serial number badge */}
+                        <span className="absolute top-3 right-3 w-7 h-7 bg-white/90 backdrop-blur-sm text-slate-900 text-[11px] font-black rounded-full flex items-center justify-center shadow">
+                          {String(idx + 1).padStart(2, '0')}
+                        </span>
+
+                        {/* Bottom overlay: area + year */}
+                        <div className="absolute bottom-0 left-0 right-0 px-4 py-3 flex items-center justify-between text-white text-[11px] font-semibold">
+                          {proj.area && (
+                            <span className="flex items-center gap-1 bg-black/30 backdrop-blur-sm px-2 py-0.5 rounded-full">
+                              <Layers className="w-3 h-3" />
+                              {proj.area}
+                            </span>
+                          )}
+                          {proj.year && (
+                            <span className="flex items-center gap-1 bg-black/30 backdrop-blur-sm px-2 py-0.5 rounded-full">
+                              <Clock className="w-3 h-3" />
+                              {proj.year}
+                            </span>
+                          )}
+                        </div>
                       </div>
-                      <div className="p-5 flex-1 flex flex-col justify-between">
+
+                      {/* Card Body */}
+                      <div className="p-5 flex-1 flex flex-col gap-3">
                         <div>
-                          <h4 className="font-extrabold text-gray-900 text-base line-clamp-1 mb-1">{proj.title}</h4>
-                          <p className="text-xs text-orange-600 font-bold mb-3 flex items-center gap-1">
-                            <MapPin className="w-3.5 h-3.5" />
-                            <span>{proj.location}</span>
+                          <h4 className="font-extrabold text-gray-900 text-base leading-snug line-clamp-2 mb-1.5">
+                            {proj.title}
+                          </h4>
+                          <p className="text-[11px] text-orange-600 font-bold flex items-center gap-1">
+                            <MapPin className="w-3.5 h-3.5 shrink-0" />
+                            <span className="line-clamp-1">{proj.location}</span>
                           </p>
-                          <p className="text-xs text-gray-600 line-clamp-2 leading-relaxed mb-4">{proj.description}</p>
                         </div>
-                        <div className="grid grid-cols-2 gap-2 text-[11px] font-medium text-gray-500 border-t border-gray-100 pt-3">
-                          <div>Client: <strong className="text-gray-800 block truncate">{proj.client || 'Private Client'}</strong></div>
-                          <div>Year: <strong className="text-gray-800 block">{proj.year || '2025'}</strong></div>
+
+                        {proj.description && (
+                          <p className="text-xs text-gray-500 leading-relaxed line-clamp-2 flex-1">
+                            {proj.description}
+                          </p>
+                        )}
+
+                        {/* Footer: Client + Link */}
+                        <div className="pt-3 border-t border-gray-100 flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-1.5 text-[11px] text-gray-500 min-w-0">
+                            <Briefcase className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                            <span className="font-semibold text-gray-700 truncate">{proj.client || 'Private Client'}</span>
+                          </div>
+                          <Link
+                            to={`/projects/${proj.id}`}
+                            className="shrink-0 inline-flex items-center gap-1 text-[11px] font-bold text-blue-700 hover:text-orange-600 transition-colors"
+                          >
+                            View <ExternalLink className="w-3 h-3" />
+                          </Link>
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </section>

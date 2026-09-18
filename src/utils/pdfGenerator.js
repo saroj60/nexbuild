@@ -209,63 +209,134 @@ export async function generateCompanyProfilePDF(customCompany, customProjects) {
     });
 
     // ─────────────────────────────────────────────────────────────
-    // PAGE 2: TOP 25 MAJOR COMPLETED PROJECTS SHOWCASE
+    // PAGES 2+: TOP 25 MAJOR COMPLETED PROJECTS — CARD GRID (2 per row)
     // ─────────────────────────────────────────────────────────────
     doc.addPage();
 
     const top25Projects = projects.slice(0, 25);
 
+    // Preload all project images as base64 in parallel
+    const projectImages = await Promise.all(
+      top25Projects.map((p) => loadImageAsBase64(p.image || ''))
+    );
+
+    // Card dimensions
+    const cardW = 87;      // card width mm
+    const cardH = 68;      // total card height mm
+    const imgH = 36;       // image section height mm
+    const col1X = 14;      // left column X
+    const col2X = 14 + cardW + 8; // right column X
+    const pageTopY = 18;   // Y start for first row on each page
+    const rowSpacing = cardH + 5; // vertical gap between rows
+
+    // Page 2 header
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(13);
     doc.setTextColor(...textDark);
-    doc.text('4. TOP 25 MAJOR COMPLETED PROJECTS SHOWCASE', 14, 18);
+    doc.text('4. TOP 25 MAJOR COMPLETED PROJECTS SHOWCASE', 14, pageTopY);
 
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8.5);
+    doc.setFontSize(8);
     doc.setTextColor(...textLight);
-    doc.text('Detailed breakdown of flagship construction & architectural landmarks executed by Nexbuild Architects.', 14, 24);
+    doc.text('Flagship construction & architectural landmarks executed by Nexbuild Architects & Construction Pvt. Ltd.', 14, pageTopY + 6);
 
-    const top25Rows = top25Projects.map((p, idx) => [
-      (idx + 1).toString(),
-      p.title || 'Landmark Project',
-      p.location || 'Kathmandu, Nepal',
-      p.category || 'Residential',
-      p.area || 'Standard',
-      (p.year || 2025).toString(),
-      p.client || 'Private Client'
-    ]);
+    let cardY = pageTopY + 14;
 
-    autoTable(doc, {
-      startY: 28,
-      head: [['S.N.', 'Major Project Title', 'Location', 'Category', 'Built Area', 'Year', 'Client Name']],
-      body: top25Rows,
-      theme: 'grid',
-      headStyles: {
-        fillColor: [249, 115, 22], // Accent orange
-        textColor: [255, 255, 255],
-        fontSize: 8,
-        fontStyle: 'bold',
-        halign: 'left',
-      },
-      bodyStyles: {
-        fontSize: 7.5,
-        textColor: [30, 41, 59],
-        cellPadding: 2,
-      },
-      alternateRowStyles: {
-        fillColor: [255, 247, 237],
-      },
-      columnStyles: {
-        0: { cellWidth: 10, halign: 'center' },
-        1: { cellWidth: 54, fontStyle: 'bold' },
-        2: { cellWidth: 38 },
-        3: { cellWidth: 22 },
-        4: { cellWidth: 20 },
-        5: { cellWidth: 14, halign: 'center' },
-        6: { cellWidth: 24 },
-      },
-      margin: { left: 14, right: 14, bottom: 15 },
-    });
+    for (let i = 0; i < top25Projects.length; i++) {
+      const p = top25Projects[i];
+      const imgB64 = projectImages[i];
+      const col = i % 2 === 0 ? col1X : col2X;
+
+      // Every 2 cards = 1 row. After each complete row, check if we need a new page.
+      if (i % 2 === 0 && i > 0) {
+        cardY += rowSpacing;
+        // Check if next row fits on current page
+        if (cardY + cardH > pageHeight - 18) {
+          doc.addPage();
+          // Running header on subsequent pages
+          doc.setFontSize(7.5);
+          doc.setFont('helvetica', 'normal');
+          doc.setTextColor(148, 163, 184);
+          doc.setDrawColor(226, 232, 240);
+          doc.line(14, 10, pageWidth - 14, 10);
+          doc.text(`${company.legalName || 'Nexbuild Architects'} — Section 4: Major Projects`, 14, 8);
+          cardY = pageTopY;
+        }
+      }
+
+      // Card shadow/background
+      doc.setFillColor(248, 250, 252);
+      doc.setDrawColor(226, 232, 240);
+      doc.roundedRect(col, cardY, cardW, cardH, 3, 3, 'FD');
+
+      // Project image or placeholder
+      if (imgB64) {
+        try {
+          // Clip image area by drawing over with fill after
+          doc.addImage(imgB64, 'JPEG', col, cardY, cardW, imgH);
+        } catch (e) {
+          // Placeholder if image fails
+          doc.setFillColor(203, 213, 225);
+          doc.rect(col, cardY, cardW, imgH, 'F');
+        }
+      } else {
+        doc.setFillColor(203, 213, 225);
+        doc.rect(col, cardY, cardW, imgH, 'F');
+      }
+
+      // Category badge (top-left of image)
+      doc.setFillColor(...accentOrange);
+      doc.roundedRect(col + 2.5, cardY + 2.5, 28, 5.5, 1.5, 1.5, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(6);
+      doc.text((p.category || 'PROJECT').toUpperCase(), col + 16.5, cardY + 6.2, { align: 'center' });
+
+      // Serial number badge (top-right of image)
+      doc.setFillColor(255, 255, 255);
+      doc.circle(col + cardW - 6, cardY + 6, 4.5, 'F');
+      doc.setTextColor(...textDark);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7);
+      doc.text(String(i + 1).padStart(2, '0'), col + cardW - 6, cardY + 7.2, { align: 'center' });
+
+      // Gradient overlay at bottom of image — dark bar
+      doc.setFillColor(15, 23, 42);
+      doc.setGState(doc.GState({ opacity: 0.55 }));
+      doc.rect(col, cardY + imgH - 10, cardW, 10, 'F');
+      doc.setGState(doc.GState({ opacity: 1 }));
+
+      // Area & year on image bar
+      doc.setTextColor(255, 255, 255);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(6.5);
+      if (p.area) doc.text(p.area, col + 3, cardY + imgH - 3.5);
+      if (p.year) doc.text(String(p.year), col + cardW - 3, cardY + imgH - 3.5, { align: 'right' });
+
+      // Card text body
+      const bodyY = cardY + imgH + 4;
+
+      // Title
+      doc.setTextColor(...textDark);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.5);
+      const titleLines = doc.splitTextToSize(p.title || 'Landmark Project', cardW - 6);
+      doc.text(titleLines.slice(0, 2), col + 3, bodyY);
+
+      // Location
+      const locY = bodyY + (titleLines.length > 1 ? 10 : 5.5);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(6.5);
+      doc.setTextColor(...accentOrange);
+      const locStr = p.location ? (p.location.length > 30 ? p.location.slice(0, 29) + '…' : p.location) : 'Nepal';
+      doc.text(`📍 ${locStr}`, col + 3, locY);
+
+      // Client
+      doc.setTextColor(...textLight);
+      doc.setFontSize(6);
+      const clientStr = p.client ? (p.client.length > 35 ? p.client.slice(0, 34) + '…' : p.client) : 'Private Client';
+      doc.text(`Client: ${clientStr}`, col + 3, locY + 5);
+    }
 
     // ─────────────────────────────────────────────────────────────
     // PAGE 3: EQUIPMENT, CERTIFICATIONS & CONTACT INFO
