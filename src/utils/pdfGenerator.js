@@ -152,7 +152,7 @@ export async function generateCompanyProfilePDF(customCompany, customProjects) {
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...textDark);
-    doc.text('2. VISION & MISSION', 14, yPos);
+    doc.text('3. VISION & MISSION', 14, yPos);
 
     yPos += 6;
     doc.setFillColor(15, 23, 42);
@@ -186,7 +186,7 @@ export async function generateCompanyProfilePDF(customCompany, customProjects) {
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...textDark);
-    doc.text('3. CORE SERVICES', 14, yPos);
+    doc.text('4. CORE SERVICES', 14, yPos);
 
     yPos += 6;
     const servicesList = [
@@ -209,9 +209,199 @@ export async function generateCompanyProfilePDF(customCompany, customProjects) {
     });
 
     // ─────────────────────────────────────────────────────────────
-    // PAGES 2+: TOP 25 MAJOR COMPLETED PROJECTS — CARD GRID (2 per row)
+    // PAGE 2: KEY PEOPLE & LEADERSHIP
+    // ─────────────────────────────────────────────────────────────
+    const keyPeople = company.keyPeople || [];
+    if (keyPeople.length > 0) {
+      doc.addPage();
+
+      // Page header
+      doc.setFillColor(...primaryNavy);
+      doc.rect(0, 0, pageWidth, 18, 'F');
+      doc.setFillColor(...accentOrange);
+      doc.rect(0, 18, pageWidth, 2, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(9);
+      doc.text(`${company.legalName || 'Nexbuild Architects'} — Official Company Profile`, 14, 12);
+
+      // Section title
+      let kpY = 28;
+      doc.setTextColor(...textDark);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(13);
+      doc.text('2. KEY PEOPLE & LEADERSHIP', 14, kpY);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8);
+      doc.setTextColor(...textLight);
+      doc.text('Licensed professional engineers leading Nexbuild Architects & Construction Pvt. Ltd.', 14, kpY + 6);
+      kpY += 14;
+
+      // Preload key people photos
+      const keyPeopleImages = await Promise.all(
+        keyPeople.map((p) => loadImageAsBase64(p.image || ''))
+      );
+
+      // Each person card — stacked vertically (full width), 2 per page
+      const personCardH = 100; // height per person card
+      const personCardGap = 8;
+
+      for (let pi = 0; pi < keyPeople.length; pi++) {
+        const person = keyPeople[pi];
+        const personImg = keyPeopleImages[pi];
+
+        // New page if overflow
+        if (kpY + personCardH > pageHeight - 18) {
+          doc.addPage();
+          kpY = 22;
+        }
+
+        const cardX = 14;
+        const cardWidth = pageWidth - 28; // full width
+
+        // Card background
+        doc.setFillColor(248, 250, 252);
+        doc.setDrawColor(226, 232, 240);
+        doc.roundedRect(cardX, kpY, cardWidth, personCardH, 3, 3, 'FD');
+
+        // Left accent bar (navy)
+        doc.setFillColor(...primaryNavy);
+        doc.roundedRect(cardX, kpY, 4, personCardH, 2, 2, 'F');
+
+        // Photo area (left side)
+        const photoSize = 30;
+        const photoX = cardX + 10;
+        const photoY = kpY + (personCardH - photoSize) / 2;
+
+        if (personImg) {
+          try {
+            // White circle bg
+            doc.setFillColor(255, 255, 255);
+            doc.circle(photoX + photoSize / 2, photoY + photoSize / 2, photoSize / 2 + 1.5, 'F');
+            doc.addImage(personImg, 'JPEG', photoX, photoY, photoSize, photoSize);
+          } catch {
+            doc.setFillColor(203, 213, 225);
+            doc.circle(photoX + photoSize / 2, photoY + photoSize / 2, photoSize / 2, 'F');
+          }
+        } else {
+          doc.setFillColor(30, 41, 59);
+          doc.circle(photoX + photoSize / 2, photoY + photoSize / 2, photoSize / 2, 'F');
+          doc.setTextColor(255, 255, 255);
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(11);
+          const initials = person.name.split(' ').filter(n => n.startsWith('E') === false).slice(0, 2).map(n => n[0]).join('');
+          doc.text(initials || 'EP', photoX + photoSize / 2, photoY + photoSize / 2 + 4, { align: 'center' });
+        }
+
+        // Text content starts after photo
+        const textX = photoX + photoSize + 8;
+        const textW = cardWidth - (textX - cardX) - 8;
+        let ty = kpY + 10;
+
+        // Name
+        doc.setTextColor(...primaryNavy);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(12);
+        doc.text(person.name, textX, ty);
+
+        // Credential badge (inline)
+        const nameW = doc.getTextWidth(person.name);
+        doc.setFillColor(...accentOrange);
+        const credText = person.credential || '';
+        doc.setFontSize(6.5);
+        const credW = doc.getTextWidth(credText) + 6;
+        doc.roundedRect(textX + nameW + 4, ty - 5.5, credW, 6.5, 1.5, 1.5, 'F');
+        doc.setTextColor(255, 255, 255);
+        doc.setFont('helvetica', 'bold');
+        doc.text(credText, textX + nameW + 7, ty - 0.5);
+
+        ty += 6;
+
+        // Role
+        doc.setTextColor(...textDark);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8.5);
+        doc.text(person.role || '', textX, ty);
+        ty += 5;
+
+        // License tag
+        doc.setFillColor(239, 246, 255);
+        doc.setDrawColor(191, 219, 254);
+        const licText = `✓ ${person.license || 'Licensed Engineer'}`;
+        const licW = doc.getTextWidth(licText) + 6;
+        doc.roundedRect(textX, ty, licW, 6, 1.5, 1.5, 'FD');
+        doc.setTextColor(29, 78, 216);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(6.5);
+        doc.text(licText, textX + 3, ty + 4.2);
+        ty += 10;
+
+        // 2-column detail grid
+        const col1 = textX;
+        const col2 = textX + textW / 2;
+        const detailLabelSize = 6;
+        const detailValueSize = 7.5;
+
+        // Education (col 1)
+        doc.setFillColor(241, 245, 249);
+        doc.roundedRect(col1, ty, textW / 2 - 4, 30, 2, 2, 'F');
+        doc.setTextColor(...textLight);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(detailLabelSize);
+        doc.text('EDUCATION & DEGREES', col1 + 3, ty + 5);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(detailValueSize - 0.5);
+        doc.setTextColor(...textDark);
+        (person.education || []).forEach((edu, ei) => {
+          const eduLines = doc.splitTextToSize(`• ${edu}`, textW / 2 - 10);
+          doc.text(eduLines, col1 + 3, ty + 11 + ei * 8);
+        });
+
+        // Phone + Addresses (col 2)
+        doc.setFillColor(241, 245, 249);
+        doc.roundedRect(col2, ty, textW / 2 - 4, 30, 2, 2, 'F');
+        doc.setTextColor(...textLight);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(detailLabelSize);
+        doc.text('MOBILE CONTACT', col2 + 3, ty + 5);
+        doc.setTextColor(249, 115, 22); // orange for phone
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(8);
+        doc.text(person.phone || '', col2 + 3, ty + 12);
+
+        doc.setTextColor(...textLight);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(detailLabelSize);
+        doc.text('PERMANENT ADDRESS', col2 + 3, ty + 19);
+        doc.setTextColor(...textDark);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(detailValueSize - 0.5);
+        doc.text(person.permanentAddress || '', col2 + 3, ty + 25);
+
+        ty += 36;
+
+        // Temporary address row
+        doc.setFillColor(241, 245, 249);
+        doc.roundedRect(col1, ty, textW, 14, 2, 2, 'F');
+        doc.setTextColor(...textLight);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(detailLabelSize);
+        doc.text('TEMPORARY ADDRESS (KATHMANDU):', col1 + 3, ty + 5);
+        doc.setTextColor(...textDark);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(detailValueSize);
+        doc.text(person.temporaryAddress || '', col1 + 3, ty + 11);
+
+        kpY += personCardH + personCardGap;
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // PAGES 3+: TOP 25 MAJOR COMPLETED PROJECTS — CARD GRID (2 per row)
     // ─────────────────────────────────────────────────────────────
     doc.addPage();
+
 
     const top25Projects = projects.slice(0, 25);
 
@@ -233,7 +423,7 @@ export async function generateCompanyProfilePDF(customCompany, customProjects) {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(13);
     doc.setTextColor(...textDark);
-    doc.text('4. TOP 25 MAJOR COMPLETED PROJECTS SHOWCASE', 14, pageTopY);
+    doc.text('5. TOP 25 MAJOR COMPLETED PROJECTS SHOWCASE', 14, pageTopY);
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
@@ -347,7 +537,7 @@ export async function generateCompanyProfilePDF(customCompany, customProjects) {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(13);
     doc.setTextColor(...textDark);
-    doc.text('5. EQUIPMENT, TECHNICAL RESOURCES & CERTIFICATIONS', 14, endY);
+    doc.text('6. EQUIPMENT, TECHNICAL RESOURCES & CERTIFICATIONS', 14, endY);
     endY += 8;
 
     // Equipment Table
@@ -374,7 +564,7 @@ export async function generateCompanyProfilePDF(customCompany, customProjects) {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(12);
     doc.setTextColor(...textDark);
-    doc.text('6. LEGAL REGISTRATION & CREDENTIALS', 14, endY);
+    doc.text('7. LEGAL REGISTRATION & CREDENTIALS', 14, endY);
     endY += 6;
 
     const certs = company.certifications || [
@@ -402,7 +592,7 @@ export async function generateCompanyProfilePDF(customCompany, customProjects) {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(12);
     doc.setTextColor(...textDark);
-    doc.text('7. CORPORATE HEADQUARTERS & INQUIRIES', 14, endY);
+    doc.text('8. CORPORATE HEADQUARTERS & INQUIRIES', 14, endY);
     endY += 6;
 
     doc.setFillColor(15, 23, 42);
