@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAdmin } from '@/context/AdminContext';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Download, FileText } from 'lucide-react';
 
 const DEFAULT_HERO_SLIDES = [
   {
@@ -169,6 +170,14 @@ export default function Hero() {
               >
                 <span>Start Your Project</span>
                 <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+              </Link>
+              <Link
+                to="/company-profile"
+                className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-[14px] bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 hover:from-orange-600 hover:to-amber-600 text-white font-semibold text-sm sm:text-base transition-all duration-300 hover:-translate-y-0.5 text-center shadow-[0_0_20px_rgba(249,115,22,0.35)]"
+                aria-label="Download Company Profile PDF"
+              >
+                <Download className="w-4 h-4" />
+                <span>Company Profile PDF</span>
               </Link>
               <Link
                 to="/projects"
