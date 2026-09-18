@@ -46,9 +46,9 @@ export const COMPANY = {
     linkedin: 'https://linkedin.com/',
   },
   stats: {
-    projectsCompleted: '15+',
+    projectsCompleted: '70+',
     yearsExperience: '6+',
-    happyClients: '120+',
+    happyClients: '100+',
     professionals: '25+',
   },
   foundedYear: 2021,

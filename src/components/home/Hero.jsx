@@ -188,7 +188,7 @@ export default function Hero() {
             >
               <div>
                 <p className="text-xl xs:text-2xl sm:text-3xl lg:text-[32px] font-extrabold text-[#F5F7FA] tracking-tight">
-                  {company?.stats?.projectsCompleted || '15+'}
+                  {company?.stats?.projectsCompleted || '70+'}
                 </p>
                 <p className="text-[10px] xs:text-[11px] sm:text-xs text-[#AAB4C5] font-medium tracking-wide mt-0.5 leading-snug">Projects Completed</p>
               </div>
