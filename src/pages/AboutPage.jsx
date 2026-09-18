@@ -130,10 +130,19 @@ export default function AboutPage() {
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-gray-300 max-w-xl mx-auto text-base md:text-lg"
+            className="text-gray-300 max-w-xl mx-auto text-base md:text-lg mb-6"
           >
             Building trust, landmark structures, and lasting relationships across Kathmandu since {company.foundedYear}.
           </motion.p>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.45 }}>
+            <Link
+              to="/company-profile"
+              className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-extrabold px-6 py-3.5 rounded-2xl text-xs md:text-sm transition-transform hover:scale-105 shadow-lg shadow-orange-500/20"
+            >
+              <span>View & Download Company Profile PDF</span>
+            </Link>
+          </motion.div>
         </div>
       </section>
 

@@ -39,11 +39,11 @@ const LinkedinIcon = () => (
 const quickLinks = [
   { label: 'Home', to: '/' },
   { label: 'About Us', to: '/about' },
+  { label: 'Company Profile (PDF)', to: '/company-profile' },
   { label: 'Services', to: '/services' },
   { label: 'Projects', to: '/projects' },
-  { label: 'Vlog', to: '/vlogs' },
+  { label: 'House Designs', to: '/house-designs' },
   { label: 'Contact Us', to: '/contact' },
-  { label: 'Get a Quote', to: '/contact' },
 ];
 
 export default function Footer() {

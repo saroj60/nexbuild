@@ -45,6 +45,132 @@ export const COMPANY = {
     youtube: 'https://youtube.com/',
     linkedin: 'https://linkedin.com/',
   },
+  history: "Founded in 2021 in Kathmandu, Nepal, Nexbuild Architects And Construction Pvt. Ltd. has grown rapidly from a specialized architectural design firm into one of Bagmati Province's most trusted full-service Design-Build engineering and construction companies. Over the past 6+ years, our team of licensed structural engineers, architects, and project managers has successfully executed 67+ real-world construction projects spanning luxury residential villas, multi-family apartment complexes, high-end commercial office towers, airline corporate fit-outs, boutique eco-resorts, traditional pagodas, and public infrastructure across Kathmandu, Pokhara, Chitwan, Hetauda, and Nuwakot.",
+  coreValues: [
+  {
+    "title": "Technical Excellence",
+    "description": "Rigorous engineering standards, 3D BIM visualization, and full compliance with Nepal National Building Code (NBC 105:2020) seismic guidelines."
+  },
+  {
+    "title": "Integrity & Transparency",
+    "description": "Itemized Bill of Quantities (BOQ), zero hidden costs, fixed project timelines, and honest client communication at every milestone."
+  },
+  {
+    "title": "Architectural Innovation",
+    "description": "Blending authentic Nepalese architectural heritage with contemporary modern minimalist, neoclassical, and steel-frame designs."
+  },
+  {
+    "title": "Quality & Safety First",
+    "description": "Certified materials (Fe500 TMT steel, M20/M25 concrete grades), mandatory soil testing, and strict site safety protocols."
+  },
+  {
+    "title": "Sustainability",
+    "description": "Eco-friendly building practices, optimal natural day-lighting, rainwater harvesting integration, and energy-efficient building envelopes."
+  }
+],
+  achievements: [
+  "67+ Completed Design-Build Construction Projects Handed Over",
+  "Official Member of Nepal Engineers Association (NEA)",
+  "100% NBC Seismic Building Code Compliance & Municipality Map Approvals",
+  "Turnkey Fit-out Partner for International Airlines (IndiGo & Biman Bangladesh)",
+  "Zero Structural Safety Incidents Across All Construction Sites"
+],
+  equipment: [
+  {
+    "category": "Surveying & Geospatial",
+    "items": "Leica Total Station, Automatic Optical Levels, GPS Survey Instruments"
+  },
+  {
+    "category": "Structural Concrete & Masonry",
+    "items": "Heavy Duty Concrete Mixers, Needle Vibrators, Concrete Batching Units"
+  },
+  {
+    "category": "Steel & Formwork",
+    "items": "Rebar Cutting & Bending Machines, Tubular Steel Scaffolding, Shuttering Plates"
+  },
+  {
+    "category": "Digital & Computing",
+    "items": "High-Performance 3D CAD/BIM Workstations, Structural ETABS & SAFE Analysis Software"
+  },
+  {
+    "category": "Safety & Site Supervision",
+    "items": "Full Personal Protective Equipment (PPE) Gear, Site Testing Kits, Slump Test Cones"
+  }
+],
+  certifications: [
+  {
+    "title": "Company Registration Certificate",
+    "details": "Reg No. 391105/82/83 (Government of Nepal)"
+  },
+  {
+    "title": "Permanent Account Number (PAN / VAT)",
+    "details": "PAN/VAT No. 623604209"
+  },
+  {
+    "title": "Engineering Council License",
+    "details": "Nepal Engineers Association (NEA) Certified Structural Engineers"
+  },
+  {
+    "title": "Municipal Map Approval License",
+    "details": "Registered Consultant for Kathmandu Metropolitan City & Lalitpur Metropolitan City"
+  }
+],
+  ongoingProjects: [
+  {
+    "name": "Bhaisepati Luxury Residence Phase II",
+    "location": "Bhaisepati, Lalitpur",
+    "category": "Residential",
+    "status": "In Construction (Superstructure Complete)",
+    "completionTarget": "Late 2026",
+    "area": "6,200 sq. ft."
+  },
+  {
+    "name": "Budhanilkantha Hillside Villa & Pergola Deck",
+    "location": "Budhanilkantha, Kathmandu",
+    "category": "Residential",
+    "status": "Finishing & Interior Fit-out",
+    "completionTarget": "Mid 2026",
+    "area": "4,800 sq. ft."
+  },
+  {
+    "name": "Pokhara Commercial Complex & Rooftop Lounge",
+    "location": "Lakeside, Pokhara",
+    "category": "Commercial",
+    "status": "Foundation & RCC Framing",
+    "completionTarget": "2027",
+    "area": "15,000 sq. ft."
+  }
+],
+  clients: [
+  {
+    "name": "IndiGo Airlines TIA Office",
+    "category": "Corporate Fit-Out"
+  },
+  {
+    "name": "Biman Bangladesh Airlines Office",
+    "category": "Corporate Office"
+  },
+  {
+    "name": "Rosebud School Complex",
+    "category": "Institutional"
+  },
+  {
+    "name": "Temple Suites Hotel Thamel",
+    "category": "Hospitality"
+  },
+  {
+    "name": "Mr. Nirmal Pandey Residence",
+    "category": "Residential Villa"
+  },
+  {
+    "name": "Mr. Rubin Shrestha Residence",
+    "category": "Multi-Story Villa"
+  },
+  {
+    "name": "Mrs. Radhika Sapkota Residence",
+    "category": "Luxury Villa"
+  }
+],
   stats: {
     projectsCompleted: '70+',
     yearsExperience: '6+',

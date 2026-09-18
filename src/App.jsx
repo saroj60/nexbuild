@@ -19,12 +19,14 @@ const TermsPage          = lazy(() => import('./pages/TermsPage.jsx'));
 const NotFoundPage       = lazy(() => import('./pages/NotFoundPage.jsx'));
 const HouseDesignsPage   = lazy(() => import('./pages/HouseDesignsPage.jsx'));
 const HouseDesignDetailPage = lazy(() => import('./pages/HouseDesignDetailPage.jsx'));
+const CompanyProfilePage = lazy(() => import('./pages/CompanyProfilePage.jsx'));
 
 // Admin pages — lazy loaded
 const AdminLoginPage    = lazy(() => import('./pages/admin/AdminLoginPage.jsx'));
 const AdminDashboard    = lazy(() => import('./pages/admin/AdminDashboard.jsx'));
 const AdminProjectForm  = lazy(() => import('./pages/admin/AdminProjectForm.jsx'));
 const AdminCompany      = lazy(() => import('./pages/admin/AdminCompany.jsx'));
+const AdminCompanyProfile = lazy(() => import('./pages/admin/AdminCompanyProfile.jsx'));
 const AdminServices     = lazy(() => import('./pages/admin/AdminServices.jsx'));
 const AdminTestimonials = lazy(() => import('./pages/admin/AdminTestimonials.jsx'));
 const AdminTeam         = lazy(() => import('./pages/admin/AdminTeam.jsx'));
@@ -62,6 +64,7 @@ const router = createBrowserRouter([
       { path: 'projects/:id',  element: <Wrap><ProjectDetailPage /></Wrap> },
       { path: 'house-designs',  element: <Wrap><HouseDesignsPage /></Wrap> },
       { path: 'house-designs/:id', element: <Wrap><HouseDesignDetailPage /></Wrap> },
+      { path: 'company-profile', element: <Wrap><CompanyProfilePage /></Wrap> },
       { path: 'vlogs',         element: <Wrap><VlogsPage /></Wrap> },
       { path: 'vlogs/:id',     element: <Wrap><VlogDetailPage /></Wrap> },
       { path: 'contact',       element: <Wrap><ContactPage /></Wrap> },
@@ -133,6 +136,14 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <Wrap><AdminCompany /></Wrap>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/admin/company-profile',
+    element: (
+      <ProtectedRoute>
+        <Wrap><AdminCompanyProfile /></Wrap>
       </ProtectedRoute>
     ),
   },

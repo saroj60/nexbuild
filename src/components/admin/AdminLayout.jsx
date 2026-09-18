@@ -1,12 +1,13 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAdmin } from '@/context/AdminContext';
 import {
-  LayoutDashboard, Building2, Wrench, MessageSquare, Users, Sparkles, LogOut, ExternalLink, HardHat, Plus, Video, Database, Home,
+  LayoutDashboard, Building2, Wrench, MessageSquare, Users, Sparkles, LogOut, ExternalLink, HardHat, Plus, Video, Database, Home, FileText
 } from 'lucide-react';
 
 const NAV_ITEMS = [
   { to: '/admin', label: 'Projects', icon: LayoutDashboard, exact: true },
   { to: '/admin/house-designs', label: 'Designs', icon: Home, exact: false },
+  { to: '/admin/company-profile', label: 'PDF & Profile', icon: FileText, exact: false },
   { to: '/admin/company', label: 'Company', icon: Building2, exact: false },
   { to: '/admin/services', label: 'Services', icon: Wrench, exact: false },
   { to: '/admin/vlogs', label: 'Vlogs', icon: Video, exact: false },
