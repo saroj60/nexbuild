@@ -40,7 +40,7 @@ export default function CompanyProfilePage() {
   const handleDownloadPDF = async () => {
     setIsGeneratingPDF(true);
     try {
-      await generateCompanyProfilePDF('company-profile-document');
+      generateCompanyProfilePDF(company, projects);
     } catch (err) {
       console.error(err);
       window.print();

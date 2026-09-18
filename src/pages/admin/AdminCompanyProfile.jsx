@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 
 export default function AdminCompanyProfile() {
-  const { company, updateCompany } = useAdmin();
+  const { company, updateCompany, projects } = useAdmin();
   const [form, setForm] = useState({ ...company });
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
@@ -25,7 +25,7 @@ export default function AdminCompanyProfile() {
   const handleDownloadPDF = async () => {
     setIsGeneratingPDF(true);
     try {
-      await generateCompanyProfilePDF('company-profile-document');
+      generateCompanyProfilePDF(form, projects);
     } catch (e) {
       window.print();
     } finally {
