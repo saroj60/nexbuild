@@ -170,14 +170,73 @@ export function generateCompanyProfilePDF(customCompany, customProjects) {
     });
 
     // ─────────────────────────────────────────────────────────────
-    // PAGE 2: COMPLETE PROJECT PORTFOLIO TABLE (ALL 67 PROJECTS)
+    // PAGE 2: TOP 25 MAJOR PROJECTS SHOWCASE & DETAILS
+    // ─────────────────────────────────────────────────────────────
+    doc.addPage();
+
+    const top25Projects = projects.slice(0, 25);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(13);
+    doc.setTextColor(...textDark);
+    doc.text(`4. TOP 25 MAJOR COMPLETED PROJECTS SHOWCASE`, 14, 18);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.5);
+    doc.setTextColor(...textLight);
+    doc.text('Detailed breakdown of 25 flagship construction & architectural landmarks executed by Nexbuild Architects.', 14, 24);
+
+    const top25Rows = top25Projects.map((p, idx) => [
+      (idx + 1).toString(),
+      p.title || 'Landmark Project',
+      p.location || 'Kathmandu, Nepal',
+      p.category || 'Residential',
+      p.area || 'Standard',
+      (p.year || 2025).toString(),
+      p.client || 'Private Client'
+    ]);
+
+    autoTable(doc, {
+      startY: 28,
+      head: [['S.N.', 'Major Project Title', 'Location', 'Category', 'Built Area', 'Year', 'Client Name']],
+      body: top25Rows,
+      theme: 'grid',
+      headStyles: {
+        fillColor: [249, 115, 22], // Accent orange for Top 25
+        textColor: [255, 255, 255],
+        fontSize: 8,
+        fontStyle: 'bold',
+        halign: 'left',
+      },
+      bodyStyles: {
+        fontSize: 7.5,
+        textColor: [30, 41, 59],
+        cellPadding: 2,
+      },
+      alternateRowStyles: {
+        fillColor: [255, 247, 237], // Light orange tint
+      },
+      columnStyles: {
+        0: { cellWidth: 10, halign: 'center' },
+        1: { cellWidth: 54, fontStyle: 'bold' },
+        2: { cellWidth: 38 },
+        3: { cellWidth: 22 },
+        4: { cellWidth: 20 },
+        5: { cellWidth: 14, halign: 'center' },
+        6: { cellWidth: 24 },
+      },
+      margin: { left: 14, right: 14, bottom: 15 },
+    });
+
+    // ─────────────────────────────────────────────────────────────
+    // PAGE 3: COMPLETE PROJECT PORTFOLIO TABLE (ALL 67 PROJECTS)
     // ─────────────────────────────────────────────────────────────
     doc.addPage();
 
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(13);
     doc.setTextColor(...textDark);
-    doc.text(`4. COMPLETE PROJECT PORTFOLIO (${projects.length} COMPLETED CONTRACTS)`, 14, 18);
+    doc.text(`5. COMPLETE PROJECT PORTFOLIO (${projects.length} COMPLETED CONTRACTS)`, 14, 18);
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8.5);
@@ -253,7 +312,7 @@ export function generateCompanyProfilePDF(customCompany, customProjects) {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(13);
     doc.setTextColor(...textDark);
-    doc.text('5. EQUIPMENT, TECHNICAL RESOURCES & CERTIFICATIONS', 14, endY);
+    doc.text('6. EQUIPMENT, TECHNICAL RESOURCES & CERTIFICATIONS', 14, endY);
     endY += 8;
 
     // Equipment Table
@@ -280,7 +339,7 @@ export function generateCompanyProfilePDF(customCompany, customProjects) {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(12);
     doc.setTextColor(...textDark);
-    doc.text('6. LEGAL REGISTRATION & CREDENTIALS', 14, endY);
+    doc.text('7. LEGAL REGISTRATION & CREDENTIALS', 14, endY);
     endY += 6;
 
     const certs = company.certifications || [

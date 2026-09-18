@@ -31,8 +31,8 @@ export default function CompanyProfilePage() {
     return matchesSearch && matchesCategory;
   });
 
-  // Major showcase projects (First 12-15 featured or major projects)
-  const majorProjects = allProjects.slice(0, 12);
+  // Major showcase projects (Top 25 major projects with images & full details)
+  const majorProjects = allProjects.slice(0, 25);
 
   // Categories list for filter tabs
   const categories = ['All', 'Residential', 'Commercial', 'Hospitality', 'Interior', 'Renovation'];
@@ -331,8 +331,8 @@ export default function CompanyProfilePage() {
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-blue-800 text-white flex items-center justify-center font-bold">05</div>
                     <div>
-                      <h3 className="text-2xl font-extrabold text-gray-900">Major Completed Project Showcase</h3>
-                      <p className="text-xs text-gray-500">Key architectural & construction landmarks built by Nexbuild Architects.</p>
+                      <h3 className="text-2xl font-extrabold text-gray-900">Major Completed Projects Showcase ({majorProjects.length} Key Landmarks)</h3>
+                      <p className="text-xs text-gray-500">Detailed showcase of our top 25 major architectural & construction projects with site images, built area, clients, and specifications.</p>
                     </div>
                   </div>
                 </div>
